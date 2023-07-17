@@ -9,6 +9,7 @@ import Famille from "../pages/member/AjouterMembre";
 import Dashboard from "../pages/admin/Dashoard";
 import Calendar from "../pages/admin/Calendar";
 import AjouterProf from "../pages/profes/AjouterProf";
+import DisplayProfe from "../pages/profes/DisplayProfe";
 import AjouterPublication from "../pages/publication/AjouterPublication";
 import AjouterEvent from "../pages/Event/AjouterEvent";
 import Loginmemebr from "../pages/member/Login";
@@ -18,6 +19,8 @@ import AddElevToCoure from "../pages/admin/AddElevToCoure";
 import ShowAllmember from "../pages/member/DisplayAllmember";
 import ShowAllPub from "../pages/publication/ShowAllPub";
 import AjouterCoure from "../pages/cours/AjouterCoure"
+import Membredashbord from "../pages/member/Dashboard";
+import ProfeDashoard from "../pages/profes/Dashboard"
 
 function Myrouter() {
     return (
@@ -42,10 +45,14 @@ function Myrouter() {
                 <Route path="/famille/find/:famille_Id" element={<ShowFamill />} />
                 <Route path="/publication/ShowAllPub" element={<ShowAllPub />} />
                 <Route path="/cours/AjouterCoure" element={<AjouterCoure />} />
+                <Route path="/profes/DisplayProfe" element={<DisplayProfe />} />
+                <Route path="/member/Dashboard" element={<Membredashbord />} />
+                <Route path="/profes/Dashboard" element={<ProfeDashoard />} />
             </Routes>
         </div>
     );
 }
+
 
 export default Myrouter;
 

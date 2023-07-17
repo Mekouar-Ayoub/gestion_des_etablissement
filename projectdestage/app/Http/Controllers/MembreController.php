@@ -5,9 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\Membre;
 use App\Http\Requests\MembreRequest;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 class MembreController extends Controller
 {
+
+    public function LoginMember(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+        if (Auth::guard('member')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+            $request->session()->regenerate();
+            $data = Membre::where('email', $request->email)->get(['id','type']);
+            return response($data);
+        }
+        return response()->json(false);
+    }
+
     // aficher les membre
     public function ShowMembre(){
         $data = Membre::with('famille')->paginate(15);
@@ -18,7 +34,7 @@ class MembreController extends Controller
     {
         $data = $request->validated();
         foreach ($data as $item) {
-            $password = $item['nom'] . $item['tel'] . $item['adresse'];
+            $password = '12345678';
             Membre::create([
                 'nom' => $item['nom'],
                 'prenom' => $item['prenom'],

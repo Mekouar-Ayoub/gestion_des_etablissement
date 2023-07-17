@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineMenu, AiFillCalendar, AiOutlineUser, AiOutlineInsertRowAbove } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { AiFillPlusSquare } from "react-icons/ai";
 import Aside from "../../components/Aside";
 
 function index() {
@@ -94,17 +93,14 @@ function index() {
 
                 <div className="w-full overflow-x-hidden border-t flex flex-col">
                     <main className="w-full flex-grow p-6">
-                        <h1 className="text-3xl text-black pb-6">Dashboard</h1>
-                        <div className="w-full mt-12">
-                            <p className="text-xl pb-3 flex items-center">
-                                <i className="fas fa-list mr-3"></i> Latest Reports
-                            </p>
+                        <h1 className="text-3xl text-black pb-6">tout les coure</h1>
+                        <div className="w-full">
                             <div className="bg-white overflow-auto">
-                            <div className='flex justify-end'>
-                                        <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-3 justify-end"><Link to={'/cours/AjouterCoure'}>Ajouter un coure</Link></button>
-                                    </div>
+                                <div className='flex justify-end'>
+                                    <button className="text-white bg-[#3788d8] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-3 justify-end"><Link to={'/cours/AjouterCoure'}>Ajouter un coure</Link></button>
+                                </div>
                                 <table className="min-w-full bg-white">
-                                    <thead className="bg-[#3d68ff] text-white">
+                                    <thead className="bg-[#3788d8] text-white">
                                         <tr>
                                             <th className="text-left py-3 uppercase font-semibold text-sm">titre</th>
                                             <th className="text-left py-3 uppercase font-semibold text-sm">prix horaire</th>

@@ -19,10 +19,11 @@ const Calendar = () => {
     const [selectedEvent, setSelectedEvent] = useState(null);
     useEffect(() => {
         axios
-            .get('http://localhost:8000/api/getallevent')
+            .get('http://localhost:8000/api/toutlascoure')
             .then(response => {
-                const data = response.data;
+                const data = response.data.data;
                 setData(data);
+                console.log(data)
             })
             .catch(error => {
                 console.error(error);
@@ -55,7 +56,6 @@ const Calendar = () => {
         const [etat] = useState('coure dont have tetcher')
         const [successMessage, setSuccessMessage] = useState('');
         const [errorMessage, setErrorMessage] = useState('');
-        console.log(fin_de_coure);
 
         const hundeSubmit = async () => {
             try {
@@ -72,7 +72,7 @@ const Calendar = () => {
                 );
                 setSuccessMessage('Event added successfully');
                 setErrorMessage('');
-                console.log('Event added successfully')
+
             } catch (error) {
                 console.error(error);
                 setErrorMessage('Error adding event: ' + error.message);
@@ -116,13 +116,15 @@ const Calendar = () => {
             </div>
         )
     }
-    const events = data.map((item, index) => ({
-        key: index,
-        title: item.titre,
-        start: item.debut_de_event,
-        end: item.fin_de_event,
-        backgroundColor: 'gray'
-    }));
+    const events = data.map((item, index) => (
+        {
+            key: index,
+            title: item.titre,
+            start: item.debut_de_coure,
+            end: item.fin_de_coure,
+            backgroundColor: 'gray'
+        }
+    ));
     return (
         <div className="bg-gray-100 font-family-karla flex">
             <Aside />

@@ -43,7 +43,7 @@ function SignIn() {
             return;
         }
         try {
-            const response = await axios.post('http://localhost:8000/api/LoginProfe', {
+            const response = await axios.post('http://localhost:8000/api/LoginMember', {
                 email,
                 password,
             });
@@ -53,7 +53,7 @@ function SignIn() {
             console.log(response);
             sessionStorage.setItem('token', token);
             sessionStorage.setItem('type', type);
-            window.location.href = '/';
+            window.location.href = '/member/Dashboard';
         } catch (error) {
             if (error.response) {
                 setErrorMessage(error.response.data.message);

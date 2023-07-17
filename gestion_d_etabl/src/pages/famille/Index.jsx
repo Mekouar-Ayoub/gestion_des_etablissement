@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AiOutlineMenu, AiFillCalendar, AiOutlineUser, AiOutlineInsertRowAbove } from "react-icons/ai";
 import Aside from "../../components/Aside"
 import axios from "axios";
-import Navbar from "../../components/Navbar";
+
 import { Link } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
@@ -137,7 +137,8 @@ function Dashoard() {
                 </header >
                 <div className="w-full overflow-x-hidden border-t flex flex-col">
                     <main className="w-full flex-grow p-6">
-                        <div className="w-full mt-12">
+                        <div className="w-full ">
+                        <h1 className="text-3xl text-black pb-6">tout les famille</h1>
                             <div className="bg-white overflow-auto">
                                 <div className="w-autto mx-6 mb-6">
                                     <div className='flex justify-end'>

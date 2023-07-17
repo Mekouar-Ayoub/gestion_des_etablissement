@@ -32,6 +32,7 @@ function Dashoard() {
       })
       .then((response) => {
         console.log('Publication added successfully');
+        window.location.href = '/';
       })
       .catch((error) => {
         console.log('Error during submission:', error);

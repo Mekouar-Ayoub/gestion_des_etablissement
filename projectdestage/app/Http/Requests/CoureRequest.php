@@ -24,7 +24,6 @@ class CoureRequest extends FormRequest
         return [
             'titre' => 'required',
             'prix_horaire' => 'required',
-            'etat' => 'required',
             'debut_de_coure' => 'required',
             'fin_de_coure' => 'required',
             'profe_id' => 'required',

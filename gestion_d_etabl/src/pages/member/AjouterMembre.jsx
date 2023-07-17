@@ -56,6 +56,7 @@ function AjouterMembre() {
     try {
       const response = await axios.post('http://localhost:8000/api/AddMembre', data);
       setSuccessMessage('Member added successfully');
+      window.location.href = '/member/ShowAllmember';
       console.log('Member added successfully')
     } catch (error) {
       console.error(error);

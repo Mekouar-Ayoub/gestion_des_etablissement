@@ -1,43 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineMenu, AiFillCalendar, AiOutlineUser, AiOutlineInsertRowAbove } from "react-icons/ai";
-import { Navigate } from "react-router-dom";
 import Aside from "../../components/Aside"
+import { Link } from "react-router-dom";
 import axios from "axios";
 
-
-function Create() {
+function displayProfe() {
     const [isNavOpen, setIsNavOpen] = useState(false);
-    const [isSlidOpen, setIsslidOpen] = useState(false)
+    const [isSlidOpen, setIsslidOpen] = useState(false);
+    const [data, setData] = useState([]);
 
-
-    const [nom, setNom] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
-
-    if (!sessionStorage.token) {
-        return <Navigate to="/login" />;
-    }
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        if (!nom) {
-            setErrorMessage('Please enter all fields');
-            return;
-        }
-
-        try {
-            const response = await axios.post('http://localhost:8000/api/ajouterFamille', {
-                nom,
-            });
-
-            setSuccessMessage('Data created successfully');
-            window.location.href = '/famille/index';
-            console.log(response.data);
-        } catch (error) {
-            console.error(error);
-        }
-    }
+    useEffect(() => {
+        axios
+            .get('http://localhost:8000/api/showallprofe')
+            .then(response => {
+                const data = response.data
+                setData(data);
+            })
+            .catch(error => {
+                console.error(error)
+            })
+    })
     return (
         <div className="bg-gray-100 font-family-karla flex">
             <Aside />
@@ -113,19 +95,37 @@ function Create() {
                 <div className="w-full overflow-x-hidden border-t flex flex-col">
                     <main className="w-full flex-grow p-6">
                         <h1 className="text-3xl text-black pb-6">Dashboard</h1>
-                        <div className="w-full mt-12">
+                        <div className="w-full">
                             <div className="bg-white overflow-auto">
-                                <div>
-                                    {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-                                    {successMessage && <p className="text-green-500">{successMessage}</p>}
-                                    <form className="max-w-xl ml-auto mr-auto border rounded p-4 my-6" onSubmit={handleSubmit}>
-                                        <div className="mb-6">
-                                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
-                                            <input type="text" value={nom} onChange={(e) => setNom(e.target.value)} id="nom" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-                                        </div>
-                                        <button type="submit" className="text-white bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-                                    </form>
+                                <div className='flex justify-end'>
+                                    <button className="text-white bg-[#3788d8] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-3 justify-end"><Link to={'/profes/AjouterProf'}>Ajouter</Link></button>
                                 </div>
+                                <table className="min-w-full bg-white">
+                                    <thead className="bg-[#3788d8] text-white">
+                                        <tr>
+                                            <th className="text-left py-3 px-2 uppercase font-semibold text-sm">Name</th>
+                                            <th className="text-left py-3 px-2 uppercase font-semibold text-sm">Last name</th>
+                                            <th className="text-left py-3 px-2 uppercase font-semibold text-sm">Phone</th>
+                                            <th className="text-left py-3 px-2 uppercase font-semibold text-sm">Email</th>
+                                            <th className="text-left py-3 px-2 uppercase font-semibold text-sm">tarife</th>
+                                            <th className="text-left py-3 px-2 uppercase font-semibold text-sm">solde</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="text-gray-700">
+                                        {
+                                            data.map((item) => (
+                                                <tr key={item.id}>
+                                                    <td className="text-left py-3 px-2">{item.prenom}</td>
+                                                    <td className="text-left py-3 px-2">{item.nom}</td>
+                                                    <td className="text-left py-3 px-2"><a className="hover:text-blue-500" >{item.tel}</a></td>
+                                                    <td className="text-left py-3 px-2"><a className="hover:text-blue-500" href="mailto:jonsmith@mail.com">{item.email}</a></td>
+                                                    <td className="text-left py-3 px-2"><a className="hover:text-blue-500" href="mailto:jonsmith@mail.com">{item.tarif}</a></td>
+                                                    <td className="text-left py-3 px-2"><a className="hover:text-blue-500" href="mailto:jonsmith@mail.com">{item.solde}</a></td>
+                                                </tr>
+                                            ))
+                                        }
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </main>
@@ -134,4 +134,4 @@ function Create() {
         </div>
     );
 }
-export default Create;
+export default displayProfe;

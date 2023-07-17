@@ -44,6 +44,10 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
+        'member' => [
+            'driver' => 'session',
+            'provider' => 'members',
+        ],
         'Profe' => [
             'driver' => 'session',
             'provider' => 'profes',
@@ -80,11 +84,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Profe::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'members' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Membre::class,
+        ],
     ],
 
     /*

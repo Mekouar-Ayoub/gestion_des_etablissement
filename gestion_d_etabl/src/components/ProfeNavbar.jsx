@@ -1,7 +1,7 @@
 import React from "react";
 import {AiOutlineSolution,AiOutlinePicture,AiOutlineUserSwitch,AiOutlineCalendar, AiOutlineUser ,AiOutlineInsertRowAbove} from "react-icons/ai";
 import { Link } from "react-router-dom";
-function Aside() {
+function ProfeNavbar() {
     return (
         <>
             <aside className="relative bg-sidebar h-screen w-64 hidden sm:block shadow-xl">
@@ -46,4 +46,4 @@ function Aside() {
         </>
     )
 }
-export default Aside;
+export default ProfeNavbar;

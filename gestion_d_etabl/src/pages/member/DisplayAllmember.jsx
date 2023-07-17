@@ -96,14 +96,11 @@ function Dashoard() {
 
                 <div className="w-full overflow-x-hidden border-t flex flex-col">
                     <main className="w-full flex-grow p-6">
-                        <h1 className="text-3xl text-black pb-6">Dashboard</h1>
-                        <div className="w-full mt-12">
-                            <p className="text-xl pb-3 flex items-center">
-                                <i className="fas fa-list mr-3"></i> Latest Reports
-                            </p>
+                        <h1 className="text-3xl text-black pb-6">tout les membres</h1>
+                        <div className="w-full ">
                             <div className="bg-white overflow-auto">
                                 <table className="min-w-full bg-white">
-                                    <thead className="bg-gray-800 text-white">
+                                    <thead className="bg-[#3788d8] text-white">
                                         <tr>
                                             <th className=" text-left py-3 px-4 uppercase font-semibold text-sm">Nom</th>
                                             <th className=" text-left py-3 px-4 uppercase font-semibold text-sm">Prenom</th>

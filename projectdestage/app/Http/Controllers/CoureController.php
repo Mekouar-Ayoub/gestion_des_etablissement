@@ -17,7 +17,6 @@ class CoureController extends Controller
         $coure = new Coure();
         $coure->titre = $request->input('titre');
         $coure->prix_horaire = $request->input('prix_horaire');
-        $coure->etat = $request->input('etat');
         $coure->debut_de_coure = $request->input('debut_de_coure');
         $coure->fin_de_coure = $request->input('fin_de_coure');
         $coure->profe_id = $request->input('profe_id');

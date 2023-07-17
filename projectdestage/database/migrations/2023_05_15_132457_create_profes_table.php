@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('tarif');
             $table->string('solde');
             $table->string('type')->default('profe');
+            $table->string('token');
             $table->timestamps();
         });
     }

@@ -47,11 +47,9 @@ function SignIn() {
         email,
         password,
       });
-      var token = response.data[0].id;
-      var type = response.data[0].type;
+      var token = response.data[0].token;
       console.log(response);
-      sessionStorage.setItem('token', token);
-      sessionStorage.setItem('type', type);
+      sessionStorage.setItem('token',token);
       window.location.href = '/';
     } catch (error) {
       if (error.response) {

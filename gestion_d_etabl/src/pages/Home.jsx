@@ -4,6 +4,7 @@ import axios from "axios";
 import { AiFillHeart, AiOutlineComment } from "react-icons/ai";
 import Navgition from "../components/Navgition"
 
+
 function Home() {
     const [data, setData] = useState([]);
 
@@ -23,7 +24,10 @@ function Home() {
         return <Navigate to="/member/Login" />;
     }
     return (
+        <>
+        
         <div>
+           
             <Navgition />
             <div>
                 <div>
@@ -44,6 +48,7 @@ function Home() {
                 </div>
             </div>
         </div>
+        </>
     );
 }
 

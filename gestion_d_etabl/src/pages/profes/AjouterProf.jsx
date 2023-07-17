@@ -1,20 +1,19 @@
+import { useState, useEffect } from "react";
+import Aside from "../../components/Aside";
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useState } from 'react';
+import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
+import { createTheme } from '@mui/material/styles';
 import axios from 'axios';
 
 
+
 const defaultTheme = createTheme();
-function AjouterProf() {
+
+function AjouterCoure() {
+    const [isSlidOpen, setIsSlidOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const [nom, setNom] = useState('');
     const [prenom, setPrenom] = useState('');
     const [tel, setTel] = useState('');
@@ -29,7 +28,6 @@ function AjouterProf() {
     const handelCvChange = (e) => {
         setCv(e.target.files[0])
     }
-
     const handleSubmit = () => {
         const formData = new FormData();
         formData.append('nom', nom);
@@ -50,6 +48,7 @@ function AjouterProf() {
             })
             .then((response) => {
                 setSuccessMessage('profe added successfully');
+                window.location.href = '/profes/DisplayProfe';
             })
             .catch((error) => {
                 console.log('Error during submission:', error);
@@ -57,154 +56,188 @@ function AjouterProf() {
     }
 
     return (
-        <ThemeProvider theme={defaultTheme}>
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Avatar className='bg-blue-600' sx={{ m: 1, bgcolor: 'rgb(30, 136, 229)' }}>
-                        <PersonAddIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        ajouter un prof
-                    </Typography>
-                    {successMessage && <p className="text-green-500">{successMessage}</p>}
-                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                        <Grid container spacing={2} >
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    autoComplete="given-name"
-                                    name="nom"
-                                    required
-                                    fullWidth
-                                    id="nom"
-                                    label="nom"
-                                    autoFocus
-                                    value={nom} onChange={(e) => setNom(e.target.value)}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="prenom"
-                                    label="prenom"
-                                    name="prenom"
-                                    autoComplete="prenom"
-                                    value={prenom} onChange={(e) => setPrenom(e.target.value)}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="tel"
-                                    label="tel"
-                                    name="tel"
-                                    autoComplete="tel"
-                                    value={tel} onChange={(e) => setTel(e.target.value)}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    name="email"
-                                    label="email"
-                                    type="email"
-                                    id="email"
-                                    autoComplete="email"
-                                    value={email} onChange={(e) => setEmail(e.target.value)}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label="Password"
-                                    type="password"
-                                    id="password"
-                                    autoComplete="new-password"
-                                    value={password} onChange={(e) => setPassword(e.target.value)}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    name="adress"
-                                    label="adress"
-                                    type="text"
-                                    id="adress"
-                                    autoComplete="adress"
-                                    value={adress} onChange={(e) => setAdress(e.target.value)}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    name="instrument"
-                                    label="instrument"
-                                    type="text"
-                                    id="instrument"
-                                    autoComplete="instrument"
-                                    value={instrument} onChange={(e) => setInstrument(e.target.value)}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    name="cv"
-                                    type="file"
-                                    onChange={handelCvChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    name="tarif"
-                                    label="tarif"
-                                    type="text"
-                                    id="tarif"
-                                    autoComplete="tarif"
-                                    value={tarif} onChange={(e) => setTarif(e.target.value)}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    name="solde"
-                                    label="solde"
-                                    type="text"
-                                    id="solde"
-                                    autoComplete="solde"
-                                    value={solde} onChange={(e) => setSolde(e.target.value)}
-                                />
-                            </Grid>
-                        </Grid>
-                        <Button
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                            onClick={handleSubmit}
-                        >
-                            Ajouter
-                        </Button>
-                    </Box>
-                </Box>
-            </Container>
-        </ThemeProvider>
+        <div className="bg-gray-100 font-family-karla flex">
+            <Aside />
+            <div className="w-full flex flex-col h-screen overflow-y-hidden">
+                <header className="w-full items-center bg-[#3d68ff] py-2 px-6 hidden sm:flex">
+                    <div className="w-1/2"></div>
+                    <div className="relative w-1/2 flex justify-end">
+                        <button onClick={() => setIsSlidOpen(!isSlidOpen)} className="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
+                            <img src="https://source.unsplash.com/uJ8LNVCBjFQ/400x400" alt="avatar" className="w-full h-full object-cover object-center" />
+                        </button>
+                        {isSlidOpen && (
+                            <div className="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16 z-50">
+                                <a href="#" className="block px-4 py-2 account-link hover:text-white">Account</a>
+                                <a href="#" className="block px-4 py-2 account-link hover:text-white">Support</a>
+                                <a href="#" className="block px-4 py-2 account-link hover:text-white">Sign Out</a>
+                            </div>
+                        )}
+                    </div>
+                </header>
+                <div className="w-full overflow-x-hidden border-t flex flex-col">
+                    <main className="w-full flex-grow p-6">
+                        <h1 className="text-3xl text-black pb-6">Ajouter Cour</h1>
+                        <form >
+                            <div className="flex flex-wrap -mx-3 mb-6">
+                                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="nom"
+                                        label="nom"
+                                        value={nom} onChange={(e) => setNom(e.target.value)}
+                                    />
+                                </div>
+                                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="prenom"
+                                        label="prenom"
+                                        value={prenom} onChange={(e) => setPrenom(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex flex-wrap -mx-3 mb-6">
+                                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="email"
+                                        label="email"
+                                        type="text"
+                                        value={email} onChange={(e) => setEmail(e.target.value)}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                </div>
+                                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="password"
+                                        label="password"
+                                        type="password"
+
+                                        value={password} onChange={(e) => setPassword(e.target.value)}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex flex-wrap -mx-3 mb-6">
+                                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="tel"
+                                        label="tel"
+                                        type="text"
+                                        value={tel} onChange={(e) => setTel(e.target.value)}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                </div>
+                                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="CV"
+                                        label="Cv"
+                                        type="file"
+
+                                        onChange={handelCvChange}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex flex-wrap -mx-3 mb-6">
+                                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="adress"
+                                        label="adress"
+                                        type="text"
+                                        value={adress} onChange={(e) => setAdress(e.target.value)}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                </div>
+                                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="instrument"
+                                        label="instrument"
+                                        type="text"
+                                        value={instrument} onChange={(e) => setInstrument(e.target.value)}
+
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex flex-wrap -mx-3 mb-6">
+                                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="tarif"
+                                        label="tarif"
+                                        type="text"
+                                        value={tarif} onChange={(e) => setTarif(e.target.value)}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                </div>
+                                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="solde"
+                                        label="solde"
+                                        type="text"
+
+                                        value={solde} onChange={(e) => setSolde(e.target.value)}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex flex-wrap -mx-3 mb-2">
+                                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                    <Button
+                                    onClick={handleSubmit}
+                                        variant="contained"
+                                        color="primary"
+                                        startIcon={<InsertInvitationIcon />}
+                                    >
+                                        Ajouter Cour
+                                    </Button>
+                                </div>
+                            </div>
+                            {successMessage && (
+                                <div className="text-green-500 mt-4">{successMessage}</div>
+                            )}
+                            {errorMessage && (
+                                <div className="text-red-500 mt-4">{errorMessage}</div>
+                            )}
+                        </form>
+                    </main>
+                </div>
+            </div>
+        </div>
     );
 }
 
-export default AjouterProf;
+export default AjouterCoure;

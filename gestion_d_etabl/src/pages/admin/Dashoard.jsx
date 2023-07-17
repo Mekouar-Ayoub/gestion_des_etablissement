@@ -80,29 +80,12 @@ function Dashoard() {
                 <div className="w-full overflow-x-hidden border-t flex flex-col">
                     <main className="w-full flex-grow p-6">
                         <h1 className="text-3xl text-black pb-6">Dashboard</h1>
-                        <div className="w-full mt-12">
-                            <p className="text-xl pb-3 flex items-center">
-                                <i className="fas fa-list mr-3"></i> Latest Reports
-                            </p>
-                            <div className="bg-white overflow-auto">
-                                <table className="min-w-full bg-white">
-                                    <thead className="bg-gray-800 text-white">
-                                        <tr>
-                                            <th className="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Name</th>
-                                            <th className="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Last name</th>
-                                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Phone</th>
-                                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="text-gray-700">
-                                        <tr>
-                                            <td className="w-1/3 text-left py-3 px-4">Lian</td>
-                                            <td className="w-1/3 text-left py-3 px-4">Smith</td>
-                                            <td className="text-left py-3 px-4"><a className="hover:text-blue-500" href="tel:622322662">622322662</a></td>
-                                            <td className="text-left py-3 px-4"><a className="hover:text-blue-500" href="mailto:jonsmith@mail.com">jonsmith@mail.com</a></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <div className="w-full">
+
+                            <div className="bg-white overflow-auto flex justify-evenly h-[25vh] items-center">
+                                <div className=" border rounded px-[100px] py-[40px]">espace A</div>
+                                <div className=" border rounded px-[100px] py-[40px]">espace B</div>
+                                <div className=" border rounded px-[100px] py-[40px]">espace C</div>
                             </div>
                         </div>
                     </main>
