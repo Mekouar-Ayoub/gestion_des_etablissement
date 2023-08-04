@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.6.1",
@@ -25,17 +25,22 @@
     "@mui/styled-engine-sc": "^5.12.0",
     "@mui/x-date-pickers": "^6.5.0",
     "@react-icons/all-files": "^4.1.0",
+    "assert": "^2.0.0",
     "axios": "^1.4.0",
+    "buffer": "^6.0.3",
+    "create-react-app": "^5.0.1",
     "csurf": "^1.11.0",
     "dayjs": "^1.11.7",
     "express": "^4.18.2",
     "flowbite": "^1.6.5",
     "flowbite-react": "^0.4.4",
+    "node-polyfill-webpack-plugin": "^2.0.1",
     "react": "^18.2.0",
     "react-datepicker": "^4.12.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
     "react-router-dom": "^6.11.1",
+    "react-scripts": "^5.0.1",
     "styled-components": "^5.3.10"
   },
   "devDependencies": {
@@ -48,5 +53,17 @@
     "eslint-plugin-react-refresh": "^0.3.4",
     "tailwindcss": "^3.3.2",
     "vite": "^4.3.2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

@@ -36,7 +36,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 
-function Dashoard() {
+function 
+Dashoard() {
     const [data, setData] = useState([]);
     const [isNavOpen, setIsNavOpen] = useState(false);
     const [isSlidOpen, setIsslidOpen] = useState(false);
@@ -56,7 +57,7 @@ function Dashoard() {
     const handelDelete = (id)=>{
         axios
              .post(`http://localhost:8000/api/DeleteFamille/${id}`)
-             .then((response)=>{
+             .then(()=>{
                 setSuccessMessage('famille suprimer');
              })
              .catch((error)=>{

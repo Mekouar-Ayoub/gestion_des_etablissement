@@ -7,9 +7,7 @@ function Aside() {
             <aside className="relative bg-sidebar h-screen w-64 hidden sm:block shadow-xl">
                 <div className="p-6">
                     <a className="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
-                    <button className="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
-                        <i className="fas fa-plus mr-3"></i> New Report
-                    </button>
+                    
                 </div>
                 <nav className="text-white text-base font-semibold pt-3 " >
                     <a className="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
@@ -18,32 +16,45 @@ function Aside() {
                     </a>
                     <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                         <AiOutlineInsertRowAbove />
-                        <Link to='/cours/Index' >Cours</Link>
+                        <Link to='/cours/Index' >Liste des Cours</Link>
+                    </a>
+                    <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                        <AiOutlineCalendar />
+                        <Link to="/Admin/calender">Calendrier</Link>
                     </a>
                     <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                         <AiOutlineSolution />
-                        <Link to='/famille/index' >familles</Link>
+                        <Link to='/famille/index' >Gestion des Familles</Link>
                     </a>
                     <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                         <AiOutlineSolution />
-                        <Link to='/profes/DisplayProfe' >Profes</Link>
+                        <Link to='/profes/DisplayProfe' >Gestion des Professeurs</Link>
                     </a>
                     <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
 
                         <AiOutlineUserSwitch />
-                        <Link to='/member/ShowAllmember' >membres</Link>
+                        <Link to='/member/ShowAllmember' >Gestion des éléves</Link>
                     </a>
-                    <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                        <AiOutlineCalendar />
-                        <Link to="/Admin/calender">Calendar</Link>
-                    </a>
+                    
                     <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                         <AiOutlinePicture />
-                        <Link to="/publication/ShowAllPub">publications</Link>
+                        <Link to="/publication/ShowAllPub">Gestion des Publications</Link>
                     </a>
+
+                    <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                        <AiOutlinePicture />
+                        <Link to="/admin/Events">Gestion des Taches</Link>
+                    </a>
+
                 </nav>
             </aside>
         </>
     )
 }
 export default Aside;
+
+/*
+<button className="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
+                        <i className="fas fa-plus mr-3"></i> New Report
+                    </button>
+                    */

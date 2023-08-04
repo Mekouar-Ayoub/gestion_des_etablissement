@@ -21,10 +21,12 @@ import ShowAllPub from "../pages/publication/ShowAllPub";
 import AjouterCoure from "../pages/cours/AjouterCoure"
 import Membredashbord from "../pages/member/Dashboard";
 import ProfeDashoard from "../pages/profes/Dashboard"
-
+import Events from "../pages/admin/Events";
+import AppNavigate from "../components/App-Navigate";
 function Myrouter() {
     return (
         <div>
+            
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
@@ -48,6 +50,7 @@ function Myrouter() {
                 <Route path="/profes/DisplayProfe" element={<DisplayProfe />} />
                 <Route path="/member/Dashboard" element={<Membredashbord />} />
                 <Route path="/profes/Dashboard" element={<ProfeDashoard />} />
+                <Route path="/admin/events" element={<Events />} />
             </Routes>
         </div>
     );

@@ -34,7 +34,7 @@ function AjouterCoure() {
         formData.append('prenom', prenom);
         formData.append('tel', tel);
         formData.append('email', email);
-        formData.append('password', password);
+        formData.append('password', ''+ nom+ '.' + prenom+ "485!$");
         formData.append('adress', adress);
         formData.append('instrument', instrument);
         formData.append('cv', cv);
@@ -76,7 +76,7 @@ function AjouterCoure() {
                 </header>
                 <div className="w-full overflow-x-hidden border-t flex flex-col">
                     <main className="w-full flex-grow p-6">
-                        <h1 className="text-3xl text-black pb-6">Ajouter Cour</h1>
+                        <h1 className="text-3xl text-black pb-6">Ajouter Un Professeur</h1>
                         <form >
                             <div className="flex flex-wrap -mx-3 mb-6">
                                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -97,6 +97,8 @@ function AjouterCoure() {
                                         value={prenom} onChange={(e) => setPrenom(e.target.value)}
                                     />
                                 </div>
+                                
+                                
                             </div>
                             <div className="flex flex-wrap -mx-3 mb-6">
                                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -113,18 +115,15 @@ function AjouterCoure() {
                                     />
                                 </div>
                                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                                    <TextField
+                                <span className="hidden"><TextField
+                                
                                         required
                                         fullWidth
                                         id="password"
                                         label="password"
-                                        type="password"
-
                                         value={password} onChange={(e) => setPassword(e.target.value)}
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
-                                    />
+                                    /></span>
+                                    <p>Le mot de passe de connexion pour le professeur est sous la forme : nom.prenom485!$</p>
                                 </div>
                             </div>
                             <div className="flex flex-wrap -mx-3 mb-6">
@@ -133,8 +132,8 @@ function AjouterCoure() {
                                         required
                                         fullWidth
                                         id="tel"
-                                        label="tel"
-                                        type="text"
+                                        label="téléphone"
+                                        type="phone"
                                         value={tel} onChange={(e) => setTel(e.target.value)}
                                         InputLabelProps={{
                                             shrink: true,
@@ -143,7 +142,7 @@ function AjouterCoure() {
                                 </div>
                                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                     <TextField
-                                        required
+                                        
                                         fullWidth
                                         id="CV"
                                         label="Cv"
@@ -162,7 +161,7 @@ function AjouterCoure() {
                                         required
                                         fullWidth
                                         id="adress"
-                                        label="adress"
+                                        label="adresse complète"
                                         type="text"
                                         value={adress} onChange={(e) => setAdress(e.target.value)}
                                         InputLabelProps={{
@@ -191,8 +190,8 @@ function AjouterCoure() {
                                         required
                                         fullWidth
                                         id="tarif"
-                                        label="tarif"
-                                        type="text"
+                                        label="tarif horaire en DHS"
+                                        type="number"
                                         value={tarif} onChange={(e) => setTarif(e.target.value)}
                                         InputLabelProps={{
                                             shrink: true,
@@ -204,8 +203,8 @@ function AjouterCoure() {
                                         required
                                         fullWidth
                                         id="solde"
-                                        label="solde"
-                                        type="text"
+                                        label="Solde Initial"
+                                        type="number"
 
                                         value={solde} onChange={(e) => setSolde(e.target.value)}
                                         InputLabelProps={{
@@ -222,7 +221,7 @@ function AjouterCoure() {
                                         color="primary"
                                         startIcon={<InsertInvitationIcon />}
                                     >
-                                        Ajouter Cour
+                                        Ajouter Le professeur
                                     </Button>
                                 </div>
                             </div>
