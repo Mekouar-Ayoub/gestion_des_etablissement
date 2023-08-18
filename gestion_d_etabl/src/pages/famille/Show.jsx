@@ -118,7 +118,7 @@ function FamilleDetails() {
                   <tbody className="text-gray-700">
                     {
                       familleData.members.map((item)=>(
-                        <tr>
+                        <tr key={item.id}>
                         <td className="text-left py-3 px-4">{item.nom}</td>
                         <td className="text-left py-3 px-4">{item.type}</td>
                         <td className="text-left py-3 px-4"><a className="hover:text-blue-500">{item.tel}</a></td>

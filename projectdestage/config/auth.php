@@ -40,18 +40,20 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'admin' => [
-            'driver' => 'session',
+        'admin-api' => [
+            'driver' => 'jwt',
             'provider' => 'admins',
         ],
-        'member' => [
-            'driver' => 'session',
-            'provider' => 'members',
-        ],
-        'Profe' => [
-            'driver' => 'session',
+        'profe-api' => [
+            'driver' => 'jwt',
             'provider' => 'profes',
-        ]
+        ],
+        'membre-api' => [
+            'driver' => 'jwt',
+            'provider' => 'membres',
+        ],
+
+
     ],
 
     /*
@@ -74,7 +76,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Profe::class,
+            'model' => App\Models\User::class,
         ],
         'admins' => [
             'driver' => 'eloquent',
@@ -84,7 +86,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Profe::class,
         ],
-        'members' => [
+        'membres' => [
             'driver' => 'eloquent',
             'model' => App\Models\Membre::class,
         ],

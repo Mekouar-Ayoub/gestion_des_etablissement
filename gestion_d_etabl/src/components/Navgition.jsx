@@ -1,9 +1,12 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import { AiOutlineMenu} from "react-icons/ai";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+
 function Navgition() {
     const [isNavOpen, setIsNavOpen] = useState(false);
     const [isSlidOpen, setIsslidOpen] = useState(false)
+    const headers = Cookies.get('headers')
     return (
         <div>
             <header className="w-full items-center bg-[#3d68ff] py-2 px-6 hidden sm:flex">
@@ -14,8 +17,12 @@ function Navgition() {
                     </button>
                     {isSlidOpen && (
                         <div className="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
-                            <a href="#" className="block px-4 py-2 account-link hover:text-white"><Link to={'/Admin/dashboard'}>dashboard</Link></a>
-                            <a href="#" className="block px-4 py-2 account-link hover:text-white">Support</a>
+                            {headers === '0' && <a href="#" className="block px-4 py-2 account-link hover:text-white"><Link to={'/Admin/dashboard'}>dashboard</Link></a>}
+                            {headers === '1' && <a href="#" className="block px-4 py-2 account-link hover:text-white"><Link to={'/profes/Dashboard'}>dashboard</Link></a>}
+                            {headers === '2' && <a href="#" className="block px-4 py-2 account-link hover:text-white"><Link to={'/member/Dashboard'}>dashboard</Link></a>}
+                            {headers === '0' && <a href="#" className="block px-4 py-2 account-link hover:text-white"><Link to={"/admin/Profil"}>Profile</Link></a>}
+                            {headers === '1' && <a href="#" className="block px-4 py-2 account-link hover:text-white"><Link to={"/profes/Profil"}>Profile</Link></a>}
+                            {headers === '2' && <a href="#" className="block px-4 py-2 account-link hover:text-white"><Link to={"/member/Profil"}>Profile</Link></a>}
                             <a href="#" className="block px-4 py-2 account-link hover:text-white">Sign Out</a>
                         </div>
                     )}

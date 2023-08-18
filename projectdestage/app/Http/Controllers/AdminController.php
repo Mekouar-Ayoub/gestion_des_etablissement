@@ -1,31 +1,67 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    public function LoginAdmin(Request $request)
+    public function AdminRegister(Request $request)
     {
         $request->validate([
+            'nom' => 'required',
+            'prenom' => 'required',
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
         ]);
-        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-            $request->session()->regenerate();
-            $data = Admin::where('email', $request->email)->get(['id','type']);
-            return response($data);
+
+        $admin = Admin::create([
+            'nom' => $request->nom,
+            'prenom'=>$request->prenom,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+        if ($admin) {
+            return response()->json([$admin, 'status' => true]);
+        } else {
+            return response()->json(['status' => false]);
         }
-        return response()->json(false);
     }
-    public function logout(Request $request)
+    
+
+    public function AdminLogin(Request $request)
     {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return response()->json('is logout');
+        $credentials = request(['email', 'password']);
+        if (! $token = auth()->guard('admin-api')->attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+        return $token;
     }
+
+    /**
+     * Get the authenticated User.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function me()
+    {
+        return response()->json(auth()->guard('admin-api')->user());
+    }
+
+    /**
+     * Log the user out (Invalidate the token).
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function logout()
+    {
+        auth()->guard('admin-api')->logout();
+
+        return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    
 }

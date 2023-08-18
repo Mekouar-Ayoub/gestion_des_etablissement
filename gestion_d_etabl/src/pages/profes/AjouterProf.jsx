@@ -13,7 +13,7 @@ const defaultTheme = createTheme();
 
 function AjouterCoure() {
     const [isSlidOpen, setIsSlidOpen] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
+    const [errorMessage] = useState('');
     const [nom, setNom] = useState('');
     const [prenom, setPrenom] = useState('');
     const [tel, setTel] = useState('');

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { AiFillHeart, AiOutlineComment } from "react-icons/ai";
 import Navgition from "../components/Navgition"
+import Cookies from 'js-cookie';
 
 
 function Home() {
@@ -20,14 +21,14 @@ function Home() {
             });
     }, []);
 
-    if (!sessionStorage.token) {
+    const valuetoke = Cookies.get('token')
+    if (!valuetoke) {
         return <Navigate to="/member/Login" />;
     }
+
     return (
         <>
-        
         <div>
-           
             <Navgition />
             <div>
                 <div>

@@ -16,7 +16,6 @@ module.exports = {
     "react/no-unknown-property" : "off",
     "react/jsx-no-target-blank" :"off", 
     "react-hooks/rules-of-hooks" : "off",
-    "no-unused-labels" : "off,"
-    
+    "no-unused-labels" : "off",
   },
 }

@@ -18,15 +18,21 @@ import AfecherLesCours from "../pages/cours/AfecherLesCours";
 import AddElevToCoure from "../pages/admin/AddElevToCoure";
 import ShowAllmember from "../pages/member/DisplayAllmember";
 import ShowAllPub from "../pages/publication/ShowAllPub";
-import AjouterCoure from "../pages/cours/AjouterCoure"
+import AjouterCoure from "../pages/cours/AjouterCoure";
 import Membredashbord from "../pages/member/Dashboard";
-import ProfeDashoard from "../pages/profes/Dashboard"
+import ProfeDashoard from "../pages/profes/Dashboard";
 import Events from "../pages/admin/Events";
-import AppNavigate from "../components/App-Navigate";
+import ProfilAdmin from "../pages/admin/Profil";
+import ProfilMembre from "../pages/member/Profil";
+import ProfileProfe from "../pages/profes/Profil";
+import UpdateMember from "../pages/member/UpdateMember";
+import UpdateProfe from "../pages/profes/UpdateProfe";
+import ListeCoure from "../pages/profes/ListeCoure";
+import ProfePlanification from "../pages/profes/Planification"
+
 function Myrouter() {
     return (
         <div>
-            
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
@@ -51,6 +57,13 @@ function Myrouter() {
                 <Route path="/member/Dashboard" element={<Membredashbord />} />
                 <Route path="/profes/Dashboard" element={<ProfeDashoard />} />
                 <Route path="/admin/events" element={<Events />} />
+                <Route path="/admin/Profil" element={<ProfilAdmin />} />
+                <Route path="/member/Profil" element={<ProfilMembre />} />
+                <Route path="/profes/Profil" element={<ProfileProfe />} />
+                <Route path="/member/UpdateMember/:idmemebre" element={<UpdateMember />} />
+                <Route path="/profes/UpdateProfe/:idprofe" element={<UpdateProfe />} />
+                <Route path="/profes/ListeCoure/:id" element={<ListeCoure />} />
+                <Route path="/profes/planification/:id" element={<ProfePlanification />} />
             </Routes>
         </div>
     );
