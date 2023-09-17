@@ -43,7 +43,7 @@ function AjouterCoure() {
       .catch(error => {
         console.error(error);
       });
-      //TODO MARCHE PAS
+    //TODO MARCHE PAS
     axios.get('http://localhost:8000/api/ShowMembre')
       .then(response => {
         const data = response.data;
@@ -62,7 +62,6 @@ function AjouterCoure() {
     e.preventDefault();
     const debut_de_coure = format(new Date(debut), "yyyy-MM-dd HH:mm:ss");
     const fin_de_coure = format(new Date(fin), "yyyy-MM-dd HH:mm:ss");
-
     const data = {
       titre,
       profe_id,
@@ -111,9 +110,19 @@ function AjouterCoure() {
         <div className="w-full overflow-x-hidden border-t flex flex-col">
           <main className="w-full flex-grow p-6">
             <h1 className="text-3xl text-black pb-6">Ajouter le Cours</h1>
+
             <form onSubmit={handleSubmit}>
               <div className="flex flex-wrap -mx-3 mb-6">
-
+                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                  <TextField
+                    required
+                    fullWidth
+                    id=""
+                    label="Titre"
+                    value={titre}
+                    onChange={(e) => setTitre(e.target.value)}
+                  />
+                </div>
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                   <TextField
                     required
@@ -155,7 +164,7 @@ function AjouterCoure() {
                   />
                 </div>
               </div>
-              <div className="flex flex-wrap -mx-3 mb-6">
+              {/* <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                   <select required fullWidth id="eleves_id"
                     label="Eleves">
@@ -175,53 +184,53 @@ function AjouterCoure() {
                   </select>
                   
                 </div>
-                </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
-                  <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                    <ul>
+                </div> */}
+              <div className="flex flex-wrap -mx-3 mb-6">
+                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                  <ul>
                     {elevesDuCours.map(value => {
                       return <li key={value.id}>{value.nom} {value.prenom}</li>
                     })}
-                    </ul>
-                  </div>
+                  </ul>
                 </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
-                  <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                    <Select
-                      required
-                      fullWidth
-                      id="profe_id"
-                      label="Professeur"
-                      value={profe_id}
-                      onChange={handleProfeChange}
-                    >
-                      {profes.map((prof) => (
-                        <MenuItem key={prof.id} value={prof.id}>
-                          {prof.nom}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </div>
+              </div>
+              <div className="flex flex-wrap -mx-3 mb-6">
+                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                  <Select
+                    required
+                    fullWidth
+                    id="profe_id"
+                    label="Professeur"
+                    value={profe_id}
+                    onChange={handleProfeChange}
+                  >
+                    {profes.map((prof) => (
+                      <MenuItem key={prof.id} value={prof.id}>
+                        {prof.nom}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </div>
 
+              </div>
+              <div className="flex flex-wrap -mx-3 mb-2">
+                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    startIcon={<InsertInvitationIcon />}
+                  >
+                    Ajouter le Cours
+                  </Button>
                 </div>
-                <div className="flex flex-wrap -mx-3 mb-2">
-                  <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      color="primary"
-                      startIcon={<InsertInvitationIcon />}
-                    >
-                      Ajouter le Cours
-                    </Button>
-                  </div>
-                </div>
-                {successMessage && (
-                  <div className="text-green-500 mt-4">{successMessage}</div>
-                )}
-                {errorMessage && (
-                  <div className="text-red-500 mt-4">{errorMessage}</div>
-                )}
+              </div>
+              {successMessage && (
+                <div className="text-green-500 mt-4">{successMessage}</div>
+              )}
+              {errorMessage && (
+                <div className="text-red-500 mt-4">{errorMessage}</div>
+              )}
             </form>
           </main>
         </div>

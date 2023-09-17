@@ -15,8 +15,6 @@ import Cookies from "js-cookie";
 const Calendar = () => {
     const [profeData, setProfeData] = useState([]);
     const {id} = useParams();  
-
-
     useEffect(()=>{
         const token = Cookies.get('token');
     
@@ -39,6 +37,17 @@ const Calendar = () => {
           }
         });
     },[id]);
+    if(profeData.cours){
+      var events = profeData.cours.map((item) => (
+        {
+            key: item.id,
+            title: item.titre,
+            start: item.debut_de_coure,
+            end: item.fin_de_coure,
+            backgroundColor: 'gray'
+        }
+    ));
+    }
     return (
         <div className="w-full overflow-x-hidden border-t flex flex-col">
             <main className="w-full flex-grow p-6">
@@ -70,9 +79,7 @@ const Calendar = () => {
                         slotMinTime="09:00:00"
                         slotMaxTime="17:00:00"
                         height={'80vh'}
-                    // events={events}
-                    // eventClick={handleEventClick}
-
+                        events={events}
                     />
                 </div>
             </main>
