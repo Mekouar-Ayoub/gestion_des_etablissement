@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { AiFillHeart, AiOutlineComment } from "react-icons/ai";
-import Navgition from "../components/Navgition"
+import Navgation from "../components/Navgition"
 
 
 function Home() {
@@ -21,14 +21,14 @@ function Home() {
     }, []);
 
     if (!sessionStorage.token) {
-        return <Navigate to="/member/Login" />;
+        return <Navigate to="/admin" />;
     }
     return (
         <>
         
         <div>
            
-            <Navgition />
+            <Navgation />
             <div>
                 <div>
                     {data.map((item) => (

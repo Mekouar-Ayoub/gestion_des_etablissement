@@ -20,7 +20,7 @@ function Copyright(props) {
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
             <Link color="inherit">
-                houssniismail
+                Qalam Software
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -55,10 +55,8 @@ function SignIn() {
             sessionStorage.setItem('type', type);
             window.location.href = '/member/Dashboard';
         } catch (error) {
-            if (error.response) {
+            if (error) {
                 setErrorMessage(error.response.data.message);
-            } else {
-                setErrorMessage('An error occurred. Please try again.');
             }
         }
     };
@@ -89,8 +87,8 @@ function SignIn() {
                     }
                     <Box noValidate sx={{ mt: 1 }}>
                         <div className=' bg-slate-500 flex justify-between h-[50px] rounded'>
-                            <button className=' bg-transparent w-[50%] rounded-l font-bold'><Link to="/profes/Login">profes</Link> </button>
-                            <button className='bg-blue-600 w-[50%] rounded-r font-bold text-white'><Link to="#">members</Link></button>
+                        
+                            <button className='bg-blue-600 w-[100%] rounded-r font-bold text-white'><Link to="#">Admin</Link></button>
                         </div>
                         <TextField
                             margin="normal"
@@ -126,15 +124,11 @@ function SignIn() {
                         </Button>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="#" variant="body2">
+                                <Link href="/password-retrieve" variant="body2">
                                     Forgot password?
                                 </Link>
                             </Grid>
-                            <Grid item>
-                                <Link href="#" variant="body2">
-                                    {"Don't have an account? Sign Up"}
-                                </Link>
-                            </Grid>
+                            
                         </Grid>
                     </Box>
                 </Box>

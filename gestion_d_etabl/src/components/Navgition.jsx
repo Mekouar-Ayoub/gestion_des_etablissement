@@ -1,7 +1,8 @@
 import React,{useState} from "react";
 import { AiOutlineMenu} from "react-icons/ai";
 import { Link } from "react-router-dom";
-function Navgition() {
+
+function Navgation() {
     const [isNavOpen, setIsNavOpen] = useState(false);
     const [isSlidOpen, setIsslidOpen] = useState(false)
     return (
@@ -78,4 +79,4 @@ function Navgition() {
     )
 }
 
-export default Navgition;
+export default Navgation;
