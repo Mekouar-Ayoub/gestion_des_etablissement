@@ -1,10 +1,20 @@
-import React, { useState } from "react";
-import { AiOutlineMenu, AiFillCalendar, AiOutlineUser, AiOutlineInsertRowAbove } from "react-icons/ai";
+import React, { useState ,useEffect} from "react";
+import { AiOutlineMenu } from "react-icons/ai";
 import Aside from "../../components/Aside"
+import { Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 function Dashoard() {
     const [isNavOpen, setIsNavOpen] = useState(false);
     const [isSlidOpen, setIsslidOpen] = useState(false)
+    const headers = Cookies.get('headers')
+    const valuetoke = Cookies.get('token')
+    if (headers !== "0" || !valuetoke) {
+        console.log(headers)
+      return <Navigate to="/" />;
+    }
+
     return (
         <div className="bg-gray-100 font-family-karla flex">
             <Aside />
@@ -17,7 +27,7 @@ function Dashoard() {
                         </button>
                         {isSlidOpen && (
                             <div className="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
-                                <a href="#" className="block px-4 py-2 account-link hover:text-white">Account</a>
+                                <a href="#" className="block px-4 py-2 account-link hover:text-white"><Link to="/admin/Profil">profile</Link></a>
                                 <a href="#" className="block px-4 py-2 account-link hover:text-white">Support</a>
                                 <a href="#" className="block px-4 py-2 account-link hover:text-white">Sign Out</a>
                             </div>

@@ -1,13 +1,74 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
-import MeProfeNavbar from "../../components/ProfeNavbar"
-
+import Aside from "../../components/Aside";
+import Cookies from "js-cookie";
+import { Navigate } from "react-router-dom";
+import axios from "axios";
+import {AiOutlineInsertRowAbove} from "react-icons/ai";
+import { Link } from "react-router-dom";
 function ProfeDashoard() {
     const [isNavOpen, setIsNavOpen] = useState(false);
-    const [isSlidOpen, setIsslidOpen] = useState(false)
+    const [isSlidOpen, setIsslidOpen] = useState(false);
+    const valuetoke = Cookies.get('token')
+    const headers = Cookies.get('headers')
+    const [userData, setUserData] = useState(null);
+    const url = "http://localhost:8000/api/profe";
+    if (headers !== 1 && !valuetoke) {
+        return <Navigate to="/" />;
+    }
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const token = Cookies.get('token')
+                if (!token) {
+                    console.error("JWT token is missing.");
+                    return;
+                }
+                const response = await axios.get(url, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                setUserData(response.data);
+
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        }
+        fetchUserData();
+    }, [])
+    if(userData === null){
+        return
+    }
     return (
         <div className="bg-gray-100 font-family-karla flex">
-            <MeProfeNavbar />
+             <aside className="relative bg-sidebar h-screen w-64 hidden sm:block shadow-xl">
+                {
+                 headers === '0' && <div className="p-6">
+                    <a className="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
+                </div>
+                }
+                { 
+                headers === '1' && <div className="p-6">
+                    <a className="text-white text-3xl font-semibold uppercase hover:text-gray-300">Profe</a>
+                </div>
+                }
+                {
+                 headers === '2' && <div className="p-6">
+                    <a className="text-white text-3xl font-semibold uppercase hover:text-gray-300">Member</a>
+                </div>
+                }
+                <nav className="text-white text-base font-semibold pt-3 " >
+                    { headers === '1' && <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                        <AiOutlineInsertRowAbove />
+                        <Link to={`/profes/ListeCoure/${userData.id}`} >Liste des Cours</Link>
+                    </a>}
+                    { headers === '1' && <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                        <AiOutlineInsertRowAbove />
+                        <Link to={`/profes/planification/${userData.id}`} >planification</Link>
+                    </a>}
+                </nav>
+            </aside>
             <div className="w-full flex flex-col h-screen overflow-y-hidden">
                 <header className="w-full items-center bg-[#3d68ff] py-2 px-6 hidden sm:flex">
                     <div className="w-1/2"></div>
@@ -17,7 +78,7 @@ function ProfeDashoard() {
                         </button>
                         {isSlidOpen && (
                             <div className="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
-                                <a href="#" className="block px-4 py-2 account-link hover:text-white">Account</a>
+                                <a href="#" className="block px-4 py-2 account-link hover:text-white"><Link to={'/profes/Profil'}>Profile</Link></a>
                                 <a href="#" className="block px-4 py-2 account-link hover:text-white">Support</a>
                                 <a href="#" className="block px-4 py-2 account-link hover:text-white">Sign Out</a>
                             </div>

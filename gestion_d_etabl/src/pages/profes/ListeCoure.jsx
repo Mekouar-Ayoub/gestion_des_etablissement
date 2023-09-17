@@ -1,55 +1,69 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect ,useState} from "react";
+import { useParams } from "react-router-dom";
+import Cookies from "js-cookie";
 import axios from "axios";
-import { useParams } from 'react-router-dom';
-import { AiOutlineMenu} from "react-icons/ai";
-import Aside from "../../components/Aside";
-function AddElevToCoure() {
-
+import {AiOutlineInsertRowAbove} from "react-icons/ai";
+import { AiOutlineMenu } from "react-icons/ai";
+import { Link } from "react-router-dom";
+function ListeCoure() {
+    const {id} = useParams();
     const [isNavOpen, setIsNavOpen] = useState(false);
     const [isSlidOpen, setIsslidOpen] = useState(false);
-    const { coureId } = useParams();
-    const [data, setData] = useState([]);
-    const [membre_id, setMembre_id] = useState();
-    const [coure_id] = useState(coureId);
-    const [successMessage, setSuccessMessage] = useState();
-    const [nom, setNom] = useState()
-    const etudient = {
-        membre_id,
-        coure_id
-    }
+    const headers = Cookies.get('headers');
+    const [profeData, setProfeData] = useState([]);
 
-    useEffect(() => {
-        axios
-            .get('http://localhost:8000/api/ShowMembre')
-            .then(response => {
-                const data = response.data.data;
-                setData(data);
-            })
-            .catch(error => {
-                console.log(error);
-            })
-    })
-    const hendelsubmit = () => {
-        console.log(etudient)
-        axios
-            .post('http://localhost:8000/api/AddToCoure', etudient)
-            .then((response) => {
-                setSuccessMessage('the etudient added to coure')
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }
-    function hendelidmum(valeur, valeur2) {
-        setMembre_id(valeur);
-        setNom(valeur2)
-    }
-
+    useEffect(()=>{
+        const token = Cookies.get('token');
+    
+        axios.get(`http://localhost:8000/api/findProfe/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(response => {
+          const data = response.data;
+          setProfeData(data);
+        })
+        .catch(error => {
+          if (error.response) {
+            console.error('Error response:', error.response.status, error.response.data);
+          } else if (error.request) {
+            console.error('No response received:', error.request);
+          } else {
+            console.error('Request setup error:', error.message);
+          }
+        });
+    },[id]);
     return (
         <div className="bg-gray-100 font-family-karla flex">
-            <Aside />
+             <aside className="relative bg-sidebar h-screen w-64 hidden sm:block shadow-xl">
+                {
+                 headers === '0' && <div className="p-6">
+                    <a className="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
+                </div>
+                }
+                { 
+                headers === '1' && <div className="p-6">
+                    <a className="text-white text-3xl font-semibold uppercase hover:text-gray-300">Profe</a>
+                </div>
+                }
+                {
+                 headers === '2' && <div className="p-6">
+                    <a className="text-white text-3xl font-semibold uppercase hover:text-gray-300">Member</a>
+                </div>
+                }
+                <nav className="text-white text-base font-semibold pt-3 " >
+                    { headers === '1' && <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                        <AiOutlineInsertRowAbove />
+                        <Link to={`/profes/ListeCoure/${id}`} >Liste des Cours</Link>
+                    </a>}
+                    { headers === '1' && <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                        <AiOutlineInsertRowAbove />
+                        <Link to={`/profes/planification/${id}`} >planification</Link>
+                    </a>}
+                </nav>
+            </aside>
             <div className="w-full flex flex-col h-screen overflow-y-hidden">
-
                 <header className="w-full items-center bg-[#3d68ff] py-2 px-6 hidden sm:flex">
                     <div className="w-1/2"></div>
                     <div className="relative w-1/2 flex justify-end">
@@ -118,44 +132,34 @@ function AddElevToCoure() {
                     </nav>
                     )}
                 </header >
-
                 <div className="w-full overflow-x-hidden border-t flex flex-col">
                     <main className="w-full flex-grow p-6">
+                        <h1 className="text-3xl text-black pb-6">ProfeDashoard</h1>
                         <div className="w-full mt-12">
                             <p className="text-xl pb-3 flex items-center">
-                                <i className="fas fa-list mr-3"></i> all etudient
+                                <i className="fas fa-list mr-3"></i> Latest Reports
                             </p>
-
                             <div className="bg-white overflow-auto">
-                                <div className=" w-full">
-                                    <input className=" w-[87%] rounded my-3" type="text" value={membre_id} onChange={(e) => setMembre_id(e.target.value)} readOnly={true} hidden={true} />
-                                    <input className=" w-[87%] rounded my-3" type="text" value={nom} />
-                                    <button onClick={hendelsubmit} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add to Course</button>
-                                    {successMessage}
-                                </div>
                                 <table className="min-w-full bg-white">
                                     <thead className="bg-gray-800 text-white">
                                         <tr>
-                                            <th className="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Name</th>
-                                            <th className="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Last name</th>
-                                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Phone</th>
+                                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm">titre</th>
+                                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm">prix horaire</th>
+                                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm">etat</th>
                                             <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
-                                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm">action</th>
+                                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
                                         </tr>
                                     </thead>
                                     <tbody className="text-gray-700">
                                         {
-                                            data.map((item) => (
-                                                item.etudient === 1 &&
+                                          profeData.cours &&  profeData.cours.map((item)=>(
                                                 <tr key={item.id}>
-                                                    <td className="w-1/3 text-left py-3 px-4">{item.prenom} </td>
-                                                    <td className="w-1/3 text-left py-3 px-4">{item.nom}</td>
-                                                    <td className="text-left py-3 px-4"><a className="hover:text-blue-500" href="tel:622322662">{item.tel}</a></td>
-                                                    <td className="text-left py-3 px-4"><a className="hover:text-blue-500" href="mailto:jonsmith@mail.com">{item.email}</a></td>
-                                                    <td className="text-left py-3 px-4">
-                                                        <button className="hover:text-blue-500" onClick={() => hendelidmum(item.id, item.nom)}>addtocoure</button>
-                                                    </td>
-                                                </tr>
+                                                <td className="text-left py-3 px-4">{item.titre}</td>
+                                                <td className="text-left py-3 px-4">{item.prix_horaire}</td>
+                                                {item.etat ? <td className="text-left py-3 px-4"><a className="hover:text-blue-500">confermmer</a></td> : <td className="text-left py-3 px-4"><a className="hover:text-blue-500">non confermmer</a></td>}
+                                                <td className="text-left py-3 px-4"><a className="hover:text-blue-500">{item.debut_de_coure}</a></td>
+                                                <td className="text-left py-3 px-4"><a className="hover:text-blue-500">{item.fin_de_coure}</a></td>
+                                            </tr>
                                             ))
                                         }
                                     </tbody>
@@ -163,14 +167,10 @@ function AddElevToCoure() {
                             </div>
                         </div>
                     </main>
-
-                    <footer className="w-full bg-white text-right p-4">
-                        Built by <a target="_blank" href="https://davidgrzyb.com" className="underline">David Grzyb</a>.
-                    </footer>
                 </div>
-
             </div >
         </div>
     );
 }
-export default AddElevToCoure;
+
+export default ListeCoure;

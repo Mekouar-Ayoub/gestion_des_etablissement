@@ -1,6 +1,6 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { AiOutlineMenu} from "react-icons/ai";
+import { AiOutlineMenu } from "react-icons/ai";
 import Aside from "../../components/Aside"
 import { Link } from "react-router-dom";
 
@@ -97,9 +97,9 @@ function Dashoard() {
                         <h1 className="text-3xl text-black pb-6">tout les publication</h1>
                         <div className="w-full">
                             <div className="bg-white overflow-auto">
-                            <div className='flex justify-end'>
-                                        <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-3 justify-end"><Link to={'/publication/AjouterPublication'}>Ajouter</Link></button>
-                                    </div>
+                                <div className='flex justify-end'>
+                                    <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-3 justify-end"><Link to={'/publication/AjouterPublication'}>Ajouter</Link></button>
+                                </div>
                                 <table className="min-w-full bg-white">
                                     <thead className="bg-[#3788d8] text-white">
                                         <tr>
@@ -111,12 +111,12 @@ function Dashoard() {
                                     </thead>
                                     <tbody className="text-gray-700">
                                         {
-                                            data.map((item)=>(
-                                                <tr>
-                                                <td className="w-1/3 text-left py-3 px-4">{item.image}</td>
-                                                <td className="w-1/3 text-left py-3 px-4">{item.vedeo}</td>
-                                                <td className="text-left py-3 px-4"><a><textarea className=" h-20" name="" id="" cols="30" rows="10" value={item.description}></textarea></a></td>
-                                            </tr>
+                                            data.map((item ) => (
+                                                <tr key={item.id}>
+                                                    <td className="w-1/3 text-left py-3 px-4">{item.image}</td>
+                                                    <td className="w-1/3 text-left py-3 px-4">{item.vedeo}</td>
+                                                    <td className="text-left py-3 px-4"><a><textarea className=" h-20" name="" id="" cols="30" rows="10" value={item.description}></textarea></a></td>
+                                                </tr>
                                             ))
                                         }
                                     </tbody>

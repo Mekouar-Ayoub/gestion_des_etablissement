@@ -49,7 +49,7 @@ function AjouterMembre() {
       }
     };
     fetchData();
-  }, []);
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();

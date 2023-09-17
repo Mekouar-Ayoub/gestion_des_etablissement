@@ -14,6 +14,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import { Navigate } from 'react-router-dom';
 
 function Copyright(props) {
     return (
@@ -36,31 +38,36 @@ function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-    var handleSubmit = async (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
         if (!email || !password) {
             setErrorMessage('Please enter all fields');
             return;
         }
+
         try {
-            const response = await axios.post('http://localhost:8000/api/LoginMember', {
+            const response = await axios.post('http://localhost:8000/api/memberLogin', {
                 email,
                 password,
-            });
-
-            var token = response.data[0].id;
-            var type = response.data[0].type;
-            console.log(response);
-            sessionStorage.setItem('token', token);
-            sessionStorage.setItem('type', type);
-            window.location.href = '/member/Dashboard';
+            }
+            );
+            const type = 2;
+            const token = response.data;
+            Cookies.set('token',token);
+            Cookies.set('headers', type);
+            window.location.href = '/';
         } catch (error) {
             if (error) {
                 setErrorMessage(error.response.data.message);
             }
         }
     };
-
+    const valuetoke = Cookies.get('token')
+    if (valuetoke) {
+      return <Navigate to="/" />;
+    }
     return (
 
         <ThemeProvider theme={defaultTheme}>

@@ -10,6 +10,7 @@ use App\Http\Controllers\FamilleController;
 use App\Http\Controllers\ControllerPublication;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\Elev_coureController;
+use App\Models\Admin;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,18 +22,40 @@ use App\Http\Controllers\Elev_coureController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+// Admin
 
-// admin
-Route::post('login', [AdminController::class, 'LoginAdmin']);
+Route::post('adminlogin', [AdminController::class, 'AdminLogin']);
+Route::post('register',[AdminController::class,'AdminRegister']);
+Route::group(['middleware' => 'admin:admin-api'], function () {
+    Route::get('admin',[AdminController::class,'me']);
+    Route::post('logout',[AdminController::class,'logout']);
+});
 
+// profe
 
+Route::post('profeLogin', [ProfeController::class, 'ProfeLogin']);
+
+Route::group(['middleware' => 'profe:profe-api'], function () {
+    Route::get('findProfe/{id}', [ProfeController::class, 'find']);
+    Route::post('updateProfe/{id}', [ProfeController::class, 'updateProfe']);
+    Route::get('profe', [ProfeController::class, 'me']);
+    Route::post('logoutprofe', [ProfeController::class,'logout']);
+    
+});
+
+// membre
+
+Route::post('memberLogin', [MembreController::class, 'MemberLogin']);
+Route::get('findmember/{id}', [MembreController::class,'Findmember']);
+Route::post('updatemember/{id}', [MembreController::class,'updateMember']);
+Route::group(['middleware' => 'member:membre-api'], function () {
+    Route::get('member', [MembreController::class, 'me']);
+    Route::post('logoutprofe', [MembreController::class,'logout']);
+});
 
 // rouets des membre
 Route::post('AddMembre', [MembreController::class, 'AddMembre']);
-Route::post('updateMembre/{id}', [MembreController::class, 'updateMembre']);
-Route::post('deleteMembre/{id}', [MembreController::class, 'deleteMembre']);
-Route::get('ShowMembre', [MembreController::class, 'ShowMembre']);
-Route::post('LoginMember', [MembreController::class, 'LoginMember']);
+
 
 // route des familles
 Route::get('toulFamille', [FamilleController::class, 'index']);
@@ -42,10 +65,11 @@ Route::post('UpdateFamille/{id}', [FamilleController::class, 'UpdateFamille']);
 Route::post('DeleteFamille/{id} ', [FamilleController::class, 'DeleteFamille']);
 
 // route des profe
-Route::post('profeLogin', [ProfeController::class, 'LoginProfe']);
-Route::post('AjouterProfe', [ProfeController::class, 'AjouterProfe']);
+
+Route::post('AjouterProfe', [ProfeController::class, 'ProfeRegister']);
 Route::post('findProfe/{id}', [ProfeController::class, 'find']);
 Route::get('showallprofe', [ProfeController::class,'ShowProfe']);
+
 
 // route des publications
 Route::post('Ajouterpublication', [ControllerPublication::class, 'AjouterPublication']);

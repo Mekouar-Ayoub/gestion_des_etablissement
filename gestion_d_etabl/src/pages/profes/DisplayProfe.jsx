@@ -20,6 +20,7 @@ function displayProfe() {
                 console.error(error)
             })
     })
+
     return (
         <div className="bg-gray-100 font-family-karla flex">
             <Aside />
