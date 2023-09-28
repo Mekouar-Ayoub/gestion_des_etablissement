@@ -15,10 +15,14 @@ import axios from 'axios';
 import { format } from 'date-fns';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import { typesDeCours } from "../../utils/common-objects";
+import { TextInput } from "flowbite-react";
 
 const defaultTheme = createTheme();
 
-function AjouterCoure() {
+
+
+function AjouterCours() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isSlidOpen, setIsSlidOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
@@ -34,8 +38,8 @@ function AjouterCoure() {
   const [eleveSelectionne, setEleveSelectionne] = useState({});
 
   useEffect(() => {
-    //TODO MARCHE PAS
-    axios.get('http://localhost:8000/api/showallprofe')
+
+    axios.get('http://localhost:8000/api/profs')
       .then(response => {
         const data = response.data;
         setProfes(data);
@@ -43,8 +47,7 @@ function AjouterCoure() {
       .catch(error => {
         console.error(error);
       });
-    //TODO MARCHE PAS
-    axios.get('http://localhost:8000/api/ShowMembre')
+    axios.get('http://localhost:8000/api/eleves')
       .then(response => {
         const data = response.data;
         setListeEleves(data);
@@ -72,11 +75,11 @@ function AjouterCoure() {
 
     try {
       const response = await axios.post(
-        'http://localhost:8000/api/AjouterCoure',
+        'http://localhost:8000/api/cours',
         data
       );
       setSuccessMessage('Event added successfully');
-      window.location.href = '/cours/Index';
+      window.location.href = '/cours';
       setErrorMessage('');
     } catch (error) {
       console.error(error);
@@ -90,23 +93,7 @@ function AjouterCoure() {
 
   return (
     <div className="bg-gray-100 font-family-karla flex">
-      <Aside />
-      <div className="w-full flex flex-col h-screen overflow-y-hidden">
-        <header className="w-full items-center bg-[#3d68ff] py-2 px-6 hidden sm:flex">
-          <div className="w-1/2"></div>
-          <div className="relative w-1/2 flex justify-end">
-            <button onClick={() => setIsSlidOpen(!isSlidOpen)} className="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
-              <img src="https://source.unsplash.com/uJ8LNVCBjFQ/400x400" alt="avatar" className="w-full h-full object-cover object-center" />
-            </button>
-            {isSlidOpen && (
-              <div className="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
-                <a href="#" className="block px-4 py-2 account-link hover:text-white">Account</a>
-                <a href="#" className="block px-4 py-2 account-link hover:text-white">Support</a>
-                <a href="#" className="block px-4 py-2 account-link hover:text-white">Sign Out</a>
-              </div>
-            )}
-          </div>
-        </header>
+      
         <div className="w-full overflow-x-hidden border-t flex flex-col">
           <main className="w-full flex-grow p-6">
             <h1 className="text-3xl text-black pb-6">Ajouter le Cours</h1>
@@ -114,14 +101,22 @@ function AjouterCoure() {
             <form onSubmit={handleSubmit}>
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                  
                   <TextField
                     required
                     fullWidth
                     id=""
-                    label="Titre"
+                    label="Type de cours"
                     value={titre}
                     onChange={(e) => setTitre(e.target.value)}
-                  />
+                    select
+                  >
+                  {Object.values(typesDeCours).map((value,index) => (
+                      <MenuItem key={index} value={value}>
+                        {value}
+                      </MenuItem>
+                    ))}
+                  </TextField>
                 </div>
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                   <TextField
@@ -196,20 +191,22 @@ function AjouterCoure() {
               </div>
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                  <Select
+                  <TextField
                     required
                     fullWidth
                     id="profe_id"
                     label="Professeur"
+                    select
                     value={profe_id}
                     onChange={handleProfeChange}
+                    className="text-black"
                   >
                     {profes.map((prof) => (
                       <MenuItem key={prof.id} value={prof.id}>
                         {prof.nom}
                       </MenuItem>
                     ))}
-                  </Select>
+                  </TextField>
                 </div>
 
               </div>
@@ -235,11 +232,10 @@ function AjouterCoure() {
           </main>
         </div>
       </div>
-    </div>
   );
 }
 
-export default AjouterCoure;
+export default AjouterCours;
 
 
 /*

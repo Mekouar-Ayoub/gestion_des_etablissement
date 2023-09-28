@@ -1,26 +1,75 @@
-import React, { useEffect, useState } from "react";
-import { AiOutlineMenu, AiFillCalendar, AiOutlineUser, AiOutlineInsertRowAbove } from "react-icons/ai";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { AiOutlineMenu } from "react-icons/ai";
 import Aside from "../../components/Aside";
-
-function index() {
+import Cookies from "js-cookie";
+import { Navigate } from "react-router-dom";
+import axios from "axios";
+import {AiOutlineInsertRowAbove} from "react-icons/ai";
+import { Link } from "react-router-dom";
+function ProfeDashoard() {
     const [isNavOpen, setIsNavOpen] = useState(false);
-    const [isSlidOpen, setIsslidOpen] = useState(false)
-    const [data, setData] = useState([]);
+    const [isSlidOpen, setIsslidOpen] = useState(false);
+    const valuetoke = Cookies.get('token')
+    const headers = Cookies.get('headers')
+    const [userData, setUserData] = useState(null);
+    const url = "http://localhost:8000/api/profs";
+    if (headers !== 1 && !valuetoke) {
+        return <Navigate to="/" />;
+    }
     useEffect(() => {
-        axios
-            .get('http://localhost:8000/api/toutlascoure')
-            .then(response => {
-                const data = response.data.data;
-                setData(data);
-            })
-    })
+        const fetchUserData = async () => {
+            try {
+                const token = Cookies.get('token')
+                if (!token) {
+                    console.error("JWT token is missing.");
+                    return;
+                }
+                const response = await axios.get(url, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                setUserData(response.data);
+
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        }
+        fetchUserData();
+    }, [])
+    if(userData === null){
+        return
+    }
     return (
         <div className="bg-gray-100 font-family-karla flex">
-            <Aside />
+             <aside className="relative bg-sidebar h-screen w-64 hidden sm:block shadow-xl">
+                {
+                 headers === '0' && <div className="p-6">
+                    <a className="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
+                </div>
+                }
+                { 
+                headers === '1' && <div className="p-6">
+                    <a className="text-white text-3xl font-semibold uppercase hover:text-gray-300">Profe</a>
+                </div>
+                }
+                {
+                 headers === '2' && <div className="p-6">
+                    <a className="text-white text-3xl font-semibold uppercase hover:text-gray-300">Member</a>
+                </div>
+                }
+                <nav className="text-white text-base font-semibold pt-3 " >
+                    { headers === '1' && <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                        <AiOutlineInsertRowAbove />
+                        <Link to={`/profes/ListeCoure/${userData.id}`} >Liste des Cours</Link>
+                    </a>}
+                    { headers === '1' && <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                        <AiOutlineInsertRowAbove />
+                        <Link to={`/profes/planification/${userData.id}`} >planification</Link>
+                    </a>}
+                </nav>
+            </aside>
             <div className="w-full flex flex-col h-screen overflow-y-hidden">
-
                 <header className="w-full items-center bg-[#3d68ff] py-2 px-6 hidden sm:flex">
                     <div className="w-1/2"></div>
                     <div className="relative w-1/2 flex justify-end">
@@ -29,14 +78,13 @@ function index() {
                         </button>
                         {isSlidOpen && (
                             <div className="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
-                                <a href="#" className="block px-4 py-2 account-link hover:text-white">Account</a>
+                                <a href="#" className="block px-4 py-2 account-link hover:text-white"><Link to={'/profes/Profil'}>Profile</Link></a>
                                 <a href="#" className="block px-4 py-2 account-link hover:text-white">Support</a>
                                 <a href="#" className="block px-4 py-2 account-link hover:text-white">Sign Out</a>
                             </div>
                         )}
                     </div>
                 </header>
-
                 <header className="w-full bg-sidebar py-5 px-6 sm:hidden">
                     <div className="flex items-center justify-between">
                         <a href="index.html" className="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
@@ -90,57 +138,38 @@ function index() {
                     </nav>
                     )}
                 </header >
-
                 <div className="w-full overflow-x-hidden border-t flex flex-col">
                     <main className="w-full flex-grow p-6">
-                        <h1 className="text-3xl text-black pb-6">Liste des cours</h1>
-                        <button className="text-white bg-[#3788d8] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-3 justify-end"
-                        ><Link to="/Admin/calender">Vue Calendrier</Link></button>
-                        <div className="w-full">
+                        <h1 className="text-3xl text-black pb-6">ProfeDashoard</h1>
+                        <div className="w-full mt-12">
+                            <p className="text-xl pb-3 flex items-center">
+                                <i className="fas fa-list mr-3"></i> Latest Reports
+                            </p>
                             <div className="bg-white overflow-auto">
-                                <div className='flex justify-end'>
-                                    <button className="text-white bg-[#3788d8] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-3 justify-end"><Link to={'/cours/AjouterCoure'}>Ajouter un cours</Link></button>
-                                </div>
                                 <table className="min-w-full bg-white">
-                                    <thead className="bg-[#3788d8] text-white">
+                                    <thead className="bg-gray-800 text-white">
                                         <tr>
-                                            <th className="text-left py-3 uppercase font-semibold text-sm">Titre</th>
-                                            <th className="text-left py-3 uppercase font-semibold text-sm">Prix horaire</th>
-                                            <th className="text-left py-3 uppercase font-semibold text-sm">Statut du cours</th>
-                                            <th className="text-left py-3 uppercase font-semibold text-sm">Debut de cours</th>
-                                            <th className="text-left py-3 uppercase font-semibold text-sm">Fin de coure</th>
-                                            <th className="text-left py-3 uppercase font-semibold text-sm">Professeur</th>
-                                            <th className="text-left py-3 uppercase font-semibold text-sm">Actions</th>
+                                            <th className="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Name</th>
+                                            <th className="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Last name</th>
+                                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Phone</th>
+                                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
                                         </tr>
                                     </thead>
                                     <tbody className="text-gray-700">
-                                        {
-                                            data.map((item, index) => (
-                                                <tr key={index}>
-                                                    <td className="text-left py-3">{item.titre}</td>
-                                                    <td className="text-left py-3">{item.prix_horaire}</td>
-                                                    <td className="text-left py-3"><a className="hover:text-blue-500" href="tel:622322662">{item.etat}</a></td>
-                                                    <td className="text-left py-3"><a className="hover:text-blue-500">{item.debut_de_coure}</a></td>
-                                                    <td className="text-left py-3"><a className="hover:text-blue-500">{item.fin_de_coure}</a></td>
-                                                    <td className="text-left py-3"><a className="hover:text-blue-500">{item.profe.nom}</a></td>
-                                                    <td className="text-left py-3"><a className="hover:text-blue-500"><Link to={`/addtocoure/${item.id}`}><svg width="25" height="25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                        <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
-                                                        <path d="M12 8v8"></path>
-                                                        <path d="M8 12h8"></path>
-                                                    </svg></Link></a></td>
-                                                </tr>
-                                            ))
-                                        }
+                                        <tr>
+                                            <td className="w-1/3 text-left py-3 px-4">Lian</td>
+                                            <td className="w-1/3 text-left py-3 px-4">Smith</td>
+                                            <td className="text-left py-3 px-4"><a className="hover:text-blue-500" href="tel:622322662">622322662</a></td>
+                                            <td className="text-left py-3 px-4"><a className="hover:text-blue-500" href="mailto:jonsmith@mail.com">jonsmith@mail.com</a></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </main>
                 </div>
-
             </div >
         </div>
-    )
+    );
 }
-
-export default index;
+export default ProfeDashoard;

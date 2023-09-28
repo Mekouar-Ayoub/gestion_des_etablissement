@@ -15,7 +15,7 @@ import { format } from 'date-fns';
 
 const defaultTheme = createTheme();
 
-function AjouterEvent() {
+function AddEvent() {
     const [titre, setTitre] = useState('');
     const [debut, setDebut] = useState();
     const [fin, setFin] = useState();
@@ -37,7 +37,7 @@ function AjouterEvent() {
         console.log(data)
         try {
             const response = await axios.post(
-                'http://localhost:8000/api/ajouterEvent',
+                'http://localhost:8000/api/events',
                 data
             );
             setSuccessMessage('Event added successfully');
@@ -119,4 +119,4 @@ function AjouterEvent() {
     );
 }
 
-export default AjouterEvent;
+export default AddEvent;

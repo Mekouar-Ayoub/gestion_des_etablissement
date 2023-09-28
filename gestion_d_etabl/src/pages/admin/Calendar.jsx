@@ -20,7 +20,7 @@ const Calendar = () => {
     const [selectedEvent, setSelectedEvent] = useState(null);
     useEffect(() => {
         axios
-            .get('http://localhost:8000/api/toutlascoure')
+            .get('http://localhost:8000/api/cours')
             .then(response => {
                 const data = response.data.data;
                 setData(data);
@@ -32,10 +32,11 @@ const Calendar = () => {
     }, []);
     useEffect(() => {
         axios
-            .post(`http://localhost:8000/api/findProfe/${sessionStorage.token}`)
+            .get(`http://localhost:8000/api/profs/`)
             .then(response => {
-                const profe = response.data;
-                setDataprofe(profe);
+                const profs = response.data;
+                console.log(profs)
+                setDataprofe(profs);
             })
             .catch(error => {
                 console.error(error);
@@ -61,7 +62,7 @@ const Calendar = () => {
         const hundeSubmit = async () => {
             try {
                 const response = await axios.post(
-                    'http://localhost:8000/api/AjouterCoure',
+                    'http://localhost:8000/api/cours',
                     {
                         titre,
                         prix_horaire,
@@ -205,9 +206,9 @@ const Calendar = () => {
         <div className="w-full overflow-x-hidden border-t flex flex-col">
             <main className="w-full flex-grow p-6">
                 <button className="text-white bg-[#3788d8] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-3 justify-end"
-                ><Link to="/cours/Index">Vue Liste</Link></button>
+                ><Link to="/cours/">Vue Liste</Link></button>
                 <button className="text-white bg-[#3788d8] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-3 justify-end"
-                ><Link to="cours/AjouterCoure">Ajouter un Cours</Link></button>
+                ><Link to="cours/add">Ajouter un Cours</Link></button>
                 <div>
                     {
                         show ? (

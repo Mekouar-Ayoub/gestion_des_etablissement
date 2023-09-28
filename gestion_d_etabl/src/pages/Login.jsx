@@ -43,6 +43,7 @@ function SignIn() {
       return;
     }
     try {
+      //TODO cehck
       const response = await axios.post('http://localhost:8000/api/login', {
         email,
         password,
@@ -50,7 +51,7 @@ function SignIn() {
 
       var token = response.data[0].id;
       var type = response.data[0].type;
-      console.log(response);
+      console.log('ok');
       sessionStorage.setItem('token', token);
       sessionStorage.setItem('type', type);
       window.location.href = '/';

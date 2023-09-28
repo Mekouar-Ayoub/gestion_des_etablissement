@@ -45,7 +45,7 @@ function SignIn() {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:8000/api/profeLogin', {
+      const response = await axios.post('http://localhost:8000/api/profs/login', {
         email,
         password,
       });

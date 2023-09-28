@@ -28,12 +28,13 @@ class AdminController extends Controller
             return response()->json(['status' => false]);
         }
     }
-    
+
 
     public function AdminLogin(Request $request)
     {
+
         $credentials = request(['email', 'password']);
-        if (! $token = auth()->guard('admin-api')->attempt($credentials)) {
+        if (!$token = auth()->guard('admin-api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         return $token;
@@ -63,5 +64,5 @@ class AdminController extends Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
 
-    
+
 }

@@ -5,7 +5,7 @@ import { AiOutlineUser } from "react-icons/ai";
 
 function profil() {
     const [userData, setUserData] = useState(null);
-    const url = "http://localhost:8000/api/admin";
+    const url = "http://localhost:8000/api/admins";
    
     useEffect(() => {
         const fetchUserData = async () => {

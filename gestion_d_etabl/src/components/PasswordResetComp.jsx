@@ -5,8 +5,8 @@ import { Box } from "@mui/material";
 function PasswordResetComp() {
 
     const [email, setEmail] = useState("");
-
-    handleSubmit = () =>  {
+    const [errorMessage, setErrorMessage] = useState();
+    const handleSubmit = () =>  {
         if (!email) {
             setErrorMessage('Please enter all fields');
             return;
@@ -16,7 +16,7 @@ function PasswordResetComp() {
   return(
     <Box noValidate sx={{ mt: 1 }}>
                         
-                        <TextField
+                        <input
                             margin="normal"
                             required
                             fullWidth
@@ -27,17 +27,17 @@ function PasswordResetComp() {
                             autoFocus
                         />
 
-                        <Button
+                        <button
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                             onClick={handleSubmit}
                         >
                            Reset Password
-                        </Button>
+                        </button>
     </Box>
 
   )
 }
 
-export default Auth;
+export default PasswordResetComp;

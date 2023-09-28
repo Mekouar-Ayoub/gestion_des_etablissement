@@ -48,25 +48,30 @@ function SignIn() {
         }
 
         try {
-            const response = await axios.post('http://localhost:8000/api/memberLogin', {
+            console.log(email)
+            console.log(password)
+            //mail ismailJM@gmail.com
+            //mdp 12345678
+            const response = await axios.post('http://localhost:8000/api/admins/login', {
                 email,
                 password,
             }
             );
-            const type = 2;
+            
+            const type = 0;
             const token = response.data;
-            Cookies.set('token',token);
+            Cookies.set('token', token);
             Cookies.set('headers', type);
-            window.location.href = '/';
+            window.location.href = '/admin/dashboard';
         } catch (error) {
             if (error) {
-                setErrorMessage(error.response.data.message);
+                setErrorMessage('Email ou mot de passe incorrects');
             }
         }
     };
     const valuetoke = Cookies.get('token')
     if (valuetoke) {
-      return <Navigate to="/" />;
+      return <Navigate to="/admin/dashboard" />;
     }
     return (
 
@@ -89,7 +94,7 @@ function SignIn() {
                     </Typography>
                     {
                         errorMessage && (
-                            <p>{errorMessage}</p>
+                            <p className=''>{errorMessage}</p>
                         )
                     }
                     <Box noValidate sx={{ mt: 1 }}>

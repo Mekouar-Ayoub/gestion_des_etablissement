@@ -15,6 +15,7 @@ function Register() {
       return;
     }
     try {
+      //TODO check
       const response = await axios.post('http://localhost:8000/api/createUser', {
         name,
         email,

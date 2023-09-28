@@ -38,7 +38,7 @@ function UpdateMember() {
   }, [idmemebre]);
 
   const handleSubmit = () => {
-    axios.post(`http://localhost:8000/api/updatemember/${memberData.id}`, {
+    axios.post(`http://localhost:8000/api/eleves/${memberData.id}`, {
       nom,
       prenom,
       tel,

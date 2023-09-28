@@ -15,7 +15,7 @@ function ListeCoure() {
     useEffect(()=>{
         const token = Cookies.get('token');
     
-        axios.get(`http://localhost:8000/api/findProfe/${id}`, {
+        axios.get(`http://localhost:8000/api/profs/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

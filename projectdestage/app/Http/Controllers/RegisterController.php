@@ -33,8 +33,8 @@ class RegisterController extends Controller
         ]);
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return response()->json('is logded');
+            return response()->json('is logged in');
         }
-        return response()->json('eroure');
+        return response()->json('error in loging');
     }
 }

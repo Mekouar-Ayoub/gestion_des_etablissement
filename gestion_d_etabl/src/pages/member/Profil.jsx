@@ -7,7 +7,7 @@ import { Navigate } from "react-router-dom";
 
 function profil() {
     const [userData, setUserData] = useState(null);
-    const url = "http://localhost:8000/api/member";
+    const url = "http://localhost:8000/api/eleves";
    
     useEffect(() => {
         const fetchUserData = async () => {

@@ -20,7 +20,7 @@ function UpdateMember() {
   useEffect(() => {
     const token = Cookies.get('token');
     
-    axios.get(`http://localhost:8000/api/findProfe/${idprofe}`, {
+    axios.get(`http://localhost:8000/api/profs/${idprofe}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

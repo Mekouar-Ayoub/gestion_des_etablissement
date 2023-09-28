@@ -3,7 +3,7 @@ import axios from "axios";
 
 function Auth() {
   const [userData, setUserData] = useState(null);
-  const apiUrl = "http://localhost:8000/api/admin";
+  const apiUrl = "http://localhost:8000/api/admins";
 
   useEffect(() => {
     const fetchUserData = async () => {

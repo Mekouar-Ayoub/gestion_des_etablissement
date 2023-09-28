@@ -5,7 +5,7 @@ import { AiFillHeart, AiOutlineComment } from "react-icons/ai";
 import Navgation from "../components/Navgition"
 
 
-function Home() {
+function PublicationsHome() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -21,7 +21,7 @@ function Home() {
     }, []);
 
     if (!sessionStorage.token) {
-        return <Navigate to="/admin" />;
+        return <Navigate to="/admin/login" />;
     }
     return (
         <>
@@ -52,4 +52,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default PublicationsHome;

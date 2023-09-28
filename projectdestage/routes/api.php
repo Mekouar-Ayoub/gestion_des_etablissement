@@ -24,65 +24,64 @@ use App\Models\Admin;
 */
 // Admin
 
-Route::post('adminlogin', [AdminController::class, 'AdminLogin']);
+Route::post('admins/login', [AdminController::class, 'AdminLogin']);
 Route::post('register',[AdminController::class,'AdminRegister']);
 Route::group(['middleware' => 'admin:admin-api'], function () {
-    Route::get('admin',[AdminController::class,'me']);
+    Route::get('admins',[AdminController::class,'me']);
     Route::post('logout',[AdminController::class,'logout']);
 });
 
 // profe
 
-Route::post('profeLogin', [ProfeController::class, 'ProfeLogin']);
+Route::post('profs/Login', [ProfeController::class, 'ProfeLogin']);
 
 Route::group(['middleware' => 'profe:profe-api'], function () {
-    Route::get('findProfe/{id}', [ProfeController::class, 'find']);
-    Route::post('updateProfe/{id}', [ProfeController::class, 'updateProfe']);
-    Route::get('profe', [ProfeController::class, 'me']);
-    Route::post('logoutprofe', [ProfeController::class,'logout']);
-    
+    Route::put('profs/{id}', [ProfeController::class, 'updateProfe']);
+    Route::get('profs/me', [ProfeController::class, 'me']);
+    Route::post('profs/logout', [ProfeController::class,'logout']);
+
 });
 
 // membre
 
-Route::post('memberLogin', [MembreController::class, 'MemberLogin']);
-Route::get('findmember/{id}', [MembreController::class,'Findmember']);
-Route::post('updatemember/{id}', [MembreController::class,'updateMember']);
+Route::post('eleves', [MembreController::class, 'MemberLogin']);
+Route::get('eleves/{id}', [MembreController::class,'Findmember']);
+Route::put('eleves/{id}', [MembreController::class,'updateMember']);
 Route::group(['middleware' => 'member:membre-api'], function () {
     Route::get('member', [MembreController::class, 'me']);
     Route::post('logoutprofe', [MembreController::class,'logout']);
 });
 
 // rouets des membre
-Route::post('AddMembre', [MembreController::class, 'AddMembre']);
+Route::post('eleves', [MembreController::class, 'AddMembre']);
 
 
 // route des familles
-Route::get('toulFamille', [FamilleController::class, 'index']);
-Route::get('showfamilles/{id} ', [FamilleController::class, 'show']);
-Route::post('ajouterFamille', [FamilleController::class, 'store']);
-Route::post('UpdateFamille/{id}', [FamilleController::class, 'UpdateFamille']);
-Route::post('DeleteFamille/{id} ', [FamilleController::class, 'DeleteFamille']);
+Route::get('families', [FamilleController::class, 'index']);
+Route::get('families/{id} ', [FamilleController::class, 'show']);
+Route::post('families', [FamilleController::class, 'store']);
+Route::put('families/{id}', [FamilleController::class, 'UpdateFamille']);
+Route::delete('families/{id} ', [FamilleController::class, 'DeleteFamille']);
 
 // route des profe
 
-Route::post('AjouterProfe', [ProfeController::class, 'ProfeRegister']);
-Route::post('findProfe/{id}', [ProfeController::class, 'find']);
-Route::get('showallprofe', [ProfeController::class,'ShowProfe']);
+Route::post('profs', [ProfeController::class, 'ProfeRegister']);
+Route::post('profs/{id}', [ProfeController::class, 'find']);
+Route::get('profs', [ProfeController::class,'ShowProfe']);
 
 
 // route des publications
-Route::post('Ajouterpublication', [ControllerPublication::class, 'AjouterPublication']);
-Route::get('getPublication', [ControllerPublication::class, 'getPublication']);
+Route::post('publications', [ControllerPublication::class, 'AjouterPublication']);
+Route::get('publications', [ControllerPublication::class, 'getPublication']);
 
-// coure 
-Route::get('toutlascoure', [CoureController::class, 'toutlascoure']);
-Route::post('AjouterCoure', [CoureController::class, 'AjouterCoure']);
+// coure
+Route::get('cours', [CoureController::class, 'toutlascoure']);
+Route::post('cours', [CoureController::class, 'AjouterCoure']);
 
 
 // Events
-Route::get('getallevent', [EventController::class, 'getallevent']);
-Route::post('ajouterEvent', [EventController::class, 'ajouterEvent']);
+Route::get('events', [EventController::class, 'getallevent']);
+Route::post('events', [EventController::class, 'ajouterEvent']);
 
 // Ajouter etudient to coure
-Route::post('AddToCoure', [Elev_coureController::class, 'store']);
+Route::post('cours/eleves', [Elev_coureController::class, 'store']);
