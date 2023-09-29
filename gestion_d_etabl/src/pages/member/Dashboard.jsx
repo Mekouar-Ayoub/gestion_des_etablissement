@@ -1,10 +1,19 @@
 import React, { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import Aside from "../../components/Aside"
+import Cookies from "js-cookie";
+import { Navigate } from "react-router-dom";
 
 function Dashoard() {
     const [isNavOpen, setIsNavOpen] = useState(false);
     const [isSlidOpen, setIsslidOpen] = useState(false)
+
+    const valuetoke = Cookies.get('token')
+    const headers = Cookies.get('headers')
+  
+    if (headers !== 2 || !valuetoke) {
+      return <Navigate to="/" />;
+    }
     return (
         <div className="bg-gray-100 font-family-karla flex">
             <Aside />

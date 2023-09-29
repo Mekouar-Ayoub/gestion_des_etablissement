@@ -20,6 +20,7 @@ function displayProfe() {
                 console.error(error)
             })
     })
+
     return (
         <div className="bg-gray-100 font-family-karla flex">
             <Aside />
@@ -98,17 +99,17 @@ function displayProfe() {
                         <div className="w-full">
                             <div className="bg-white overflow-auto">
                                 <div className='flex justify-end'>
-                                    <button className="text-white bg-[#3788d8] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-3 justify-end"><Link to={'/profes/AjouterProf'}>Ajouter</Link></button>
+                                    <button className="text-white bg-[#3788d8] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-3 justify-end"><Link to={'/profes/AjouterProf'}>Ajouter Un Professeur</Link></button>
                                 </div>
                                 <table className="min-w-full bg-white">
                                     <thead className="bg-[#3788d8] text-white">
                                         <tr>
-                                            <th className="text-left py-3 px-2 uppercase font-semibold text-sm">Name</th>
-                                            <th className="text-left py-3 px-2 uppercase font-semibold text-sm">Last name</th>
-                                            <th className="text-left py-3 px-2 uppercase font-semibold text-sm">Phone</th>
+                                            <th className="text-left py-3 px-2 uppercase font-semibold text-sm">Nom</th>
+                                            <th className="text-left py-3 px-2 uppercase font-semibold text-sm">Prenom</th>
+                                            <th className="text-left py-3 px-2 uppercase font-semibold text-sm">Téléphone</th>
                                             <th className="text-left py-3 px-2 uppercase font-semibold text-sm">Email</th>
-                                            <th className="text-left py-3 px-2 uppercase font-semibold text-sm">tarife</th>
-                                            <th className="text-left py-3 px-2 uppercase font-semibold text-sm">solde</th>
+                                            <th className="text-left py-3 px-2 uppercase font-semibold text-sm">Tarif horaire</th>
+                                            <th className="text-left py-3 px-2 uppercase font-semibold text-sm">Solde initial</th>
                                         </tr>
                                     </thead>
                                     <tbody className="text-gray-700">
@@ -119,8 +120,8 @@ function displayProfe() {
                                                     <td className="text-left py-3 px-2">{item.nom}</td>
                                                     <td className="text-left py-3 px-2"><a className="hover:text-blue-500" >{item.tel}</a></td>
                                                     <td className="text-left py-3 px-2"><a className="hover:text-blue-500" href="mailto:jonsmith@mail.com">{item.email}</a></td>
-                                                    <td className="text-left py-3 px-2"><a className="hover:text-blue-500" href="mailto:jonsmith@mail.com">{item.tarif}</a></td>
-                                                    <td className="text-left py-3 px-2"><a className="hover:text-blue-500" href="mailto:jonsmith@mail.com">{item.solde}</a></td>
+                                                    <td className="text-left py-3 px-2"><a className="hover:text-blue-500">{item.tarif}</a></td>
+                                                    <td className="text-left py-3 px-2"><a className="hover:text-blue-500">{item.solde}</a></td>
                                                 </tr>
                                             ))
                                         }

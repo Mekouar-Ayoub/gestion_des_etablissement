@@ -93,22 +93,24 @@ function index() {
 
                 <div className="w-full overflow-x-hidden border-t flex flex-col">
                     <main className="w-full flex-grow p-6">
-                        <h1 className="text-3xl text-black pb-6">tout les coure</h1>
+                        <h1 className="text-3xl text-black pb-6">Liste des cours</h1>
+                        <button className="text-white bg-[#3788d8] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-3 justify-end"
+                        ><Link to="/Admin/calender">Vue Calendrier</Link></button>
                         <div className="w-full">
                             <div className="bg-white overflow-auto">
                                 <div className='flex justify-end'>
-                                    <button className="text-white bg-[#3788d8] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-3 justify-end"><Link to={'/cours/AjouterCoure'}>Ajouter un coure</Link></button>
+                                    <button className="text-white bg-[#3788d8] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-3 justify-end"><Link to={'/cours/AjouterCoure'}>Ajouter un cours</Link></button>
                                 </div>
                                 <table className="min-w-full bg-white">
                                     <thead className="bg-[#3788d8] text-white">
                                         <tr>
-                                            <th className="text-left py-3 uppercase font-semibold text-sm">titre</th>
-                                            <th className="text-left py-3 uppercase font-semibold text-sm">prix horaire</th>
-                                            <th className="text-left py-3 uppercase font-semibold text-sm">etat</th>
-                                            <th className="text-left py-3 uppercase font-semibold text-sm">debut de coure</th>
-                                            <th className="text-left py-3 uppercase font-semibold text-sm">fin de coure</th>
-                                            <th className="text-left py-3 uppercase font-semibold text-sm">profe</th>
-                                            <th className="text-left py-3 uppercase font-semibold text-sm">action</th>
+                                            <th className="text-left py-3 uppercase font-semibold text-sm">Titre</th>
+                                            <th className="text-left py-3 uppercase font-semibold text-sm">Prix horaire</th>
+                                            <th className="text-left py-3 uppercase font-semibold text-sm">Statut du cours</th>
+                                            <th className="text-left py-3 uppercase font-semibold text-sm">Debut de cours</th>
+                                            <th className="text-left py-3 uppercase font-semibold text-sm">Fin de coure</th>
+                                            <th className="text-left py-3 uppercase font-semibold text-sm">Professeur</th>
+                                            <th className="text-left py-3 uppercase font-semibold text-sm">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody className="text-gray-700">

@@ -14,13 +14,15 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import { Navigate } from 'react-router-dom';
 
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
             <Link color="inherit">
-                houssniismail
+                Qalam Software
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -36,33 +38,36 @@ function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-    var handleSubmit = async (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
         if (!email || !password) {
             setErrorMessage('Please enter all fields');
             return;
         }
+
         try {
-            const response = await axios.post('http://localhost:8000/api/LoginMember', {
+            const response = await axios.post('http://localhost:8000/api/memberLogin', {
                 email,
                 password,
-            });
-
-            var token = response.data[0].id;
-            var type = response.data[0].type;
-            console.log(response);
-            sessionStorage.setItem('token', token);
-            sessionStorage.setItem('type', type);
-            window.location.href = '/member/Dashboard';
+            }
+            );
+            const type = 2;
+            const token = response.data;
+            Cookies.set('token',token);
+            Cookies.set('headers', type);
+            window.location.href = '/';
         } catch (error) {
-            if (error.response) {
+            if (error) {
                 setErrorMessage(error.response.data.message);
-            } else {
-                setErrorMessage('An error occurred. Please try again.');
             }
         }
     };
-
+    const valuetoke = Cookies.get('token')
+    if (valuetoke) {
+      return <Navigate to="/" />;
+    }
     return (
 
         <ThemeProvider theme={defaultTheme}>
@@ -89,8 +94,8 @@ function SignIn() {
                     }
                     <Box noValidate sx={{ mt: 1 }}>
                         <div className=' bg-slate-500 flex justify-between h-[50px] rounded'>
-                            <button className=' bg-transparent w-[50%] rounded-l font-bold'><Link to="/profes/Login">profes</Link> </button>
-                            <button className='bg-blue-600 w-[50%] rounded-r font-bold text-white'><Link to="#">members</Link></button>
+                        
+                            <button className='bg-blue-600 w-[100%] rounded-r font-bold text-white'><Link to="#">Admin</Link></button>
                         </div>
                         <TextField
                             margin="normal"
@@ -126,15 +131,11 @@ function SignIn() {
                         </Button>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="#" variant="body2">
+                                <Link href="/password-retrieve" variant="body2">
                                     Forgot password?
                                 </Link>
                             </Grid>
-                            <Grid item>
-                                <Link href="#" variant="body2">
-                                    {"Don't have an account? Sign Up"}
-                                </Link>
-                            </Grid>
+                            
                         </Grid>
                     </Box>
                 </Box>

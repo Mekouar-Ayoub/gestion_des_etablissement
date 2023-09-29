@@ -1,38 +1,21 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
 use App\Models\Membre;
 use App\Http\Requests\MembreRequest;
-use Illuminate\Support\Facades\Hash;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 class MembreController extends Controller
 {
-
-    public function LoginMember(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
-        if (Auth::guard('member')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-            $request->session()->regenerate();
-            $data = Membre::where('email', $request->email)->get(['id','type']);
-            return response($data);
-        }
-        return response()->json(false);
-    }
-
-    // aficher les membre
-    public function ShowMembre(){
-        $data = Membre::with('famille')->paginate(15);
-        return response($data);
-    }
-    //creat membre 
     public function AddMembre(MembreRequest $request)
     {
         $data = $request->validated();
+        $createdCount = 0;
+
         foreach ($data as $item) {
             $password = '12345678';
             Membre::create([
@@ -47,22 +30,78 @@ class MembreController extends Controller
                 'etudient' => $item['etudient'],
                 'type' => $item['type'],
             ]);
+            $createdCount++;
+        }
+
+        if ($createdCount > 0) {
+            return response()->json(['created_count' => $createdCount, 'status' => true]);
+        } else {
+            return response()->json(['status' => false]);
         }
     }
-    // update member
-    public function updateMembre(MembreRequest $request, $id)
+
+
+
+    public function updateMember(Request $request, $id)
     {
-        $data = $request->validated();
-        $membre = Membre::findOrFail($id);
-        $membre->update($data);
-        return response()->json('true');
+        $validatedData = $request->validate([
+            'nom'=>'required',
+            'prenom'=>'required',
+            'tel'=>'required',
+            'email'=>'required | email',
+            'adresse'=>'required',
+            'solde'=>'required',
+            'famille_id'=>'required',
+            'etudient'=>'required',
+            'type'=>'required',
+        ]);
+        
+        $membre = Membre::find($id);
+        if (!$membre) {
+            return response()->json(['message' => 'Member not found'], 404);
+        }
+        $membre->update($validatedData);
+    
+        return response()->json(['message' => 'Member updated successfully']);
+    }
+    
+
+    public function Findmember($id)
+    {
+        $membre = Membre::find($id);
+        return response()->json($membre);
     }
 
-    // function delete membre
-    public function deleteMembre($id)
+    public function MemberLogin(Request $request)
     {
-        $membre = Membre::findOrFail($id);
-        $membre->delete();
-        return response()->json('true');
+        $credentials = request(['email', 'password']);
+        if (!$token = auth()->guard('membre-api')->attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+        return $token;
+    }
+
+    /**
+     * Get the authenticated User.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function me()
+    {
+        return response()->json(auth()->guard('membre-api')->user());
+    }
+
+    /**
+     * Log the user out (Invalidate the token).
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function logout()
+    {
+        auth()->guard('membre-api')->logout();
+
+        return response()->json(['message' => 'Successfully logged out member']);
     }
 }

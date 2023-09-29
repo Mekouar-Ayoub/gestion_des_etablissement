@@ -14,6 +14,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Navigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 function Copyright(props) {
   return (
@@ -47,9 +49,10 @@ function SignIn() {
         email,
         password,
       });
-      var token = response.data[0].token;
-      console.log(response);
-      sessionStorage.setItem('token',token);
+      const type = 1;
+      const token = response.data;
+      Cookies.set('token',token);
+      Cookies.set('headers', type);
       window.location.href = '/';
     } catch (error) {
       if (error.response) {
@@ -59,7 +62,10 @@ function SignIn() {
       }
     }
   };
-
+  const valuetoke = Cookies.get('token')
+  if (valuetoke) {
+    return <Navigate to="/" />;
+  }
   return (
 
     <ThemeProvider theme={defaultTheme}>

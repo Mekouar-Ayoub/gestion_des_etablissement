@@ -25,7 +25,7 @@ class ProfRequest extends FormRequest
             'nom'=>'required',
             'prenom'=>'required',
             'tel'=>'required',
-            'email'=>'required',
+            'email'=>'required | email',
             'password'=>'required',
             'adress'=>'required',
             'instrument'=>'required',

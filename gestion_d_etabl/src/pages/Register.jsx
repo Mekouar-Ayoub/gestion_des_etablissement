@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import { Navbar } from 'flowbite-react';
 
 function Register() {
   const [name, setName] = useState('');
@@ -10,7 +10,7 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!nom || !email || !password) {
+    if (!name || !email || !password) {
       setErrorMessage('Please enter all fields');
       return;
     }

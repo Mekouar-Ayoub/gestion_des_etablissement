@@ -147,7 +147,7 @@ function AddElevToCoure() {
                                         {
                                             data.map((item) => (
                                                 item.etudient === 1 &&
-                                                <tr>
+                                                <tr key={item.id}>
                                                     <td className="w-1/3 text-left py-3 px-4">{item.prenom} </td>
                                                     <td className="w-1/3 text-left py-3 px-4">{item.nom}</td>
                                                     <td className="text-left py-3 px-4"><a className="hover:text-blue-500" href="tel:622322662">{item.tel}</a></td>
