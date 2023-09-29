@@ -23,7 +23,7 @@ import ProfeDashoard from "../pages/profs/Dashboard"
 import Events from "../pages/admin/Events";
 import AddEvent from "../pages/events/AjouterEvent"
 import PasswordResetComp from '../components/PasswordResetComp'
-import { CallToAction } from "@mui/icons-material";
+import CallToAction from "../pages/CallToAction";
 import PublicationsHome from "../pages/PublicationsHome";
 /*
 
@@ -57,19 +57,22 @@ function Myrouter() {
                 
                 <Route path="/cours" element={<AfecherLesCours />} />
                 <Route path="/cours/add" element={<AjouterCours />} />
-                <Route path="/addtocours/:coureId" element={<AddEleveToCours />} />
+                <Route path="/cours/:coureId" element={<AddEleveToCours />} />
+
+                <Route path="/admin/profs/add" element={<AjouterProf />} />
+                <Route path="/admin/profs" element={<DisplayProfe />} />
 
                 <Route path='/families/membres/add' element={<AddMemberToFamily />} />
                 <Route path="/calendar" element={<Calendar />} />
-                <Route path="/admin/profs/addprof" element={<AjouterProf />} />
+                
                 <Route path="/publications/addpublication" element={<AjouterPublication />} />
                 <Route path="/event/addevent" element={<AddEvent />} />
                 
-                <Route path="/eleve/ShowAllmember" element={<ShowAllmember />} />
+                <Route path="/eleves/" element={<ShowAllmember />} />
                 
                 <Route path="/publications/all" element={<ShowAllPub />} />
                 
-                <Route path="/prof/displayprof" element={<DisplayProfe />} />
+                
                 
                 <Route path="/admin/events" element={<Events />} />
             </Routes>

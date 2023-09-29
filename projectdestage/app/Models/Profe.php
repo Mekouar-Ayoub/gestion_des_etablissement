@@ -41,7 +41,6 @@ class Profe extends Authenticatable implements JWTSubject
         'password',
         'adress',
         'instrument',
-        'cv',
         'tarif',
         'solde',
         'type'

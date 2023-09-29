@@ -13,7 +13,7 @@ const defaultTheme = createTheme();
 
 function AjouterCoure() {
     const [isSlidOpen, setIsSlidOpen] = useState(false);
-    const [errorMessage] = useState('');
+    const [errorMessage,setErrorMessage] = useState('');
     const [nom, setNom] = useState('');
     const [prenom, setPrenom] = useState('');
     const [tel, setTel] = useState('');
@@ -28,6 +28,7 @@ function AjouterCoure() {
     const handelCvChange = (e) => {
         setCv(e.target.files[0])
     }
+    //TODO multiple instruments from select 
     const handleSubmit = () => {
         const formData = new FormData();
         formData.append('nom', nom);
@@ -41,39 +42,23 @@ function AjouterCoure() {
         formData.append('tarif', tarif);
         formData.append('solde', solde);
         axios
-            .post('http://localhost:8000/api/AjouterProfe', formData, {
+            .post('http://localhost:8000/api/profs', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             })
             .then((response) => {
                 setSuccessMessage('profe added successfully');
-                window.location.href = '/profes/DisplayProfe';
+                window.location.href = '/admin/profs';
             })
             .catch((error) => {
+                setErrorMessage(error)
                 console.log('Error during submission:', error);
             });
     }
 
     return (
-        <div className="bg-gray-100 font-family-karla flex">
-            <Aside />
-            <div className="w-full flex flex-col h-screen overflow-y-hidden">
-                <header className="w-full items-center bg-[#3d68ff] py-2 px-6 hidden sm:flex">
-                    <div className="w-1/2"></div>
-                    <div className="relative w-1/2 flex justify-end">
-                        <button onClick={() => setIsSlidOpen(!isSlidOpen)} className="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
-                            <img src="https://source.unsplash.com/uJ8LNVCBjFQ/400x400" alt="avatar" className="w-full h-full object-cover object-center" />
-                        </button>
-                        {isSlidOpen && (
-                            <div className="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16 z-50">
-                                <a href="#" className="block px-4 py-2 account-link hover:text-white">Account</a>
-                                <a href="#" className="block px-4 py-2 account-link hover:text-white">Support</a>
-                                <a href="#" className="block px-4 py-2 account-link hover:text-white">Sign Out</a>
-                            </div>
-                        )}
-                    </div>
-                </header>
+       
                 <div className="w-full overflow-x-hidden border-t flex flex-col">
                     <main className="w-full flex-grow p-6">
                         <h1 className="text-3xl text-black pb-6">Ajouter Un Professeur</h1>
@@ -140,20 +125,7 @@ function AjouterCoure() {
                                         }}
                                     />
                                 </div>
-                                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                                    <TextField
-                                        
-                                        fullWidth
-                                        id="CV"
-                                        label="Cv"
-                                        type="file"
-
-                                        onChange={handelCvChange}
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
-                                    />
-                                </div>
+                               
                             </div>
                             <div className="flex flex-wrap -mx-3 mb-6">
                                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -234,8 +206,7 @@ function AjouterCoure() {
                         </form>
                     </main>
                 </div>
-            </div>
-        </div>
+
     );
 }
 

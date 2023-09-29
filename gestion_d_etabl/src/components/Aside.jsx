@@ -64,7 +64,7 @@ function Aside() {
           {headers === "0" && (
             <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
               <AiOutlineSolution />
-              <Link to="/profs">Gestion des Professeurs</Link>
+              <Link to="/admin/profs">Gestion des Professeurs</Link>
             </a>
           )}
           {headers === "0" && (

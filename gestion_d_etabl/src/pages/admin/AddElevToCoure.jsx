@@ -14,6 +14,8 @@ function AddEleveToCours() {
     const [coure_id] = useState(coureId);
     const [successMessage, setSuccessMessage] = useState();
     const [nom, setNom] = useState()
+    const [cours, setCours] = useState();
+    const params = useParams();
     const etudient = {
         membre_id,
         coure_id
@@ -21,19 +23,43 @@ function AddEleveToCours() {
 
     useEffect(() => {
         axios
-            .get('http://localhost:8000/api/ShowMembre')
+            .get('http://localhost:8000/api/eleves')
             .then(response => {
-                const data = response.data.data;
+                const data = response.data;
                 setData(data);
+                
+
+
+                axios
+                .get('http://localhost:8000/api/cours/'+ params.coureId)
+                .then(response => {
+                    const resData = response.data;
+                    
+                    setCours(resData);
+                    const memberIds = []
+                    resData.map(value=> memberIds.push(value.membre_id))
+                    const newData = data.filter((value)=> {
+                        console.log(value.id)
+                        return memberIds.includes(value.id)
+                    })
+                    
+                    setData(newData)
+    
+                })
+                .catch(error => {
+                    console.log(error);
+                })
             })
             .catch(error => {
                 console.log(error);
             })
-    })
-    const hendelsubmit = () => {
-        console.log(etudient)
-        axios
-            .post('http://localhost:8000/api/AddToCoure', etudient)
+
+            
+    },[])
+
+    const handleSubmit = () => {
+        //console.log(etudient)
+        axios.post('http://localhost:8000/api/cours/'+params.coureId+'/eleves', etudient)
             .then((response) => {
                 setSuccessMessage('the etudient added to coure')
             })
@@ -48,8 +74,6 @@ function AddEleveToCours() {
 
     return (
         <div className="bg-gray-100 font-family-karla flex">
-           
-
                 <div className="w-full overflow-x-hidden border-t flex flex-col">
                     <main className="w-full flex-grow p-6">
                         <div className="w-full mt-12">
@@ -58,12 +82,7 @@ function AddEleveToCours() {
                             </p>
 
                             <div className="bg-white overflow-auto">
-                                <div className=" w-full">
-                                    <input className=" w-[87%] rounded my-3" type="text" value={membre_id} onChange={(e) => setMembre_id(e.target.value)} readOnly={true} hidden={true} />
-                                    <input className=" w-[87%] rounded my-3" type="text" value={nom} />
-                                    <button onClick={hendelsubmit} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add to Course</button>
-                                    {successMessage}
-                                </div>
+                                
                                 <table className="min-w-full bg-white">
                                     <thead className="bg-gray-800 text-white">
                                         <tr>

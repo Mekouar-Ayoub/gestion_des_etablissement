@@ -20,17 +20,10 @@ class ProfeController extends Controller
         $profe->password = Hash::make($request->input('password'));
         $profe->adress = $request->input('adress');
         $profe->instrument = $request->input('instrument');
-        $profe->cv = $request->input('cv');
-        // if ($request->hasFile('cv')) {
-        //     $cv = $request->file('cv');
-        //     $cvName = time() . '.' . $cv->getClientOriginalExtension();
-        //     $cv->move(public_path('cvs'), $cvName);
-        //     $profe->cv = $cvName;
-        // }
         $profe->tarif = $request->input('tarif');
         $profe->solde = $request->input('solde');
-        $profe->token = Hash::make($request->input('tel')); 
-
+        $profe->token = Hash::make($request->input('tel'));
+        error_log($profe);
         $profe->save();
         if ($profe) {
             return response()->json([$profe, 'status' => true]);
@@ -51,7 +44,6 @@ class ProfeController extends Controller
             'email'=>'required',
             'adress'=>'required',
             'instrument'=>'required',
-            'cv'=>'required',
             'tarif'=>'required',
             'solde'=>'required',
         ]);
@@ -60,7 +52,7 @@ class ProfeController extends Controller
             return response()->json(['message' => 'Member not found'], 404);
         }
         $membre->update($validatedData);
-    
+
         return response()->json(['message' => 'Member updated successfully']);
     }
 
@@ -70,7 +62,7 @@ class ProfeController extends Controller
         $data = Profe::all();
         return response()->json($data);
     }
-    
+
     public function find($id)
     {
         $data = Profe::with('cours')->find($id);
@@ -110,5 +102,5 @@ class ProfeController extends Controller
         return response()->json(['message' => 'Successfully logged out profe']);
     }
 
-    
+
 }

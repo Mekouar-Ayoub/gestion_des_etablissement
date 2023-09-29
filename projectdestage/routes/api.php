@@ -44,7 +44,8 @@ Route::group(['middleware' => 'profe:profe-api'], function () {
 
 // membre
 
-Route::post('eleves', [MembreController::class, 'MemberLogin']);
+Route::get('eleves', [MembreController::class, 'GetAllEleves']);
+Route::post('eleves/login', [MembreController::class, 'MemberLogin']);
 Route::get('eleves/{id}', [MembreController::class,'Findmember']);
 Route::put('eleves/{id}', [MembreController::class,'updateMember']);
 Route::group(['middleware' => 'member:membre-api'], function () {
@@ -75,13 +76,19 @@ Route::post('publications', [ControllerPublication::class, 'AjouterPublication']
 Route::get('publications', [ControllerPublication::class, 'getPublication']);
 
 // coure
-Route::get('cours', [CoureController::class, 'toutlascoure']);
+Route::get('cours', [CoureController::class, 'GetAllCours']);
 Route::post('cours', [CoureController::class, 'AjouterCoure']);
+
+// table etudiant cours
+Route::post('cours/{id}/eleves', [Elev_coureController::class, 'store']);
+Route::get('cours/{id}', [Elev_coureController::class, 'GetCoursById']);
+Route::get('cours/eleves', [Elev_coureController::class, 'GetAllCoursWithEleves']);
 
 
 // Events
 Route::get('events', [EventController::class, 'getallevent']);
 Route::post('events', [EventController::class, 'ajouterEvent']);
 
-// Ajouter etudient to coure
-Route::post('cours/eleves', [Elev_coureController::class, 'store']);
+
+
+

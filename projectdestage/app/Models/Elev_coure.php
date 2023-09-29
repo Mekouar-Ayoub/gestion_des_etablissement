@@ -13,4 +13,6 @@ class Elev_coure extends Model
         'membre_id',
         'coure_id'
     ];
+
+
 }

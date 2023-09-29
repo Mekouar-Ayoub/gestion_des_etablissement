@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Coure;
 use App\Http\Requests\CoureRequest;
+use stdClass;
 
 class CoureController extends Controller
 {
-    public function toutlascoure(){
-        $data = Coure::with('profe')->paginate(15);
-        return response()->json($data);
-    }
+
+
     public function AjouterCoure(CoureRequest $request)
     {
         $request->validated();
@@ -23,4 +22,13 @@ class CoureController extends Controller
         $coure->save();
         return response()->json($coure->save());
     }
+
+    public function GetAllCours(){
+
+        $data = Coure::with('membres')->with('profe')->paginate(15);
+        //$data = Elev_coure::with('eleves')->paginate(15);
+        return response()->json($data);
+    }
+
+
 }

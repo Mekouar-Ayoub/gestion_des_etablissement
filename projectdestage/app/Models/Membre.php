@@ -51,6 +51,11 @@ class Membre extends Authenticatable implements JWTSubject
         return $this->belongsTo(Famille::class);
     }
 
+    public function coure()
+    {
+        return $this->belongsToMany(Coure::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

@@ -10,7 +10,7 @@ function Dashoard() {
     const [data, setData] = useState([]);
     useEffect(() => {
         axios
-            .get('http://localhost:8000/api/ShowMembre')
+            .get('http://localhost:8000/api/eleves')
             .then(response => {
                 const data = response.data.data;
                 setData(data);

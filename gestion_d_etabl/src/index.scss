@@ -2,22 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
+$admin-primary: #000;
+$admin-secondary:#fff;
+$admin-background: lightblue;
+$admin-text:#c0a9a9;
 
 
-$student-background: #fff;
-$student-primary:#fff;
+$student-primary: #fff;
 $student-secondary:#fff;
+$student-background: #FF4500;
 $student-text:#c0a9a9;
 
 
 $prof-primary:#fff;
 $prof-secondary:#fff;
-$prof-background:#fff;
-$prof-text:#fff;*
+$prof-background:#7f00ff;
+$prof-text:#fff;
 
 
 
-div{
+div {
     width: 100%;
 }
 
+.student-primary{
+    color: $student-primary;
+}
+
+.prof-primary{
+    color: $prof-primary ;
+}
+
+.admin-primary{
+    color: $admin-primary;
+}
+
+.student-background {
+    background-color: $student-background;
+}
+
+.prof-background{
+    background-color: $prof-background;
+}
+
+.admin-background {
+    background-color: $admin-background;
+}

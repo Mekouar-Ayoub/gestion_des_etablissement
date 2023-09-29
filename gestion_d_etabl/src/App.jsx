@@ -1,11 +1,17 @@
 import Myrouter from "./routes";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import Aside from "./components/Aside";
+import { CallToAction } from "@mui/icons-material";
 function App() {
   const [isNavOpen, setIsNavOpen] = useState(false);
     const [isSlidOpen, setIsslidOpen] = useState(false)
+    const location = useLocation()
+    useEffect(()=> {
+      //console.log(location.pathname)
+    }, [])
   return (<>
+  { location.pathname != '/' ? <>
     <header className="w-full items-center bg-[#3d68ff] py-2 px-6 hidden sm:flex">
                     <div className="w-1/2"></div>
                     <div className="relative w-1/2 flex justify-end">
@@ -31,9 +37,11 @@ function App() {
             </Aside>
             <Myrouter />
     </div>
-      
-
-    </>
+    </> : <Myrouter></Myrouter>
+  
+    
+  }
+  </>
   )
 }
 

@@ -12,4 +12,12 @@ class Coure extends Model
     {
         return $this->belongsTo(Profe::class);
     }
+
+    //TODO new can define '' creer coure_membre
+    public function membres()
+    {
+        return $this->belongsToMany(Membre::class, 'elev_coures');
+    }
+
+
 }

@@ -29,7 +29,6 @@ class ProfRequest extends FormRequest
             'password'=>'required',
             'adress'=>'required',
             'instrument'=>'required',
-            'cv'=>'required',
             'tarif'=>'required',
             'solde'=>'required'
         ];

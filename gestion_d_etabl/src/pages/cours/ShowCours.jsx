@@ -8,14 +8,18 @@ function index() {
     const [isNavOpen, setIsNavOpen] = useState(false);
     const [isSlidOpen, setIsslidOpen] = useState(false)
     const [data, setData] = useState([]);
+    const [nomPrenoms,setNomPrenoms]= useState([]);
     useEffect(() => {
         axios
             .get('http://localhost:8000/api/cours')
             .then(response => {
-                const data = response.data.data;
-                setData(data);
-            })
-    })
+                setData(response.data.data)
+                
+
+        })
+
+            
+    },[])
     return (
         <>
             <div className="w-full overflow-x-hidden border-t flex flex-col">
@@ -35,12 +39,13 @@ function index() {
                             <table className="w-full bg-white">
                                 <thead className="">
                                     <tr className="w-full">
-                                        <th className="text-left py-3 uppercase font-semibold text-sm">Titre</th>
-                                        <th className="text-left py-3 uppercase font-semibold text-sm">Prix horaire</th>
+                                        <th className="text-left py-3 uppercase font-semibold text-sm">Type de cours</th>
+                                        <th className="text-left py-3 uppercase font-semibold text-sm">Prix horaire du cours</th>
                                         <th className="text-left py-3 uppercase font-semibold text-sm">Statut du cours</th>
-                                        <th className="text-left py-3 uppercase font-semibold text-sm">Debut de cours</th>
-                                        <th className="text-left py-3 uppercase font-semibold text-sm">Fin de coure</th>
+                                        <th className="text-left py-3 uppercase font-semibold text-sm">Debut du cours</th>
+                                        <th className="text-left py-3 uppercase font-semibold text-sm">Fin du cours</th>
                                         <th className="text-left py-3 uppercase font-semibold text-sm">Professeur</th>
+                                        <th className="text-left py-3 uppercase font-semibold text-sm">Eleves</th>
                                         <th className="text-left py-3 uppercase font-semibold text-sm">Actions</th>
                                     </tr>
                                 </thead>
@@ -53,12 +58,17 @@ function index() {
                                                 <td className="text-left py-3"><a className="hover:text-blue-500" href="tel:622322662">{item.etat}</a></td>
                                                 <td className="text-left py-3"><a className="hover:text-blue-500">{item.debut_de_coure}</a></td>
                                                 <td className="text-left py-3"><a className="hover:text-blue-500">{item.fin_de_coure}</a></td>
-                                                <td className="text-left py-3"><a className="hover:text-blue-500">{item.profe.nom}</a></td>
-                                                <td className="text-left py-3"><a className="hover:text-blue-500"><Link to={`/addtocours/${item.id}`}><svg width="25" height="25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <td className="text-left py-3"><a className="hover:text-blue-500"></a>{item.profe.nom}</td>
+                                                <td className="text-left py-3"><a className="hover:text-blue-500"></a>{item.membres.map((value) => {
+                                                    return value.nom + ' ' + value.prenom + ' ,'
+                                                })}</td>
+                                                <td className="text-left py-3"><a className="hover:text-blue-500"><Link to={`/cours/${item.id}`}><svg width="25" height="25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                     <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
                                                     <path d="M12 8v8"></path>
                                                     <path d="M8 12h8"></path>
-                                                </svg></Link></a></td>
+                                                </svg></Link></a>
+                                                <a className="hover:text-blue-500"><Link to={`/cours/${item.id}/modify`} >modify</Link></a>
+                                                </td>
                                             </tr>
                                         ))
                                     }
@@ -76,3 +86,48 @@ function index() {
 }
 
 export default index;
+
+
+/*
+
+const data = response.data.data;    
+                data.map((value,index)=> {
+                    axios
+                    .get('http://localhost:8000/api/cours/'+value.id)
+                    .then(response1 => {
+                        
+                        console.log(response1.data)
+                            if(response1.data.length >0 ){
+                                response1.data.map((value) => {
+                                    axios.get('http://localhost:8000/api/eleves/'+response1.data.membre_id)
+                                    .then(response2=> {
+                                        console.log(response2.data)
+                                        newElevesCoursArray.push({
+                                            coursId : value.id,
+                                            eleves: response2.data
+                                        })
+                                })
+                                
+                            }
+
+                            else{
+                                axios.get('http://localhost:8000/api/eleves/'+response1.data.membre_id)
+                                .then(response2=> {
+                                    console.log(response2.data)
+                                    newElevesCoursArray.push({
+                                        coursId : value.id,
+                                        eleves: response2.data
+                                    })
+                            }
+                            
+                                
+                    setCoursWithEleves(newElevesCoursArray)
+                            }
+                            
+                            )
+                        }
+                        
+                    )
+                })
+
+                */

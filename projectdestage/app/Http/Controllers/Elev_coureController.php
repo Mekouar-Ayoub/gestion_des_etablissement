@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class Elev_coureController extends Controller
 {
+
+
+
+
+
     /**
      * Display a listing of the resource.
      */
@@ -34,7 +39,7 @@ class Elev_coureController extends Controller
                 "coure_id" => 'required'
             ]
         );
-        
+
         Elev_coure::create($data);
         return response()->json('the etudient added to coure');
     }
@@ -70,4 +75,15 @@ class Elev_coureController extends Controller
     {
         //
     }
+
+    //with members$query =
+
+    public function GetCoursById($id){
+
+        $data = Elev_coure::all()->where('coure_id','=', $id);
+        //->where('coure_id', $id)
+        return response()->json($data);
+    }
+
+
 }

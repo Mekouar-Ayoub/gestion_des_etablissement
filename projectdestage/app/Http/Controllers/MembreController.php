@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Hash;
 
 class MembreController extends Controller
 {
+
+    public function GetAllEleves()
+    {
+        $eleves = Membre::all();
+        return response()->json($eleves);
+    }
     public function AddMembre(MembreRequest $request)
     {
         $data = $request->validated();
@@ -55,16 +61,16 @@ class MembreController extends Controller
             'etudient'=>'required',
             'type'=>'required',
         ]);
-        
+
         $membre = Membre::find($id);
         if (!$membre) {
             return response()->json(['message' => 'Member not found'], 404);
         }
         $membre->update($validatedData);
-    
+
         return response()->json(['message' => 'Member updated successfully']);
     }
-    
+
 
     public function Findmember($id)
     {
