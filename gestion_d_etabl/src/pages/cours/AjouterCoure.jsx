@@ -39,7 +39,7 @@ function AjouterCours() {
 
   useEffect(() => {
 
-    axios.get('http://localhost:8000/api/profs')
+    axios.get(process.env.REACT_APP_API_URL+'/profs')
       .then(response => {
         const data = response.data;
         setProfes(data);
@@ -47,7 +47,7 @@ function AjouterCours() {
       .catch(error => {
         console.error(error);
       });
-    axios.get('http://localhost:8000/api/eleves')
+    axios.get(process.env.REACT_APP_API_URL+'/eleves')
       .then(response => {
         const data = response.data;
         setListeEleves(data);
@@ -75,7 +75,7 @@ function AjouterCours() {
 
     try {
       const response = await axios.post(
-        'http://localhost:8000/api/cours',
+        process.env.REACT_APP_API_URL+'/cours',
         data
       );
       setSuccessMessage('Event added successfully');

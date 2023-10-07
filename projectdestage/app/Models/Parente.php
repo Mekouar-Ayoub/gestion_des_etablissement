@@ -12,4 +12,6 @@ class Parente extends Model
         'name',
         'email',
     ];
+
+
 }

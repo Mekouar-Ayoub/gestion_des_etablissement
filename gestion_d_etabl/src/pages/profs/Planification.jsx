@@ -18,7 +18,7 @@ const Calendar = () => {
     useEffect(()=>{
         const token = Cookies.get('token');
     
-        axios.get(`http://localhost:8000/api/profs/${id}`, {
+        axios.get(`${process.env.REACT_APP_API_URL}/profs/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

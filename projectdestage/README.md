@@ -66,6 +66,6 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 
-JWT TOken: irYeOT4TgtDo6Gw7NYmVbsctg4SNj5YfovqXUuh8pS9Fd1hqgAU2V3lrjDtHBGAR
+JWT TOken: duZVxnj7SA4SYjSNVUAvwo81ug6diDCEi1eCCSYcLZd2n3tgppbtxVV3uRfPIVwS
 
 php artisan jwt:secret

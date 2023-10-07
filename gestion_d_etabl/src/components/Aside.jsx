@@ -17,81 +17,98 @@ function Aside() {
       <aside className="relative bg-sidebar h-screen w-[25%] sm:block shadow-xl">
         {headers === "0" && (
           <div className="p-6">
-            <a className="text-white text-3xl font-semibold uppercase hover:text-gray-300">
+            <h1 className="text-white text-3xl font-semibold uppercase hover:text-gray-300">
               Admin
-            </a>
+            </h1>
           </div>
         )}
         {headers === "1" && (
           <div className="p-6">
-            <a className="text-white text-3xl font-semibold uppercase hover:text-gray-300">
-              Profe
-            </a>
+            <h1 className="text-white text-3xl font-semibold uppercase hover:text-gray-300">
+              Prof
+            </h1>
           </div>
         )}
         {headers === "2" && (
           <div className="p-6">
-            <a className="text-white text-3xl font-semibold uppercase hover:text-gray-300">
+            <h1 className="text-white text-3xl font-semibold uppercase hover:text-gray-300">
               Member
-            </a>
+            </h1>
           </div>
         )}
         <nav className="text-white text-base font-semibold pt-3 ">
           {headers === "0" && (
+            <Link to="/admin/dashboard">
             <a className="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
               <AiOutlineUser />
-              <Link to="/admin/dashboard">Dashboard</Link>
-            </a>
+              Dashboard
+            </a></Link>
           )}
           {headers === "0" && (
+            <Link to="/admin/cours">
             <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
               <AiOutlineInsertRowAbove />
-              <Link to="/cours">Liste des Cours</Link>
+              Liste des Cours
             </a>
+            </Link>
           )}
           {headers === "0" && (
+            <Link to="/admin/calendar">
             <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
               <AiOutlineCalendar />
-              <Link to="/calendar">Calendrier</Link>
+              Calendrier
             </a>
+            </Link>
           )}
           {headers === "0" && (
+            <Link to="/admin/families/">
             <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
               <AiOutlineSolution />
-              <Link to="/families/">Gestion des Familles</Link>
+              Gestion des Familles
             </a>
+            </Link>
           )}
           {headers === "0" && (
+            <Link to="/admin/profs">
             <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
               <AiOutlineSolution />
-              <Link to="/admin/profs">Gestion des Professeurs</Link>
+              Gestion des Professeurs
             </a>
+            </Link>
           )}
           {headers === "0" && (
+            <Link to="/admin/eleves">
             <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
               <AiOutlineUserSwitch />
-              <Link to="/admin/eleves/showalleleves">Gestion des éléves</Link>
+              Gestion des éléves
             </a>
+            </Link>
           )}
 
           {headers === "0" && (
+            <Link to="/admin/publications">
             <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
               <AiOutlinePicture />
-              <Link to="/publications/all">Gestion des Publications</Link>
+              Gestion des Publications
             </a>
+            </Link>
           )}
 
           {headers === "0" && (
+             <Link to="/admin/events">
             <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
               <AiOutlinePicture />
-              <Link to="/admin/events">Gestion des Taches</Link>
+              Gestion des Taches
             </a>
+            </Link>
           )}
           {headers === "1" && (
+            <Link to="/profs/listecours">
             <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
               <AiOutlineInsertRowAbove />
-              <Link to="/profes/listecours">Liste des Cours</Link>
+              Liste des Cours
             </a>
+            </Link>
           )}
         </nav>
       </aside>

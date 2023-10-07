@@ -12,7 +12,7 @@ class FamilleController extends Controller
     public function index()
     {
         $familles = Famille::with('members')->paginate(15);
-        return response($familles);
+        return response()->json($familles);;
     }
 
     // function to show one famille

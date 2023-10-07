@@ -22,11 +22,9 @@ return new class extends Migration
             $table->string('password');
             $table->string('adress');
             $table->string('instrument');
-            $table->string('cv');
             $table->string('tarif');
             $table->string('solde');
             $table->string('type')->default('profe');
-            $table->string('token');
             $table->timestamps();
         });
     }

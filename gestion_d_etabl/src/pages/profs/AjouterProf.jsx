@@ -6,13 +6,13 @@ import TextField from '@mui/material/TextField';
 import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
 import { createTheme } from '@mui/material/styles';
 import axios from 'axios';
+import Retour from "../../components/Retour";
 
 
 
 const defaultTheme = createTheme();
 
 function AjouterCoure() {
-    const [isSlidOpen, setIsSlidOpen] = useState(false);
     const [errorMessage,setErrorMessage] = useState('');
     const [nom, setNom] = useState('');
     const [prenom, setPrenom] = useState('');
@@ -42,7 +42,7 @@ function AjouterCoure() {
         formData.append('tarif', tarif);
         formData.append('solde', solde);
         axios
-            .post('http://localhost:8000/api/profs', formData, {
+            .post(process.env.REACT_APP_API_URL+'/profs', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -61,6 +61,7 @@ function AjouterCoure() {
        
                 <div className="w-full overflow-x-hidden border-t flex flex-col">
                     <main className="w-full flex-grow p-6">
+                        <Retour to='/admin/profs'></Retour>
                         <h1 className="text-3xl text-black pb-6">Ajouter Un Professeur</h1>
                         <form >
                             <div className="flex flex-wrap -mx-3 mb-6">
@@ -175,7 +176,7 @@ function AjouterCoure() {
                                         required
                                         fullWidth
                                         id="solde"
-                                        label="Solde Initial"
+                                        label="Montant à rendre au professeur"
                                         type="number"
 
                                         value={solde} onChange={(e) => setSolde(e.target.value)}
@@ -183,6 +184,7 @@ function AjouterCoure() {
                                             shrink: true,
                                         }}
                                     />
+                                    <p>Si une avance sur salaire a été donnée veuillez indiquer le montant avec -</p>
                                 </div>
                             </div>
                             <div className="flex flex-wrap -mx-3 mb-2">

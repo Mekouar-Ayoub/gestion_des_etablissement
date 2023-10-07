@@ -1,4 +1,6 @@
+
 import React, { useState } from "react";
+
 function SearchBar({ searchQuery, onInputChange, handleSearch }) {
     return (
         <div className="flex items-center">

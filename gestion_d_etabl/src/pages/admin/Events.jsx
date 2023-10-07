@@ -19,7 +19,7 @@ function Events() {
     useEffect(() => {
         //TODO getAll events 
 
-        axios.get('http://localhost:8000/api/events').then(response => {
+        axios.get(process.env.REACT_APP_API_URL+'/events').then(response => {
             console.log(response.data)
             setEvents(response.data)
         }
@@ -41,7 +41,7 @@ function Events() {
             return;
         }
         try {
-            const response = await axios.post('http://localhost:8000/api/events', {
+            const response = await axios.post(process.env.REACT_APP_API_URL+'/events', {
                 title: title,
                 description: description,
                 date: date,

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Cookies from 'js-cookie';
+import Retour from "../../components/Retour";
 function UpdateMember() {
-  const { idprofe } = useParams()
+  const { profId } = useParams()
   const [profeData, setProfeData] = useState({});
   const [nom, setNom] = useState('');
   const [prenom, setPrenom] = useState('');
@@ -18,26 +19,22 @@ function UpdateMember() {
 
   console.log(profeData[0])
   useEffect(() => {
-    const token = Cookies.get('token');
     
-    axios.get(`http://localhost:8000/api/profs/${idprofe}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    axios.get(`${process.env.REACT_APP_API_URL}/profs/${profId}`, {
     })
     .then(response => {
       const data = response.data;
       console.log(data);
       setProfeData(data)
-      setNom(data[0].nom)
-      setPrenom(data[0].prenom)
-      setTel(data[0].tel)
-      setEmail(data[0].email)
-      setAdress(data[0].adress)
-      setInstrument(data[0].instrument)
-      setCv(data[0].cv)
-      setTarif(data[0].tarif)
-      setSolde(data[0].solde)
+      setNom(data.nom)
+      setPrenom(data.prenom)
+      setTel(data.tel)
+      setEmail(data.email)
+      setAdress(data.adress)
+      setInstrument(data.instrument)
+      setCv(data.cv)
+      setTarif(data.tarif)
+      setSolde(data.solde)
     })
     .catch(error => {
       if (error.response) {
@@ -48,7 +45,7 @@ function UpdateMember() {
         console.error('Request setup error:', error.message);
       }
     });
-  }, [idprofe]);
+  }, []);
   
 
   const handleSubmit = () => {
@@ -59,22 +56,18 @@ function UpdateMember() {
       email: email,
       adress: adress,
       instrument: instrument,
-      cv: cv,
       tarif:tarif,
       solde:solde,
     };
   
     console.log(updatedData)
-    const token = Cookies.get('token');
   
     axios
-      .post(`http://localhost:8000/api/updateProfe/${profeData[0].id}`, updatedData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      .put(`process.env.REACT_APP_API_URL'+'/profs/${profeData.id}`, updatedData, {
+
       })
       .then(function (response) {
-        window.location.href = '/profes/Profil';
+        window.location.href = '/profs';
       })
       .catch(function (error) {
         console.log(error);
@@ -86,6 +79,7 @@ function UpdateMember() {
     <div className="flex w-[98vw] h-[100vh]">
       <div className="flex flex-col ml-auto">
         <div className="ml-auto">
+        <Retour to='/admin/profs'></Retour>
           <div className="w-[100vw] rounded  flex items-center">
             <div className="w-[75%] bg-gray-100 ml-auto mr-auto h-[75%] flex items-center">
               <div className="w-full bg-gray-100 ml-auto mr-auto flex-col items-center">
@@ -114,14 +108,13 @@ function UpdateMember() {
                     <input className=" w-[75%] flex ml-auto mr-auto" value={instrument} onChange={(e) => setInstrument(e.target.value)} type="text" />
                   </div>
                   <div className=" my-3" >
-                    <label htmlFor="" className="w-[75%] flex ml-auto mr-auto my-2" >cv</label>
-                    <input className=" w-[75%] flex ml-auto mr-auto" value={cv} onChange={(e) => setCv(e.target.value)} type="text" />
+                  <label htmlFor="" className="w-[75%] flex ml-auto mr-auto my-2" >tarif</label>
+                    <input className=" w-[75%] flex ml-auto mr-auto" value={tarif} onChange={(e) => setTarif(e.target.value)} type="text" />
+                    <p className="text-red-500 text-center border-2 bg-white">Changer le tarif horaire ne change pas le prix pour les anciens cours</p>
                   </div>
                   <div className=" my-3" >
-                    <input className=" w-[75%] flex ml-auto mr-auto" value={tarif} onChange={(e) => setTarif(e.target.value)} type="text" hidden/>
-                  </div>
-                  <div className=" my-3" >
-                    <input className=" w-[75%] flex ml-auto mr-auto" value={solde} onChange={(e) => setSolde(e.target.value)} type="text" hidden/>
+                  <label htmlFor="" className="w-[75%] flex ml-auto mr-auto my-2" >solde</label>
+                    <input className=" w-[75%] bg-gray-400 flex ml-auto mr-auto" value={solde} onChange={(e) => setSolde(e.target.value)} type="text" readOnly />
                   </div>
                 <div className="my-3 w-[75%] ml-auto mr-auto ">
                   <button onClick={handleSubmit} className="bg-blue-500 p-2 rounded">Update</button>

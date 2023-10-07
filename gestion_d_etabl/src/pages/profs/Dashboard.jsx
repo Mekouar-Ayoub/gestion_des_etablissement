@@ -9,13 +9,10 @@ import { Link } from "react-router-dom";
 function ProfeDashoard() {
     const [isNavOpen, setIsNavOpen] = useState(false);
     const [isSlidOpen, setIsslidOpen] = useState(false);
-    const valuetoke = Cookies.get('token')
-    const headers = Cookies.get('headers')
+ 
     const [userData, setUserData] = useState(null);
-    const url = "http://localhost:8000/api/profs";
-    if (headers !== 1 && !valuetoke) {
-        return <Navigate to="/" />;
-    }
+    const url = "process.env.REACT_APP_API_URL'+'/profs";
+
     useEffect(() => {
         const fetchUserData = async () => {
             try {

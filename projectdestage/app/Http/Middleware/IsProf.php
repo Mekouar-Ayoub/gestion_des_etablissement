@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class IsProf
@@ -15,7 +16,9 @@ class IsProf
      */
     public function handle(Request $request, Closure $next): Response
     {
-       
-        return $next($request);
+        if (Auth::guard('profe')->check()) {
+            return $next($request);
+        }
+        return response()->json('You are not authorized as an admin.', 401);
     }
 }

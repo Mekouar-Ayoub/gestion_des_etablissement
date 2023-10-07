@@ -37,7 +37,7 @@ function AddEvent() {
         console.log(data)
         try {
             const response = await axios.post(
-                'http://localhost:8000/api/events',
+                process.env.REACT_APP_API_URL+'/events',
                 data
             );
             setSuccessMessage('Event added successfully');

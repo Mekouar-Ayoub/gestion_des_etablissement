@@ -16,7 +16,8 @@ class Kernel extends HttpKernel
     protected $middleware = [
         // \App\Http\Middleware\TrustHosts::class,
         \App\Http\Middleware\TrustProxies::class,
-        \Illuminate\Http\Middleware\HandleCors::class,
+        //\Illuminate\Http\Middleware\HandleCors::class,
+        \App\Http\Middleware\Cors::class,
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
@@ -53,11 +54,10 @@ class Kernel extends HttpKernel
      *
      * @var array<string, class-string|string>
      */
+    /*
+
+    */
     protected $middlewareAliases = [
-        'auth' => \App\Http\Middleware\Authenticate::class,
-        'admin' => \App\Http\Middleware\Authenticateadmin::class,
-        'profe' => \App\Http\Middleware\Authenticateprofe::class,
-        'member' => \App\Http\Middleware\Authenticatemembre::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
@@ -67,6 +67,10 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'auth' => \App\Http\Middleware\Authenticate::class,
+        'admin' => \App\Http\Middleware\Authenticateadmin::class,
+        'profe' => \App\Http\Middleware\Authenticateprofe::class,
+        'member' => \App\Http\Middleware\Authenticatemembre::class,
         'IsAdmin' => \App\Http\Middleware\IsAdmin::class,
         'IsProf' => \App\Http\Middleware\IsProf::class,
         'IsStudent' => \App\Http\Middleware\IsStudent::class,

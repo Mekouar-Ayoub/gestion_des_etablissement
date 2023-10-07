@@ -15,4 +15,11 @@ class Elev_coure extends Model
     ];
 
 
+    //Not working
+    public function coure()
+    {
+        return $this->hasOne(Coure::class);
+    }
+
+
 }

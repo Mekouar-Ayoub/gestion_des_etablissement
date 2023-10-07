@@ -17,18 +17,7 @@ import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit">
-        houssniismail
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+
 
 
 
@@ -45,7 +34,7 @@ function SignIn() {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:8000/api/profs/login', {
+      const response = await axios.post(process.env.REACT_APP_API_URL+'/profs/login', {
         email,
         password,
       });
@@ -62,10 +51,8 @@ function SignIn() {
       }
     }
   };
-  const valuetoke = Cookies.get('token')
-  if (valuetoke) {
-    return <Navigate to="/" />;
-  }
+ 
+
   return (
 
     <ThemeProvider theme={defaultTheme}>
@@ -142,7 +129,6 @@ function SignIn() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   );

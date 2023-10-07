@@ -10,7 +10,7 @@ function PublicationsHome() {
 
     useEffect(() => {
         axios
-            .get('http://localhost:8000/api/getPublication')
+            .get(process.env.REACT_APP_API_URL+'/getPublication')
             .then(response => {
                 const data = response.data.data;
                 setData(data);
@@ -20,9 +20,6 @@ function PublicationsHome() {
             });
     }, []);
 
-    if (!sessionStorage.token) {
-        return <Navigate to="/admin/login" />;
-    }
     return (
         <>
         
@@ -34,7 +31,7 @@ function PublicationsHome() {
                     {data.map((item) => (
                         <div key={item.id} className=" border w-[35vw] ml-auto mr-auto rounded mt-[50px] pt-6">
                             <div >
-                                <img src={`http://localhost:8000/images/${item.image}`} className="w-[30vw] ml-auto mr-auto" alt="" />
+                                <img src={`${process.env.REACT_APP_API_URL}/images/${item.image}`} className="w-[30vw] ml-auto mr-auto" alt="" />
                             </div>
                             <div className="w-[30vw] ml-auto mr-auto ">
                                 <div className="flex"> 

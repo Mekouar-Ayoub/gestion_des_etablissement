@@ -2,17 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-$admin-primary: #000;
+$admin-primary: #fff;
 $admin-secondary:#fff;
-$admin-background: lightblue;
+$admin-background: #0E4C92;
 $admin-text:#c0a9a9;
 
 
-$student-primary: #fff;
-$student-secondary:#fff;
-$student-background: #FF4500;
+$student-primary: #550393;
+$student-secondary:#47ACD2;
+$student-background: #47ACD2;
 $student-text:#c0a9a9;
-
+$student-border:#F1D9FF;
 
 $prof-primary:#fff;
 $prof-secondary:#fff;
@@ -20,6 +20,9 @@ $prof-background:#7f00ff;
 $prof-text:#fff;
 
 
+body{
+    height: 100%;
+}
 
 div {
     width: 100%;
@@ -27,6 +30,10 @@ div {
 
 .student-primary{
     color: $student-primary;
+}
+
+.student-secondary{
+    color: $student-secondary;
 }
 
 .prof-primary{
@@ -47,4 +54,22 @@ div {
 
 .admin-background {
     background-color: $admin-background;
+}
+
+.student-border {
+    border:1px solid #F1D9FF;
+    border-radius: 31.1px;
+}
+
+.student-border-selection {
+    border-color: $student-primary;
+}
+
+.student-dashboard-title {
+    font-family: Outfit;
+    font-size: 43px;
+    font-weight: 400;
+    line-height: 54px;
+    letter-spacing: 0em;
+    text-align: left;
 }

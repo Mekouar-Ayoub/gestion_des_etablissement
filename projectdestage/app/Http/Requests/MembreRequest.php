@@ -29,7 +29,7 @@ class MembreRequest extends FormRequest
             '*.adresse' => 'required|string',
             '*.solde' => 'required|numeric',
             '*.famille_id' => 'required|integer',
-            '*.etudient' => 'required|boolean',
+            '*.isEleve' => 'required|boolean',
             '*.type' => 'required|string',
         ];
     }

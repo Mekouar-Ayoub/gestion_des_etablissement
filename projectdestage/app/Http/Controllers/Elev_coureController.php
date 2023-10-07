@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coure;
 use App\Models\Elev_coure;
+use App\Models\Membre;
+use App\Models\Profe;
 use Illuminate\Http\Request;
 
 class Elev_coureController extends Controller
 {
-
-
-
-
 
     /**
      * Display a listing of the resource.
@@ -41,7 +40,7 @@ class Elev_coureController extends Controller
         );
 
         Elev_coure::create($data);
-        return response()->json('the etudient added to coure');
+        return response()->json('the student has been added to the cour');
     }
 
     /**
@@ -78,12 +77,14 @@ class Elev_coureController extends Controller
 
     //with members$query =
 
-    public function GetCoursById($id){
-
-        $data = Elev_coure::all()->where('coure_id','=', $id);
-        //->where('coure_id', $id)
-        return response()->json($data);
+    public function DeleteEleveFromCours(string $id, string $idEleve) {
+        $response = Elev_coure::where('coure_id','=',$id)->where('membre_id','=',$idEleve)->delete();
+        return response()->json($response);
     }
 
+    public function FindEleveWithCours($id){
+        $membre = Elev_coure::where('membre_id','=',$id)->with('coure');
+        return response()->json($membre);
+    }
 
 }

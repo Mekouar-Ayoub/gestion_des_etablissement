@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class IsStudent
@@ -15,6 +16,9 @@ class IsStudent
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        if (Auth::guard('membre')->check()) {
+            return $next($request);
+        }
+        return response()->json('You are not authorized as an admin.', 401);
     }
 }

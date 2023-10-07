@@ -37,7 +37,7 @@ class AdminController extends Controller
         if (!$token = auth()->guard('admin-api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-        return $token;
+        return response()->json($token);
     }
 
     /**

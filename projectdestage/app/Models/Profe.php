@@ -50,6 +50,18 @@ class Profe extends Authenticatable implements JWTSubject
         return $this->hasMany(Coure::class);
     }
 
+    //Working ?
+    public function history()
+    {
+        return $this->hasMany(HistoryProf::class, 'prof_id');
+    }
+
+    //Working ?
+    public function historyEcole()
+    {
+        return $this->hasMany(CompteEcole::class, 'prof_id');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
