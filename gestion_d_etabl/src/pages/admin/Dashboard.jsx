@@ -29,9 +29,9 @@ function Dashoard() {
     axios.get(process.env.REACT_APP_API_URL+'/eleves/solde')
     .then(response => {
                 
-        setHistoryEleves(response.data.data);
+        setHistoryEleves(response.data);
        
-        //console.log(response)
+        console.log(response)
     })
     .catch(error => {
         console.error(error);

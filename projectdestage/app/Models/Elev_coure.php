@@ -21,5 +21,9 @@ class Elev_coure extends Model
         return $this->hasOne(Coure::class);
     }
 
+    public function membres() {
+        return $this->belongsTo(Member::class, 'membre_id');
+    }
+
 
 }

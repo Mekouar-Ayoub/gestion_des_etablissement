@@ -6,6 +6,7 @@ use App\Models\Coure;
 use App\Models\Elev_coure;
 use App\Models\Membre;
 use App\Models\Profe;
+use DB;
 use Illuminate\Http\Request;
 
 class Elev_coureController extends Controller
@@ -82,9 +83,6 @@ class Elev_coureController extends Controller
         return response()->json($response);
     }
 
-    public function FindEleveWithCours($id){
-        $membre = Elev_coure::where('membre_id','=',$id)->with('coure');
-        return response()->json($membre);
-    }
+
 
 }

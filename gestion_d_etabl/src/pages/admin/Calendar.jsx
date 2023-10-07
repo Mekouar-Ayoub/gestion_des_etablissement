@@ -21,9 +21,12 @@ const Calendar = ({ type }) => {
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [events, setEvents] = useState();
 
+
+    //TODO use membres in data 
     const setEventsEffect = (resData) => {
         setData(resData);
-        setEvents(resData.map((item, index) => (
+        console.log(resData)
+        setEvents(resData[0].coure.map((item, index) => (
             {
                 key: item.id,
                 title: '' + item.titre,
@@ -35,6 +38,7 @@ const Calendar = ({ type }) => {
                 }
             }
         )))
+        
     }
     useEffect(() => {
 
@@ -59,7 +63,7 @@ const Calendar = ({ type }) => {
                         (response) => {
                             console.log(response)
                             if (response.data)
-                                setEventsEffect(response.data)
+                                setEventsEffect(response.data.data)
 
                         }
                     )

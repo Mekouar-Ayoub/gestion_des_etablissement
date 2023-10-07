@@ -22,13 +22,15 @@ class ProfeController extends Controller
     public function ProfeRegister(ProfRequest $request)
     {
         $request->validated();
+        $passwordCreated = ''.$request->input('nom').'.'.$request->input('prenom').'485!';
         $profe = Profe::create([
             'nom' => $request->input('nom'),
             'prenom' => $request->input('prenom'),
             'tel' => $request->input('tel'),
             'email' => $request->input('email'),
              //password is Nom.prenom485!
-            'password' => Hash::make(''+$request->input('nom')+'.'+$request->input('prenom')+'485!'),
+
+            'password' => Hash::make($passwordCreated),
             'adress' => $request->input('adress'),
             'instrument' => $request->input('instrument'),
             'tarif' => $request->input('tarif'),

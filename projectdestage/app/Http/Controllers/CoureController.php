@@ -14,6 +14,14 @@ use stdClass;
 
 class CoureController extends Controller
 {
+
+    public function FindEleveWithCours($id){
+
+        //select * from membres INNER JOIN elev_coures on membres.id= elev_coures.membre_id inner join coures on elev_coures.coure_id = coures.id where membres.id=1;
+        $cours = Membre::with('coure')->paginate(15);
+        //with('coure')
+        return response()->json($cours);
+    }
     public function AjouterCoure(CoureRequest $request)
     {
         $request->validated();

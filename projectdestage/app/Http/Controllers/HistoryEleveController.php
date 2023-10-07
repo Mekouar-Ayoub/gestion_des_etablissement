@@ -12,7 +12,7 @@ class HistoryEleveController extends Controller
 
     //TODO working ?
     public function GetHistoryEleve(){
-        $data = HistoryEleve::with('eleve')->with('cours')->paginate(15);
+        $data = HistoryEleve::all()->paginate(15);
         if($data){
             return response($data);
         }

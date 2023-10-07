@@ -8,9 +8,9 @@ class HistoryEleve extends Model
 {
     use HasFactory;
 
-    protected $table='historique_soldes_eleve';
+    public $table='historique_soldes_eleve';
 
-    protected $fillable = [
+    public $fillable = [
         'nombre_heures',
         'cour_id',
         'eleve_id',
@@ -18,14 +18,16 @@ class HistoryEleve extends Model
         'type'
     ];
 
+
+    // NOt working
     public function eleve()
     {
-        return $this->belongsTo(Membre::class,'eleve_id');
+        return $this->hasOne(Membre::class,'id');
     }
 
     //TODO Important
     public function cour()
     {
-        return $this->belongsTo(Coure::class,'cour_id');
+        return $this->hasOne(Coure::class,'id');
     }
 }

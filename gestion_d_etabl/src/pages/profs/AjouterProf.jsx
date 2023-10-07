@@ -38,7 +38,6 @@ function AjouterCoure() {
         formData.append('password', ''+ nom+ '.' + prenom+ "485!$");
         formData.append('adress', adress);
         formData.append('instrument', instrument);
-        formData.append('cv', cv);
         formData.append('tarif', tarif);
         formData.append('solde', solde);
         axios

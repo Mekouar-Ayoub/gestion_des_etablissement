@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class HistoryProf extends Model
 {
     use HasFactory;
-    protected $table='historique_soldes_prof';
+    public $table='historique_soldes_prof';
 
-    protected $fillable = [
+    public $fillable = [
         'id',
         'prof_id',
         'coure_id',
@@ -27,7 +27,7 @@ class HistoryProf extends Model
     //TODO Important
     public function cour()
     {
-        return $this->belongsTo(Coure::class,'cour_id');
+        return $this->belongsTo(Coure::class,'coure_id');
     }
 
 

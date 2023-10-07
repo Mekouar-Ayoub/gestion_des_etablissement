@@ -24,6 +24,7 @@ function LoginEleve() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  //TODO if already logged go to dashboard
 
   var handleSubmit = async (e) => {
     e.preventDefault();

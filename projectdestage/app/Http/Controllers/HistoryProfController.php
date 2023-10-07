@@ -10,7 +10,8 @@ class HistoryProfController extends Controller
 
     //TODO working ?
     public function GetHistoryProf(){
-        $data = HistoryProf::all();
+        //hadi ma khedamach
+        $data = HistoryProf::find(1);
         //::with('prof')->with('cour')
         //->withTrashed()
         return response()->json($data);

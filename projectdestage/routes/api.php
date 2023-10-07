@@ -61,7 +61,9 @@ Route::get('eleves/{id}', [MembreController::class,'Findmember']);
 Route::put('eleves/{id}', [MembreController::class,'updateMember']);
 //eleve a payé
 Route::put('eleves/{id}/solde', [MembreController::class,'updateEleveSolde']);
-Route::get('eleves/{id}/cours', [Elev_coureController::class,'FindEleveWithCours']);
+
+//NOt working
+Route::get('eleves/{id}/cours', [CoureController::class,'FindEleveWithCours']);
 
 
 // rouets des membre

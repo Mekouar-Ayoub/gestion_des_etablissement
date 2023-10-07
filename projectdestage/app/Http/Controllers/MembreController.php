@@ -31,7 +31,7 @@ class MembreController extends Controller
 
         foreach ($data as $item) {
             //password is Nom.prenom485!
-            $password = Hash::make(''+$item['nom']+'.'+$item['prenom']+'485!');
+            $password = ''.$item['nom'].'.'.$item['prenom'].'485!';
             $eleveCree = Membre::create([
                 'nom' => $item['nom'],
                 'prenom' => $item['prenom'],
