@@ -50,7 +50,7 @@ function UpdateMember({isModifying}) {
   }, [eleveId]);
 
   const handleSubmit = () => {
-    axios.put(`${process.env.REACT_APP_API_URL}+'/eleves/${data.id}`, {
+    axios.put(`${process.env.REACT_APP_API_URL}/eleves/${data.id}`, {
       nom,
       prenom,
       tel,
@@ -79,15 +79,6 @@ function UpdateMember({isModifying}) {
           <div className="w-[100vw] rounded  flex items-center">
             <div className="w-[75%] bg-gray-100 ml-auto mr-auto h-[75%] flex items-center">
               <div className="w-full bg-gray-100 ml-auto mr-auto flex-col items-center">
-                {!isPaying && <button className="bg-green-500">Eleve payé</button>}
-                {isPaying &&<><input type="number" value={payment} onChange={(e) =>
-                  {
-                    setPayment(e.target.value)
-                    
-                  } }></input> <button className="bg-green-500" onClick={() => {
-                    //TODO Working ?
-                    axios.put(process.env.REACT_APP_API_URL + 'eleves/'+eleveId+'/solde', {solde: payment})
-                  }}>Enregistrer</button></>}
               <div className="w-full my-3">
                     <label htmlFor="" className="w-[75%] flex ml-auto mr-auto my-2">nom</label>
                     <input className=" w-[75%] flex ml-auto mr-auto" value={nom} onChange={(e) => setNom(e.target.value)} type="text" />
@@ -160,12 +151,12 @@ function UpdateMember({isModifying}) {
                     <p className=" w-[75%] flex ml-auto mr-auto" >
                       {email} </p>
                   </div>
-                  <div className=" my-3" hidden>
+                  <div className=" my-3">
                     <label htmlFor="" className="w-[75%] flex ml-auto mr-auto my-2" >adresse</label>
                     <p className=" w-[75%] flex ml-auto mr-auto" >
                       {adresse} </p>
                   </div>
-                  <div className=" my-3" hidden>
+                  <div className=" my-3" >
                     <label htmlFor="" className="w-[75%] flex ml-auto mr-auto my-2" >solde</label>
                     <p className=" w-[75%] flex ml-auto mr-auto" >
                       {solde} </p>

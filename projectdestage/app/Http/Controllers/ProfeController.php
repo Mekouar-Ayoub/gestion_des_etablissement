@@ -43,6 +43,7 @@ class ProfeController extends Controller
                 $historyProf->type='le professeur a été créer';
                 $historyProf->prof_id = $profe->id;
                 $historyProf->coure_id = -1;
+                $historyProf->type_de_paiement='solde initial';
                 $historyProf->nombre_heures=0;
                 $historyProf->prix_a_rendre = $request->input('solde');
                 $historyProf->profit = 0;
@@ -54,6 +55,7 @@ class ProfeController extends Controller
                 $compteEcole->cour_id = -1;
                 $compteEcole->prof_id = $profe->id;
                 $compteEcole->eleve_id = -1;
+                $compteEcole->type_de_paiement = "solde initial";
                 if(CompteEcole::latest()->first())
                 $compteEcole->solde = CompteEcole::latest()->first()->solde-$request->input('solde');
                 else {
@@ -152,7 +154,8 @@ class ProfeController extends Controller
     public function UpdateProfeSolde(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'solde'=>'required'
+            'solde'=>'required',
+            'type_de_paiement'=>'required'
         ]);
 
         $prof = Profe::find($id);
@@ -169,6 +172,7 @@ class ProfeController extends Controller
                 $historyProf->coure_id = -1;
                 $historyProf->nombre_heures=0;
                 $historyProf->prix_a_rendre = -$request->input('solde');
+                $historyProf->type_de_paiement = $request->input('type_de_paiement');
                 $historyProf->profit = 0;
                 $historyProf->save();
 
@@ -178,6 +182,7 @@ class ProfeController extends Controller
                 $compteEcole->cour_id = -1;
                 $compteEcole->prof_id = $prof->id;
                 $compteEcole->eleve_id = -1;
+                $compteEcole->type_de_paiement = $request->input('type_de_paiement');
                 if(CompteEcole::latest()->first())
                 $compteEcole->solde = CompteEcole::latest()->first()->solde-$request->input('solde');
                 else {

@@ -50,8 +50,8 @@ Route::put('profs/{id}', [ProfeController::class, 'UpdateProfe']);
 Route::put('profs/{id}/solde', [ProfeController::class, 'UpdateProfeSolde']);
 Route::get('profs/{id}/cours', [ProfeController::class,'FindProfWithCours']);
 //TODO accept only mp4 video
-// membre
 
+// membre
 Route::get('eleves', [MembreController::class, 'GetAllEleves']);
 Route::post('eleve/login', [MembreController::class, 'MemberLogin']);
 Route::get('eleves/{id}', [MembreController::class,'Findmember']);
@@ -105,7 +105,6 @@ Route::post('events', [EventController::class, 'ajouterEvent']);
 
 
 //SOLDES
-
 Route::get('/admin/ecole/solde', [CompteEcoleController::class, 'GetHistory']);
 Route::get('/admin/ecole/solde/cours/{id}', [CompteEcoleController::class, 'GetHistoryOneCours']);
 Route::get('/admin/ecole/solde/eleve/{id}', [CompteEcoleController::class, 'GetHistoryOneEleve']);

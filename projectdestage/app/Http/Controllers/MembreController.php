@@ -54,6 +54,7 @@ class MembreController extends Controller
                 $historyEleve->cour_id = -1;
                 $historyEleve->nombre_heures = 0;
                 $historyEleve->prix = $eleveCree->solde;
+                $historyEleve->type_de_paiement = "solde initial";
                 $historyEleve->save();
 
                 $compteEcole = new CompteEcole();
@@ -61,6 +62,7 @@ class MembreController extends Controller
                 $compteEcole->profit = 0;
                 $compteEcole->cour_id = -1;
                 $compteEcole->prof_id = -1;
+                $compteEcole->type_de_paiement="solde initial";
                 $compteEcole->eleve_id = $eleveCree->id;
                 if(CompteEcole::latest()->first())
                     $compteEcole->solde = CompteEcole::latest()->first()->solde+$eleveCree->solde;
@@ -169,7 +171,8 @@ class MembreController extends Controller
     public function updateEleveSolde(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'solde'=>'required'
+            'solde'=>'required',
+            'type_de_paiement'=>'required'
         ]);
 
         if($validatedData) {
@@ -184,6 +187,7 @@ class MembreController extends Controller
             $historyEleve->eleve_id = $eleve->id;
             $historyEleve->cour_id = -1;
             $historyEleve->nombre_heures = 0;
+            $historyEleve->type_de_paiement = $request->input('type_de_paiement');
             $historyEleve->prix = $request->input('solde');
             $historyEleve->save();
 
@@ -193,6 +197,7 @@ class MembreController extends Controller
             $compteEcole->cour_id = -1;
             $compteEcole->prof_id = -1;
             $compteEcole->eleve_id = $eleve->id;
+            $compteEcole->type_de_paiement = $request->input('type_de_paiement');
             if(CompteEcole::latest()->first())
                 $compteEcole->solde = CompteEcole::latest()->first()->solde-$request->input('solde');
             else {

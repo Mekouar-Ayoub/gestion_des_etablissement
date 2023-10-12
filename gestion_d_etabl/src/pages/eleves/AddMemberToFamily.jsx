@@ -138,6 +138,7 @@ function AddMemberToFamily() {
                               <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">email</label>
                               <input type="text" value={details?.email} onChange={(e) => handleCheck(index, e, "email")} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                             </div>
+                            <p className="text-xs">Le mot de passe du membre est de type Nom.Prenom753!</p>
                             <div className="mb-6">
                               <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">adresse</label>
                               <input type="text" value={details?.adresse} onChange={(e) => handleCheck(index, e, "adresse")} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />

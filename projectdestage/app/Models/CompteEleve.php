@@ -15,6 +15,7 @@ class CompteEleve extends Model
         'cour_id',
         'eleve_id',
         'prix',
+        'type_de_paiement',
         'type'
     ];
 

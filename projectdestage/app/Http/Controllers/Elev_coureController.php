@@ -55,6 +55,7 @@ class Elev_coureController extends Controller
 
             $compte_eleve=CompteEleve::find($request->input('membre_id'));
             $compte_eleve = new CompteEleve();
+            $compte_eleve->type_de_paiement = $request->input('type_de_paiement');
             $compte_eleve->eleve_id = $request->input('membre_id');
             $compte_eleve->cour_id = $request->input('coure_id');
             $compte_eleve->nombre_heures= $diff_dates /60;
@@ -67,6 +68,7 @@ class Elev_coureController extends Controller
 
             $compte_ecole= new CompteEcole();
             $compte_ecole->mouvement = +$mouvement;
+            $compte_ecole->type_de_paiement = "";
             $compte_ecole->profit = $mouvement - $prof->tarif * $diff_dates /60  ;
             $compte_ecole->cour_id = $cour->id;
             $LastSolde = CompteEcole::all()->last()->solde;

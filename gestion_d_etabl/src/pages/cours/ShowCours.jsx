@@ -18,7 +18,7 @@ function index({ user }) {
                 console.log(response.data)
                 setData(response.data.data)
                 setDataToShow(response.data.data)
-                setIndividuel(response.data.individuel === 1 ? 'Individuel': 'Groupe')
+                setIndividuel(response.data.individuel === 1 ? 'Individuel': response.data.individuel === 1 ? 'Groupe' : '')
             })
 
 
@@ -86,19 +86,22 @@ function index({ user }) {
                     <br />
                     <div>
                     <button onClick={()=> {
-                        setIndividuel('Individuel')
+                        setIndividuel(1)
                         setDataToShow(dataToShow.filter(value => value.individuel === 1))
                     }}
-                        className={individuel === 'Individuel' ? 'bg-blue-500' : 'bg-black'}>Individuel</button>
+                        className={individuel === '1' ? 'bg-blue-500 text-white p-3' : 'bg-white border-2 p-3'}>Individuel</button>
                         <button onClick={()=> {
-                        setIndividuel('Groupe')
+                        setIndividuel(0)
                         setDataToShow(dataToShow.filter(value => value.individuel === 0))
-                    }} className={individuel === 'Groupe' ? 'bg-blue-500' : 'bg-black'}>Groupe</button>
-                        <button readOnly={individuel === ''} className='bg-red-500' onClick={()=> {
+                    }} className={individuel === 1 ? 'bg-blue-500 text-white p-3' : 'bg-white border-2 p-3'}>Groupe</button>
+                        {individuel !='' && <button readOnly={individuel === ''} className='bg-red-500 text-white p-3' onClick={()=> {
                             setDataToShow(data)
-                        }}>Vider le filtre</button>
+                            setIndividuel(-1);
+                        }}>Vider le filtre</button>}
+                        <br />
+                        <input value={searchInput} onChange={handleSearchInput}  className="border-2 mb-[2%]"></input>
                   <label>Chercher par Date(YYYY-MM-JJ) Professeur eleve ou instrument</label>
-                    <input value={searchInput} onChange={handleSearchInput}  className="border-2 mb-[2%]"></input>
+                    
                     </div>
                     <div className="w-full">
                         <div className="bg-white overflow-auto w-full">
@@ -125,7 +128,7 @@ function index({ user }) {
                                                 <td className="text-left py-3">{item.titre}</td>
                                                 <td className="text-left py-3"><span className="hover:text-blue-500">{TransformEtat(item.etat)}</span></td>
                                                 <td className="text-left py-3"><span className="hover:text-blue-500">{item.debut_de_coure}</span></td>
-                                                <td className="text-left py-3"><span className="hover:text-blue-500">{item.individuel ===1 ? 'Individuel':'Groupe'}</span></td>
+                                                <td className="text-left py-3"><span className="hover:text-blue-500">{item.individuel === 1 ? 'Individuel' : 'Groupe'}</span></td>
                                                 <td className="text-left py-3"><span className="hover:text-blue-500">{item.fin_de_coure}</span></td>
                                                 <td className="text-left py-3"><span className="hover:text-blue-500">{item.profe.nom}</span></td>
                                                 <td className="text-left py-3"><span className="hover:text-blue-500">{item.membres.map((value) => {

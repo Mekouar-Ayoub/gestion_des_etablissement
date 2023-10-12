@@ -3,6 +3,7 @@ import { AiOutlineMenu, AiFillCalendar, AiOutlineUser, AiOutlineInsertRowAbove }
 import Aside from "../../components/Aside"
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { typeDePaiements } from "../../utils/common-objects";
 
 function displayProfe() {
     const [isNavOpen, setIsNavOpen] = useState(false);
@@ -11,6 +12,7 @@ function displayProfe() {
     const [isPaying, setIsPaying] = useState(false);
     const [prixAPayer, setPrixApayer] = useState(0);
     const [profId, setProfId] = useState();
+    const [typeDePaiement, setTypeDePaiement] = useState('Chèque');
     useEffect(() => {
         axios
             .get(process.env.REACT_APP_API_URL+'/profs')
@@ -31,19 +33,32 @@ function displayProfe() {
     const onSaveClick = ()=> {
         console.log(prixAPayer)
         console.log(profId)
+        console.log(typeDePaiement)
         let confirmed = confirm('Le prix est de :'+ prixAPayer +' etes vous sur ? ')
         
         if(confirmed) {
-            axios.put(process.env.REACT_APP_API_URL+'/profs/'+profId+'/solde', {solde: prixAPayer})
+            
+            axios.put(process.env.REACT_APP_API_URL+'/profs/'+profId+'/solde', {solde: prixAPayer, type_de_paiement: typeDePaiement })
             .then(response=> {
                 console.log(response)
+                axios
+            .get(process.env.REACT_APP_API_URL+'/profs')
+            .then(response => {
+                const data = response.data
+                setData(data);
+            })
+            .catch(error => {
+                console.error(error)
+            })
             })
             .catch(e=> {
                 console.error(e)
             });
+            setIsPaying(false);
+            
             //window.location.href='/admin/profs'  
         }
-        setIsPaying(false);
+        
     }
 //todo enregistrer non working back
     return (
@@ -60,13 +75,6 @@ function displayProfe() {
                                 </Link>
                                     </button>
                         </div>
-                        {isPaying && <>
-                        <label>Montant payé au professeur</label>
-                        <input onChange={(e)=>{
-                            setPrixApayer(e.target.value)
-                        }} />
-                        <button onClick={onSaveClick}>Enregister</button>
-                        </>}
                         <table className="min-w-full bg-white">
                             <thead className="bg-[#3788d8] text-white">
                                 <tr>
@@ -91,14 +99,44 @@ function displayProfe() {
                                             <td className="text-left py-3 px-2"><a className="hover:text-blue-500">{item.tarif}</a></td>
                                             <td className="text-left py-3 px-2"><a className="hover:text-blue-500">{item.solde}</a></td>
                                             <td className="text-left py-3 px-2 flex justify-between">
-                                                <a className="hover:text-blue-500 mt-3" href={"/admin/profs/" + item.id + "/modify"}>
-                                                <img src="/ModifyIcon.svg"/>
-                                            </a>
-                                            <a className="hover:text-blue-500 mt-3" href={"/admin/profs/" + item.id}>
-                                                <img src="/Details.svg"/>
-                                            </a>
+                                                
+                                            {!isPaying && <>
+                                                    <a className="hover:text-blue-500" href={"/admin/profs/" + item.id + "/modify"} >
+                                                        <img src="/ModifyIcon.svg" />
+                                                    </a>
+                                                    {/* --------------------------- */}
+                                                    <a className="hover:text-red-500" >
+                                                        <img src="/Delete.svg" />
+
+                                                    </a>
+                                                    <a className="hover:text-blue-500" href={"/admin/profs/" + item.id} >
+                                                        <img src="/Details.svg" />
+                                                    </a>
+                                                    <button className="bg-green-400 p-3 text-white" onClick={() => handleOnClickPay(item.id)}>Payer le Prof</button></>}
+                                                {isPaying && <>
+                                                    <div>
+                                                        <label>Montant payé au Prof</label>
+                                                        <br />
+                                                        <input className="border-2 bg-blue-200" onChange={(e) => {
+                                                            setPrixApayer(e.target.value)
+                                                        }} />
+                                                    </div>
+                                                    <div className="ml-[1%]">
+                                                        <label>Type de Paiement</label>
+                                                        <br />
+                                                        <select onChange={(e) => setTypeDePaiement(e.target.value)}>
+                                                            {Object.values(typeDePaiements).map(value => {
+                                                                return <option value={value}>{value}</option>
+                                                            })}
+
+                                                        </select>
+                                                    </div>
+                                                    <button className="bg-green-400 p-3" onClick={onSaveClick}>Enregister</button>
+                                                    <button className="bg-red-500 p-3" onClick={() => {
+                                                        setIsPaying(false)
+                                                    }}>Annuler</button>
+                                                </>}
                                             
-                                            <button className="bg-green-400 p-3 text-white" onClick={() => handleOnClickPay(item.id)}>Payer</button>
                                             
                                             </td>
                                         </tr>

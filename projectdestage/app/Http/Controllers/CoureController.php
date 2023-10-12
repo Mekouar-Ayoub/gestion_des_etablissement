@@ -116,6 +116,7 @@ class CoureController extends Controller
                     $historyEleve->nombre_heures=$diff_dates /60;
                     $historyEleve->prix=-$soldeToAddFromEleve;
                     $historyEleve->type='cours annulé';
+                    $historyEleve->type_de_paiement = '';
                     $historyEleve->save();
                     $eleve = Membre::find($historyEleve->eleve_id);
                     $eleve->solde += $soldeToAddFromEleve;
@@ -138,6 +139,7 @@ class CoureController extends Controller
                 $historyProf->nombre_heures=$diff_dates /60;
                 $historyProf->prix_a_rendre = -$soldeToRemoveToProf;
                 $historyProf->type='cours annulé ou programmé';
+                $historyProf->type_de_paiement='';
                 $historyProf->profit = 0;
                 $historyProf->save();
 
@@ -146,6 +148,7 @@ class CoureController extends Controller
                 $compteEcole->mouvement = -$soldeToRemoveToEcole;
                 $compteEcole->profit = 0;
                 $compteEcole->cour_id = $coure->id;
+                $compteEcole->type_de_paiement="";
                 $LastSolde = CompteEcole::all()->last()->solde;
 
                 $compteEcole->solde = $LastSolde-$soldeToRemoveToEcole;
@@ -186,6 +189,7 @@ class CoureController extends Controller
                     $historyEleve->nombre_heures=$diff_dates /60;
                     $historyEleve->prix=$soldeToRemoveFromEleve;
                     $historyEleve->type="l'éleve a effectué un cours";
+                    $historyEleve->type_de_paiement = '';
                     $historyEleve->save();
                     $soldeToAddToEcole += $soldeToRemoveFromEleve;
                     $eleve = Membre::find($historyEleve->eleve_id);
@@ -209,12 +213,14 @@ class CoureController extends Controller
                 $historyProf->prix_a_rendre = $soldeToAddToProf;
                 $historyProf->profit = $soldeToAddToEcole - $soldeToAddToProf;
                 $historyProf->type= 'a effectué un cours';
+                $historyProf->type_de_paiement="";
                 $historyProf->save();
 
                 $compteEcole = new CompteEcole();
                 $compteEcole->mouvement = $soldeToAddToEcole;
                 $compteEcole->profit = $soldeToAddToEcole - $soldeToAddToProf;
                 $compteEcole->cour_id = $coure->id;
+                $compteEcole->type_de_paiement="";
                 $LastSolde = CompteEcole::all()->last()->solde;
 
                 $compteEcole->solde = $LastSolde + $soldeToAddToEcole;

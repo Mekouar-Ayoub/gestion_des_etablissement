@@ -23,12 +23,14 @@ import TimePicker from "react-time-picker";
 import { Timeit } from "react-timeit";
 
 function AjouterCours() {
+
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [titre, setTitre] = useState("");
   const [prix_horaire, setPrix_horaire] = useState("");
   const [debut, setDebut] = useState("");
   const [fin, setFin] = useState("");
+  const [individuel, setIndividuel] = useState(0);
   const [debutPeriode, setDebutPeriode] = useState(
     new Date().toISOString().split("T")[0]
   );
@@ -103,6 +105,7 @@ function AjouterCours() {
       prix_horaire,
       debut_de_coure,
       fin_de_coure,
+      individuel
     };
 
     try {
@@ -118,7 +121,6 @@ function AjouterCours() {
       setErrorMessage("Error adding event: " + error.message);
       setSuccessMessage("");
     }
-
     //TODO appeller route AddToCoure
   };
 
@@ -209,7 +211,7 @@ function AjouterCours() {
             <div className="text-red-500 mt-4">{errorMessage}</div>
           )}
         </div>
-        <button className="bg-green-500" onClick={()=> 
+        <button className="bg-green-500 p-3 text-white" onClick={()=> 
         {
           setIsOneCours(!isOneCours)
         }
@@ -239,6 +241,16 @@ function AjouterCours() {
         value={prix_horaire}
         onChange={(e) => setPrix_horaire(e.target.value)}
       />
+      <select
+        required
+        fullWidth
+        id="prix_horaire"
+        label="Cours Individuel ou Collectif"
+        onChange={(e) => setIndividuel(e.target.value)}
+      >
+        <option value={0}>Groupe</option>
+        <option value={1}>Individuel</option>
+        </select>
       <TextField
         required
         fullWidth
@@ -469,11 +481,10 @@ function AjouterCours() {
           </select>
           
         </div>
-        </div> */
-        //TODO handle ajout d'eleves
+        </div> 
         
-        }
-  <div className="flex flex-wrap -mx-3 mb-6">
+        
+        <div className="flex flex-wrap -mx-3 mb-6">
     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
       <ul>
         {elevesDuCours.map((value) => {
@@ -486,6 +497,11 @@ function AjouterCours() {
       </ul>
     </div>
   </div>
+        */
+        //TODO handle ajout d'eleves
+        
+        }
+  
   <div className="flex flex-wrap -mx-3 mb-6">
     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
       <TextField
@@ -505,7 +521,21 @@ function AjouterCours() {
         ))}
       </TextField>
     </div>
-  </div>
+  
+  
+    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+      <TextField
+        required
+        fullWidth
+        label="Individuel ou Groupe"
+        select
+        onChange={(e) => setIndividuel(e.target.value)}
+      >
+        <MenuItem value={0}>Groupe</MenuItem>
+        <MenuItem value={1}>Individuel</MenuItem>
+        </TextField>
+    </div>
+    </div>
   <div className="flex flex-wrap -mx-3 mb-2">
     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
       <Button
