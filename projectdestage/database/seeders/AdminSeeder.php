@@ -18,7 +18,7 @@ class AdminSeeder extends Seeder
             'nom' => 'Meryem',
             'prenom' => 'El Maddarsi',
             'email' => 'Bluesymphony.piano@gmail.com',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make('MimiEl159!'),
         ]);
     }
 }

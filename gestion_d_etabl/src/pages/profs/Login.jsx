@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
@@ -6,131 +7,137 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Navigate } from 'react-router-dom';
+import RoundedButton from '../../components/Rounded-Boutton';
 import Cookies from 'js-cookie';
-
-
-
-
 
 const defaultTheme = createTheme();
 
-function SignIn() {
+function LoginProf() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  //TODO if already logged go to dashboard
+
   var handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !password) {
-      setErrorMessage('Please enter all fields');
+      setErrorMessage('Veuillez remplir tout les champs');
       return;
     }
     try {
-      const response = await axios.post(process.env.REACT_APP_API_URL+'/profs/login', {
+      const response = await axios.post(process.env.REACT_APP_API_URL + '/prof/login', {
         email,
         password,
       });
-      const type = 1;
-      const token = response.data;
-      Cookies.set('token',token);
+      console.log(response)
+      var token = response.data.token;
+      var type = 1;
+      Cookies.set('token', token);
       Cookies.set('headers', type);
-      window.location.href = '/';
+      Cookies.set('profId', response.data.id);
+      window.location.href = '/prof/dashboard';
     } catch (error) {
       if (error.response) {
         setErrorMessage(error.response.data.message);
       } else {
-        setErrorMessage('An error occurred. Please try again.');
+        console.log(error)
+        setErrorMessage('Email ou Mot de Passe Invalide');
       }
     }
   };
- 
 
   return (
 
-    <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in profe
-          </Typography>
 
+    <div className='flex' style={{ backgroundImage: "url('/bg for blue symphony.jpg')" }}>
+      <div className='w-[60%] mt-[10%] pb-[11%] ml-[10%]'>
+        <img src='/images/logo_blue_symphony.svg'></img>
+      </div>
+      <div className='h-[100%] mt-[5%] border-2 mr-[10%] ml-[10%] student-border'
+      >
+        <div className='flex justify-center mt-[5%]'>
+
+          <Link to="">
+            <RoundedButton text={'Enseignant'} type='login' className='prof-background border-2 text-white'>
+
+
+
+            </RoundedButton>
+          </Link>
+          <Link to="/eleve/login">
+            <RoundedButton text={'Eleve'} type='login' className={'border-2 hover:bg-blue-400 hover:text-white'}>
+
+
+
+            </RoundedButton>
+          </Link>
+
+        </div>
+
+        
+        <div className=' mt-[10%]'>
+          <div className='text-center'>
+          <TextField
+            margin="normal"
+            required
+            className='w-[70%] '
+            id="email"
+            label="Adresse E-Mail"
+            autoComplete="email"
+            value={email} onChange={(e) => setEmail(e.target.value)}
+            autoFocus
+          />
+          </div>
+<div className='text-center mt-[3%]'>
+          <TextField
+            margin="normal"
+            required
+            className='w-[70%] ml-auto mr-auto'
+            label="Mot de Passe"
+            type="password"
+            id="password"
+            value={password} onChange={(e) => setPassword(e.target.value)}
+            autoComplete="current-password"
+          />
+          </div>
+          <div className='ml-[15%] mt-[3%]'>
+          <Checkbox></Checkbox>
+          <span className='text-stone-600 text-sm mt-[15%]'>Restez connécté</span>
+          
+          </div>
           {
-            errorMessage && (
-              <p>{errorMessage}</p>
-            )
-          }
-          <Box  noValidate sx={{ mt: 1 }}>
-            <div className=' bg-slate-500 flex justify-between h-[50px] rounded'>
-                <button className='bg-blue-600 w-[50%] rounded-l text-white font-bold'><Link to="#">profes</Link> </button>
-                <button className=' bg-transparent w-[50%] rounded-r font-bold'><Link to="/member/Login" className='h-[100%] w-[100%]'>members</Link></button>
+          errorMessage && (
+            <p className='text-red text-center mt-[5%]'>{errorMessage}</p>
+          )
+        }
+          <div className='text-center mt-[10%]'>
+            <div onClick={handleSubmit}>
+            <RoundedButton
+              className={'hover:bg-white hover:text-blue-500 hover:border-2'}
+              text="Connection"
+              type="prof"
+            />
             </div>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              autoComplete="email"
-              value={email} onChange={(e) => setEmail(e.target.value)}
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              label="Password"
-              type="password"
-              id="password"
-              value={password} onChange={(e) => setPassword(e.target.value)}
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              onClick={handleSubmit}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
-      </Container>
-    </ThemeProvider>
+            <div className='pt-[2%] mb-[10%]'>
+              <Link href="/password-reset" variant="body2">
+                Mot de passe oublié ?
+              </Link>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
   );
 }
-export default SignIn;
+export default LoginProf;

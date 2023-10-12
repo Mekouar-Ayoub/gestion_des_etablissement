@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->float('solde')->default(0);
             $table->float('mouvement');
-            $table->integer('cour_id');
-            $table->integer('prof_id');
-            $table->integer('eleve_id');
+            $table->integer('cour_id')->default(-1);
+            $table->integer('prof_id')->default(-1);
+            $table->integer('eleve_id')->default(-1);
             $table->float('profit');
+            $table->string('type_de_paiement');
             $table->string('type');
             $table->timestamps();
         });

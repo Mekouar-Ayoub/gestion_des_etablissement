@@ -15,8 +15,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { Navigate } from 'react-router-dom';
-
 
 
 
@@ -52,7 +50,7 @@ function LoginAdmin() {
             const token = response.data;
             Cookies.set('token', token);
             Cookies.set('headers', type);
-            window.location.href = '/admin/dashboard';
+            window.location.href = '/admin/calendar';
         } catch (error) {
             if (error) {
                 setErrorMessage('Email ou mot de passe incorrects');

@@ -37,13 +37,15 @@ function Aside() {
           </div>
         )}
         <nav className="text-white text-base font-semibold pt-3 ">
-          {headers === "0" && (
-            <Link to="/admin/dashboard">
-            <a className="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
-              <AiOutlineUser />
-              Dashboard
-            </a></Link>
+        {headers === "0" && (
+            <Link to="/admin/calendar">
+            <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+              <AiOutlineCalendar />
+              Calendrier
+            </a>
+            </Link>
           )}
+          
           {headers === "0" && (
             <Link to="/admin/cours">
             <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
@@ -52,14 +54,7 @@ function Aside() {
             </a>
             </Link>
           )}
-          {headers === "0" && (
-            <Link to="/admin/calendar">
-            <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-              <AiOutlineCalendar />
-              Calendrier
-            </a>
-            </Link>
-          )}
+          
           {headers === "0" && (
             <Link to="/admin/families/">
             <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
@@ -84,7 +79,13 @@ function Aside() {
             </a>
             </Link>
           )}
-
+            {headers === "0" && (
+            <Link to="/admin/dashboard">
+            <a className="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
+              <AiOutlineUser />
+              Historique des soldes
+            </a></Link>
+          )}
           {headers === "0" && (
             <Link to="/admin/publications">
             <a className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">

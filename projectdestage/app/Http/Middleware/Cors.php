@@ -3,8 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class Cors
 {
@@ -19,7 +17,7 @@ class Cors
         //ALLOW OPTIONS METHOD
         $headers = [
             'Access-Control-Allow-Methods' => 'POST,GET,OPTIONS,PUT,DELETE',
-            'Access-Control-Allow-Headers' => 'Content-Type, X-Auth-Token, Origin, Authorization',
+            'Access-Control-Allow-Headers' => '*',
         ];
         if ($request->getMethod() == "OPTIONS") {
             //The client-side application can set only headers allowed in Access-Control-Allow-Headers

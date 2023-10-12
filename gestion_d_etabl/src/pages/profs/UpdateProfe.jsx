@@ -3,6 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import Cookies from 'js-cookie';
 import Retour from "../../components/Retour";
+import { MenuItem, TextField } from "@mui/material";
 function UpdateMember() {
   const { profId } = useParams()
   const [profeData, setProfeData] = useState({});
@@ -105,7 +106,21 @@ function UpdateMember() {
                   </div>
                   <div className=" my-3" >
                     <label htmlFor="" className="w-[75%] flex ml-auto mr-auto my-2" >instrument</label>
-                    <input className=" w-[75%] flex ml-auto mr-auto" value={instrument} onChange={(e) => setInstrument(e.target.value)} type="text" />
+                    <TextField
+                required
+                fullWidth
+                id=""
+                label="Instrument"
+                value={instrument}
+                onChange={(e) => setInstrument(e.target.value)}
+                select
+              >
+                {Object.values(typesDeCours).map((value, index) => (
+                  <MenuItem key={index} value={value}>
+                    {value}
+                  </MenuItem>
+                ))}
+              </TextField>
                   </div>
                   <div className=" my-3" >
                   <label htmlFor="" className="w-[75%] flex ml-auto mr-auto my-2" >tarif</label>

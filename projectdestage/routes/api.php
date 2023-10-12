@@ -1,11 +1,8 @@
 <?php
 use App\Http\Controllers\CompteEcoleController;
-use App\Http\Controllers\HistoryEcoleController;
-use App\Http\Controllers\HistoryEleveController;
-use App\Http\Controllers\HistoryProfController;
-use App\Models\HistoryEcole;
-use App\Models\HistoryEleve;
-use App\Models\HistoryProf;
+use App\Http\Controllers\CompteEleveController;
+use App\Http\Controllers\CompteProfController;
+
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: PUT, GET, POST, DELETE, OPTIONS");
@@ -59,6 +56,7 @@ Route::get('eleves', [MembreController::class, 'GetAllEleves']);
 Route::post('eleve/login', [MembreController::class, 'MemberLogin']);
 Route::get('eleves/{id}', [MembreController::class,'Findmember']);
 Route::put('eleves/{id}', [MembreController::class,'updateMember']);
+Route::put('eleves/{id}/self-modify', [MembreController::class,'updateMemberFromMemberProfile']);
 //eleve a payé
 Route::put('eleves/{id}/solde', [MembreController::class,'updateEleveSolde']);
 
@@ -93,6 +91,7 @@ Route::get('cours/{id}', [CoureController::class, 'GetOneCours']);
 Route::put('cours/{id}', [CoureController::class, 'ModifyOneCours']);
 Route::get('cours/{id}/eleves', [CoureController::class, 'GetCoursByIdWithEleve']);
 Route::get('cours/{id}/prof', [CoureController::class, 'GetCoursByIdWithProf']);
+Route::get('cours/prof/{id}', [CoureController::class, 'GetCoursOneProf']);
 
 
 
@@ -112,10 +111,10 @@ Route::get('/admin/ecole/solde/cours/{id}', [CompteEcoleController::class, 'GetH
 Route::get('/admin/ecole/solde/eleve/{id}', [CompteEcoleController::class, 'GetHistoryOneEleve']);
 Route::get('/admin/ecole/solde/prof/{id}', [CompteEcoleController::class, 'GetHistoryOneProf']);
 
-Route::get('profs/solde', [HistoryProfController::class, 'GetHistoryProf']);
-Route::get('profs/{id}/solde', [HistoryProfController::class, 'GetHistoryOneProf']);
+Route::get('solde/profs', [CompteProfController::class, 'GetHistoryProf']);
+Route::get('profs/{id}/solde', [CompteProfController::class, 'GetHistoryOneProf']);
 
 
-Route::get('eleves/solde', [HistoryEleveController::class, 'GetHistoryEleve']);
-Route::get('eleves/{id}/solde', [HistoryEleveController::class, 'GetHistoryOneEleves']);
+Route::get('solde/eleves', [CompteEleveController::class, 'GetCompteEleve']);
+Route::get('eleves/{id}/solde', [CompteEleveController::class, 'GetHistoryOneEleve']);
 

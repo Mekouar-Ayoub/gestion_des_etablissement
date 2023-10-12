@@ -1,0 +1,9 @@
+COMPANY_NAME="Blue Symphony"
+STUDENT_APP_THEME=""
+PROF_APP_THEME=""
+COMPANY_ADRESS=""
+COMPANY_WEBSITE=""
+COMPANY_MAIL="Bluesymphony.piano@gmail.com"
+COMPANY_OWNERNAME="Meryem El Maddarsi"
+
+REACT_APP_API_URL='http://php.blue-symphony.fr/api'

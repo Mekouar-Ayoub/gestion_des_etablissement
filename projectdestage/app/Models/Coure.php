@@ -22,12 +22,12 @@ class Coure extends Model
 
     public function historyMember()
     {
-        return $this->hasMany(HistoryEleve::class, 'cour_id');
+        return $this->hasMany(CompteEleve::class, 'cour_id');
     }
 
     public function historyProf()
     {
-        return $this->hasMany(HistoryProf::class, 'cour_id');
+        return $this->hasMany(CompteProf::class, 'cour_id');
     }
 
     public function historyEcole()

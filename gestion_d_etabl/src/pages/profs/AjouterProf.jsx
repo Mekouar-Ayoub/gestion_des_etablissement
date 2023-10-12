@@ -7,6 +7,7 @@ import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
 import { createTheme } from '@mui/material/styles';
 import axios from 'axios';
 import Retour from "../../components/Retour";
+import { MenuItem } from "@mui/material";
 
 
 
@@ -142,18 +143,21 @@ function AjouterCoure() {
                                     />
                                 </div>
                                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                                    <TextField
-                                        required
-                                        fullWidth
-                                        id="instrument"
-                                        label="instrument"
-                                        type="text"
-                                        value={instrument} onChange={(e) => setInstrument(e.target.value)}
-
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
-                                    />
+                                <TextField
+                    required
+                    fullWidth
+                    id=""
+                    label="Professeur de : "
+                    value={instrument}
+                    onChange={(e) => setInstrument(e.target.value)}
+                    select
+                  >
+                  {Object.values(typesDeCours).map((value,index) => (
+                      <MenuItem key={index} value={value}>
+                        {value}
+                      </MenuItem>
+                    ))}
+                  </TextField>
                                 </div>
                             </div>
                             <div className="flex flex-wrap -mx-3 mb-6">

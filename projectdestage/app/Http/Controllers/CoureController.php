@@ -6,8 +6,8 @@ use App\Models\CompteEcole;
 use App\Models\Coure;
 use App\Http\Requests\CoureRequest;
 use App\Models\Elev_coure;
-use App\Models\HistoryEleve;
-use App\Models\HistoryProf;
+use App\Models\CompteEleve;
+use App\Models\CompteProf;
 use App\Models\Membre;
 use App\Models\Profe;
 use stdClass;
@@ -32,12 +32,19 @@ class CoureController extends Controller
         $coure->fin_de_coure = $request->input('fin_de_coure');
         $coure->profe_id = $request->input('profe_id');
         $coure->save();
-        return response()->json($coure->save());
+        return response()->json(Coure::latest()->first()->id);
     }
 
     public function GetAllCoursWithEleves(){
 
         $data = Coure::with('membres')->with('profe')->paginate(15);
+        //$data = Elev_coure::with('eleves')->paginate(15);
+        return response()->json($data);
+    }
+
+    public function GetAllCoursOneEleve($id){
+    //TODO NOT WORKING
+        $data = Coure::with('membres');
         //$data = Elev_coure::with('eleves')->paginate(15);
         return response()->json($data);
     }
@@ -64,8 +71,16 @@ class CoureController extends Controller
         return response()->json($data);
     }
 
+    public function GetCoursOneProf($id) {
+        $data = Coure::with('profe')->where('profe_id','=',$id);
+        return response()->json($data);
+    }
+
+
+
     //TODO check
     public function ModifyOneCours($id, CoureRequest $request) {
+        //TODO ELEVE AJOUTE AU COURS ET COMPTE ELEVE A PAS CHANGER
         $request->validated();
         $coureIndb = Coure::find($id);
         $coure = $data = Coure::find($id);
@@ -76,7 +91,6 @@ class CoureController extends Controller
         $coure->fin_de_coure = $request->input('fin_de_coure');
         $coure->profe_id = $request->input('profe_id');
         $coure->etat = $request->input('etat');
-
 
         if($coureIndb->etat == 2) {
             if($coure->etat != 2) {
@@ -96,16 +110,16 @@ class CoureController extends Controller
 
                 //not working
                 foreach ($allElevesInCours as $value){
-                    $historyEleve = new HistoryEleve();
+                    $historyEleve = new CompteEleve();
                     $historyEleve->eleve_id = $value->id;
                     $historyEleve->cour_id = $coure->id;
                     $historyEleve->nombre_heures=$diff_dates /60;
                     $historyEleve->prix=-$soldeToAddFromEleve;
-                    $historyEleve->type='cours annulé ou programmé';
+                    $historyEleve->type='cours annulé';
                     $historyEleve->save();
                     $eleve = Membre::find($historyEleve->eleve_id);
                     $eleve->solde += $soldeToAddFromEleve;
-                    $soldeToAddToEcole -= $soldeToAddFromEleve;
+                    //
                     $eleve->update();
                     //here
                     $value->save();
@@ -118,12 +132,12 @@ class CoureController extends Controller
                 $prof->solde -=$soldeToRemoveToProf;
                 $prof->update();
 
-                $historyProf = new HistoryProf();
+                $historyProf = new CompteProf();
                 $historyProf->prof_id = $prof->id;
                 $historyProf->coure_id = $coure->id;
                 $historyProf->nombre_heures=$diff_dates /60;
                 $historyProf->prix_a_rendre = -$soldeToRemoveToProf;
-                $historyEleve->type='cours annulé ou programmé';
+                $historyProf->type='cours annulé ou programmé';
                 $historyProf->profit = 0;
                 $historyProf->save();
 
@@ -132,12 +146,17 @@ class CoureController extends Controller
                 $compteEcole->mouvement = -$soldeToRemoveToEcole;
                 $compteEcole->profit = 0;
                 $compteEcole->cour_id = $coure->id;
-                $compteEcole->solde += -$soldeToRemoveToEcole;
-                $compteEcole->type('cours annulé ou programmé');
+                $LastSolde = CompteEcole::all()->last()->solde;
+
+                $compteEcole->solde = $LastSolde-$soldeToRemoveToEcole;
+                $compteEcole->type= 'cours annulé ou programmé';
                 $compteEcole->save();
 
                 $coure->update();
 
+
+            }
+            else {
 
             }
         }
@@ -161,16 +180,16 @@ class CoureController extends Controller
 
                 //not working
                 foreach ($allElevesInCours as $value){
-                    $historyEleve = new HistoryEleve();
+                    $historyEleve = new CompteEleve();
                     $historyEleve->eleve_id = $value->id;
                     $historyEleve->cour_id = $coure->id;
                     $historyEleve->nombre_heures=$diff_dates /60;
                     $historyEleve->prix=$soldeToRemoveFromEleve;
+                    $historyEleve->type="l'éleve a effectué un cours";
                     $historyEleve->save();
                     $soldeToAddToEcole += $soldeToRemoveFromEleve;
                     $eleve = Membre::find($historyEleve->eleve_id);
                     $eleve->solde -= $soldeToRemoveFromEleve;
-                    $eleve->type('a effectué un cours');
                     $eleve->update();
                     //here
                     $value->save();
@@ -183,21 +202,23 @@ class CoureController extends Controller
                 $prof->solde +=$soldeToAddToProf;
                 $prof->update();
 
-                $historyProf = new HistoryProf();
+                $historyProf = new CompteProf();
                 $historyProf->prof_id = $prof->id;
                 $historyProf->coure_id = $coure->id;
                 $historyProf->nombre_heures=$diff_dates /60;
                 $historyProf->prix_a_rendre = $soldeToAddToProf;
                 $historyProf->profit = $soldeToAddToEcole - $soldeToAddToProf;
-                $historyProf->type('a effectué un cours');
+                $historyProf->type= 'a effectué un cours';
                 $historyProf->save();
 
                 $compteEcole = new CompteEcole();
                 $compteEcole->mouvement = $soldeToAddToEcole;
                 $compteEcole->profit = $soldeToAddToEcole - $soldeToAddToProf;
                 $compteEcole->cour_id = $coure->id;
-                $compteEcole->solde += $soldeToAddToEcole;
-                $compteEcole->type('un cours a été effectué');
+                $LastSolde = CompteEcole::all()->last()->solde;
+
+                $compteEcole->solde = $LastSolde + $soldeToAddToEcole;
+                $compteEcole->type = 'un cours a été effectué';
                 $compteEcole->save();
 
                 $coure->update();

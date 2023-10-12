@@ -19,6 +19,7 @@ return new class extends Migration
             $table->dateTime('debut_de_coure');
             $table->dateTime('fin_de_coure');
             $table->unsignedBigInteger('profe_id');
+            $table->unsignedTinyInteger('groupe');
             $table->foreign('profe_id')->references('id')->on('profes')
             ->cascadeOnDelete()
             ->cascadeOnUpdate();

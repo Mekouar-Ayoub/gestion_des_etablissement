@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\CompteEcole;
-use App\Models\HistoryProf;
+
+use App\Models\CompteProf;
 use App\Models\Profe;
 use App\Http\Requests\ProfRequest;
 use Exception;
@@ -38,7 +39,7 @@ class ProfeController extends Controller
         ]);
 
 
-        $historyProf = new HistoryProf();
+        $historyProf = new CompteProf();
                 $historyProf->type='le professeur a été créer';
                 $historyProf->prof_id = $profe->id;
                 $historyProf->coure_id = -1;
@@ -162,7 +163,7 @@ class ProfeController extends Controller
         if($validatedData){
 
                 $prof->solde -= $request->input('solde');
-                $historyProf = new HistoryProf();
+                $historyProf = new CompteProf();
                 $historyProf->type='le professeur a été payé';
                 $historyProf->prof_id = $prof->id;
                 $historyProf->coure_id = -1;

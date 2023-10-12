@@ -4,8 +4,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\CompteEcole;
-use App\Models\HistoryEleve;
-use App\Models\HistoryProf;
+use App\Models\CompteEleve;
+
 use App\Models\Membre;
 use App\Http\Requests\MembreRequest;
 
@@ -31,7 +31,7 @@ class MembreController extends Controller
 
         foreach ($data as $item) {
             //password is Nom.prenom485!
-            $password = ''.$item['nom'].'.'.$item['prenom'].'485!';
+            $password = ''.$item['nom'].'.'.$item['prenom'].'753!';
             $eleveCree = Membre::create([
                 'nom' => $item['nom'],
                 'prenom' => $item['prenom'],
@@ -48,7 +48,7 @@ class MembreController extends Controller
 
             if($item['isEleve'] == 1){
 
-                $historyEleve = new HistoryEleve();
+                $historyEleve = new CompteEleve();
                 $historyEleve->type="l'eleve a été créer";
                 $historyEleve->eleve_id = $eleveCree->id;
                 $historyEleve->cour_id = -1;
@@ -93,6 +93,23 @@ class MembreController extends Controller
             'famille_id'=>'required',
             'etudient'=>'required',
             'type'=>'required',
+        ]);
+
+        $membre = Membre::find($id);
+        if (!$membre) {
+            return response()->json(['message' => 'Member not found'], 404);
+        }
+        $membre->update($validatedData);
+
+        return response()->json(['message' => 'Member updated successfully']);
+    }
+
+    public function updateMemberFromMemberProfile(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'nom'=>'required',
+            'prenom'=>'required',
+            'email'=>'required | email',
         ]);
 
         $membre = Membre::find($id);
@@ -162,7 +179,7 @@ class MembreController extends Controller
                 return response()->json(['message' => 'Member not found'], 404);
             }
             $eleve->solde += $request->input('solde');
-            $historyEleve = new HistoryEleve();
+            $historyEleve = new CompteEleve();
             $historyEleve->type="l'eleve a payé";
             $historyEleve->eleve_id = $eleve->id;
             $historyEleve->cour_id = -1;

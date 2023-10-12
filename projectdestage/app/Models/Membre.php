@@ -46,23 +46,21 @@ class Membre extends Authenticatable implements JWTSubject
         'type'
     ];
 
-    //TODO not working
     public function famille()
     {
         return $this->belongsTo(Famille::class);
     }
 
-    //Not WOrking
     public function coure()
     {
         return $this->belongsToMany(Coure::class, 'elev_coures');
     }
 
 
-    //Working ?
+    //TODO Working ?
     public function history()
     {
-        return $this->hasMany(HistoryEleve::class);
+        return $this->hasMany(CompteEleve::class);
     }
 
     //Working ?

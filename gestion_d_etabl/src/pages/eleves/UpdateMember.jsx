@@ -20,6 +20,8 @@ function UpdateMember({isModifying}) {
   const [famille, setFamille] = useState();
   const [etudient, setEtudient] = useState(data.etudient);
   const [type, setType] = useState(data.type);
+  const [payment, setPayment] = useState(0);
+  const [isPaying, setIsPaying] = useState(false);
 
   //TODO ajouter le solde au changement et à la vue
   useEffect(() => {
@@ -77,6 +79,15 @@ function UpdateMember({isModifying}) {
           <div className="w-[100vw] rounded  flex items-center">
             <div className="w-[75%] bg-gray-100 ml-auto mr-auto h-[75%] flex items-center">
               <div className="w-full bg-gray-100 ml-auto mr-auto flex-col items-center">
+                {!isPaying && <button className="bg-green-500">Eleve payé</button>}
+                {isPaying &&<><input type="number" value={payment} onChange={(e) =>
+                  {
+                    setPayment(e.target.value)
+                    
+                  } }></input> <button className="bg-green-500" onClick={() => {
+                    //TODO Working ?
+                    axios.put(process.env.REACT_APP_API_URL + 'eleves/'+eleveId+'/solde', {solde: payment})
+                  }}>Enregistrer</button></>}
               <div className="w-full my-3">
                     <label htmlFor="" className="w-[75%] flex ml-auto mr-auto my-2">nom</label>
                     <input className=" w-[75%] flex ml-auto mr-auto" value={nom} onChange={(e) => setNom(e.target.value)} type="text" />
@@ -93,7 +104,7 @@ function UpdateMember({isModifying}) {
                     <label htmlFor="" className="w-[75%] flex ml-auto mr-auto my-2" >email</label>
                     <input className=" w-[75%] flex ml-auto mr-auto" value={email} onChange={(e) => setEmail(e.target.value)} type="text" />
                   </div>
-                  <div className=" my-3" hidden>
+                  <div className=" my-3">
                     <label htmlFor="" className="w-[75%] flex ml-auto mr-auto my-2" >adresse</label>
                     <input className=" w-[75%] flex ml-auto mr-auto" value={adresse} onChange={(e) => setAdresse(e.target.value)} type="text" />
                   </div>
@@ -113,7 +124,6 @@ function UpdateMember({isModifying}) {
                   </div>
                 <div className="my-3 w-[75%] ml-auto mr-auto ">
                   <button onClick={handleSubmit} className="bg-blue-500 p-2 rounded">Enregistrer</button>
-                  
                 </div>
               </div>
             </div>

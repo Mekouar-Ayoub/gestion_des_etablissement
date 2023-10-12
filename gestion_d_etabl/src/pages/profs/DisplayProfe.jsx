@@ -54,7 +54,11 @@ function displayProfe() {
                 <div className="w-full">
                     <div className="bg-white overflow-auto">
                         <div className='flex justify-end'>
-                            <button className="text-white bg-[#3788d8] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-3 justify-end"><Link to={'/admin/profs/add'}>Ajouter Un Professeur</Link></button>
+                            <button className="text-white bg-[#3788d8] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-3 justify-end">
+                                <Link to={'/admin/profs/add'}>
+                                <a>Ajouter Un Professeur</a>
+                                </Link>
+                                    </button>
                         </div>
                         {isPaying && <>
                         <label>Montant payé au professeur</label>

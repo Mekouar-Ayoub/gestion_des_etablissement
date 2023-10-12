@@ -34,8 +34,8 @@ class FamilleController extends Controller
         $data = $request->validate([
             'nom' => 'required'
         ]);
-        Famille::create($data);
-        return response()->json($message);
+        $famille = Famille::create($data);
+        return response()->json($famille->id);
     }
 
     // function to update famille

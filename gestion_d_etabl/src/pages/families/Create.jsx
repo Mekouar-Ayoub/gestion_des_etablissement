@@ -26,7 +26,7 @@ function Create() {
             });
 
             setSuccessMessage('Data created successfully');
-            window.location.href = '/admin/families';
+            window.location.href = '/admin/families/find/'+response.data;
             console.log(response.data);
         } catch (error) {
             console.error(error);

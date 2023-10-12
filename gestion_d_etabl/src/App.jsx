@@ -8,7 +8,7 @@ import axios from "axios";
 import NavBarEleve from "./components/NavBarEleve";
 import UserAside from "./components/AsideUser";
 import { signOut } from "./utils/sign-out";
-
+import NavBarProf from "./components/NavBarProf"
 function App() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isSlidOpen, setIsslidOpen] = useState(false)
@@ -83,22 +83,27 @@ function App() {
 
     //TODO change
     if (Cookies.get('token') && Cookies.headers === 0) {
-      window.location.href = '/admin/me'
+      window.location.href = '/'
     }
     if (Cookies.get('token') && Cookies.headers === 1) {
-      window.location.href = '/prof/me'
+      window.location.href = '/prof/profile'
     }
     if (Cookies.get('token') && Cookies.headers === 2) {
-      window.location.href = '/eleve/me'
+      window.location.href = '/eleve/profile'
     }
   }
   return (<>
     {location.pathname.startsWith('/admin') && location.pathname != '/'  && !location.pathname.endsWith('login') ? lateralAdmin()
-      : location.pathname.startsWith('/eleve') && !location.pathname.includes('login') ? <>
+      : location.pathname.startsWith('/eleve') && !location.pathname.includes('login') ? <span style={{ backgroundImage: "url('/bg for blue symphony.jpg')" }}>
       <NavBarEleve></NavBarEleve> 
       <Myrouter></Myrouter>
-      </>
-      :<Myrouter></Myrouter>
+      </span>
+      : location.pathname.startsWith('/prof') && !location.pathname.includes('login') ? <span style={{ backgroundImage: "url('/bg for blue symphony.jpg')" }}>
+        
+        <NavBarProf></NavBarProf> 
+<Myrouter></Myrouter>
+</span>
+       : <Myrouter></Myrouter>
     }
 
   </>

@@ -34,6 +34,8 @@ import ModifyPublication from "../pages/publication/ModifyPublication";
 import LoginAdmin from "../pages/admin/Login";
 import LoginEleve from "../pages/eleves/Login";
 import EleveDashboard from "../pages/eleves/Dashboard";
+import EleveSolde from "../pages/eleves/EleveSolde";
+import ProfSolde from "../pages/profs/ProfSolde";
 /*
 
 */
@@ -80,13 +82,19 @@ function Myrouter() {
                         <Route path="/prof/cours" element={<AfecherLesCours user='admin' />} />
                         <Route path="/prof/dashboard" element={<ProfeDashoard />} />
                         <Route path='/prof/me' element={ProfProfile} />
+                        <Route path='/prof/solde' element={<ProfSolde></ProfSolde>} />
+                        <Route path='/prof/profil' element={<ProfProfile isModifying={false}></ProfProfile>} />
+                        <Route path='/prof/profil/modify' element={<ProfProfile isModifying={true}></ProfProfile>} />
                     </Route>
 
                     <Route element={<ProtectedRoute user={'eleve'} />}>
                         <Route path="/eleve/cours/" element={<AfecherLesCours user='admin' />} />
                         <Route path="/eleve/dashboard" element={<EleveDashboard />} />
                         <Route path="/eleve/family/find/:famille_Id" element={<FamilyDetails />} />
-                        <Route path='/eleve/me' element={EleveProfile} />
+                        <Route path='/eleve/profil' element={<EleveProfile isModifying={false}></EleveProfile>} />
+                        <Route path='/eleve/profil/modify' element={<EleveProfile isModifying={true}></EleveProfile>} />
+                        <Route path='/eleve/solde' element={<EleveSolde></EleveSolde>} />
+                        
                     </Route>
                     <Route element={<ProtectedRoute user={'all'} />}>
                         
@@ -103,6 +111,7 @@ function Myrouter() {
                 <Route path="/eleve/login" element={<LoginEleve />} />
                 
             </Routes>
+
         </>
     );
 }

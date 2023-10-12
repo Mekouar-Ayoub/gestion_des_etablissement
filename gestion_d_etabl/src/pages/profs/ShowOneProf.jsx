@@ -8,6 +8,7 @@ import { createTheme } from '@mui/material/styles';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 import Retour from "../../components/Retour";
+import { MenuItem } from "@mui/material";
 
 
 
@@ -161,18 +162,21 @@ function ShowProf(){
                                     />
                                 </div>
                                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                                    <TextField
-                                        required
-                                        fullWidth
-                                        id="instrument"
-                                        label="instrument"
-                                        type="text"
-                                        value={instrument} onChange={(e) => setInstrument(e.target.value)}
-
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
-                                    />
+                                <TextField
+                required
+                fullWidth
+                id=""
+                label="Instrument"
+                value={instrument}
+                onChange={(e) => setInstrument(e.target.value)}
+                select
+              >
+                {Object.values(typesDeCours).map((value, index) => (
+                  <MenuItem key={index} value={value}>
+                    {value}
+                  </MenuItem>
+                ))}
+              </TextField>
                                 </div>
                             </div>
                             <div className="flex flex-wrap -mx-3 mb-6">

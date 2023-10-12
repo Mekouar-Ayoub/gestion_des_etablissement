@@ -9,7 +9,7 @@ function CallToAction() {
              useEffect(()=> {
     if(Cookies.get('token')){
         if(Cookies.get('headers')=== '0'){
-            window.location.href = '/admin/dashboard'
+            window.location.href = '/admin/calendar'
         }
         if(Cookies.get('headers')=== '1'){
             window.location.href = '/prof/dashboard'
@@ -28,7 +28,7 @@ function CallToAction() {
                 <h1 className='mt-[10%] mb-[5%] ml-[0%] text-xl'> Vous êtes ?</h1>
                 <div className=' text-white'>
                 <div className='call-div prof-background p-5 hover:bg-sky-700'>
-                    <Link to={'/profs/login'}>
+                    <Link to={'/prof/login'}>
                         <a>Professeur</a>
                     </Link>
                 </div>

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('historique_soldes_prof', function (Blueprint $table) {
+        Schema::create('compte_prof', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('prof_id');
             $table->foreign('prof_id')->references('id')->on('profes')
@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('coure_id');
             $table->integer('nombre_heures');
             $table->float('prix_a_rendre');
+            $table->string('type_de_paiement');
             $table->float('profit');
             $table->string('type');
 

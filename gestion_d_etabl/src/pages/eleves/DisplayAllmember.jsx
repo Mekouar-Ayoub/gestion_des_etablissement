@@ -3,7 +3,7 @@ import { AiOutlineMenu, AiFillCalendar, AiOutlineUser, AiOutlineInsertRowAbove }
 import Aside from "../../components/Aside"
 import { Link } from "react-router-dom";
 import axios from "axios";
-
+import {typeDePaiements} from "../../utils/common-objects"
 function Dashoard() {
 
     const [data, setData] = useState([]);
@@ -11,7 +11,8 @@ function Dashoard() {
     const [isPaying, setIsPaying] = useState();
     const [prixAPayer, setPrixApayer] = useState(0);
     const [eleveId, setEleveId] = useState();
-
+    const [typePaiement, setTypePaiement] = useState('');
+    
     useEffect(() => {
         axios
             .get(process.env.REACT_APP_API_URL+'/eleves')
@@ -37,7 +38,7 @@ function Dashoard() {
         let confirmed = confirm("L'eleve a payé :"+ prixAPayer +" etes vous sur ? ")
         
         if(confirmed) {
-            axios.put(process.env.REACT_APP_API_URL+'/eleves/'+eleveId+'/solde', {solde: prixAPayer})
+            axios.put(process.env.REACT_APP_API_URL+'/eleves/'+eleveId+'/solde', {solde: prixAPayer, type_de_paiement: typePaiement})
             .then(response=> {
                 console.log(response)
             })
@@ -54,13 +55,7 @@ function Dashoard() {
                     <main className="w-full flex-grow p-6">
                         <h1 className="text-3xl text-black pb-6">Tout les membres de toutes les familles</h1>
                         <div className="w-full ">
-                        {isPaying && <>
-                        <label>Montant payé par l'éléve</label>
-                        <input onChange={(e)=>{
-                            setPrixApayer(e.target.value)
-                        }} />
-                        <button onClick={onSaveClick}>Enregister</button>
-                        </>}
+                        
                             <div className="bg-white overflow-auto">
                                 <table className="min-w-full bg-white">
                                     <thead className="bg-[#3788d8] text-white">
@@ -83,7 +78,7 @@ function Dashoard() {
                                                     <td className="text-left py-3 px-4"><a className="hover:text-blue-500" >{item.email}</a></td>
                                                     <td className="text-left py-3 px-4"><a className="hover:text-blue-500" >{item.famille.nom}</a></td>
                                                     <td className="text-left py-3 px-4 flex">
-                                                        {/* --------------------------- */}
+                                                    {!isPaying && <>
                                                         <a className="hover:text-blue-500" href={"/admin/eleves/" + item.id + "/modify"} >
                                                         <img src="/ModifyIcon.svg" />
                                                         </a>
@@ -95,7 +90,30 @@ function Dashoard() {
                                                         <a className="hover:text-blue-500" href={"/admin/eleves/" + item.id} >
                                                         <img src="/Details.svg" />
                                                         </a>
-                                                        <button className="bg-green-400 p-3 text-white" onClick={() => handleOnClickPay(item.id)}>Payer</button>
+                                                        <button className="bg-green-400 p-3 text-white" onClick={() => handleOnClickPay(item.id)}>L'eleve a Payé</button></>}
+                                                        {isPaying && <>
+                        <div>
+                        <label>Montant payé par l'éléve</label>
+                        <br />
+                        <input className="border-2 bg-blue-200" onChange={(e)=>{
+                            setPrixApayer(e.target.value)
+                        }} />
+                        </div>
+                        <div className="ml-[1%]">
+                        <label>Type de Paiement</label>
+                        <br />
+                        <select>
+                        {Object.values(typeDePaiements).map(value => {
+                            return <option value={value}>{value}</option>
+                        })}
+
+                        </select>
+                        </div>
+                        <button className="bg-green-400 p-3" onClick={onSaveClick}>Enregister</button>
+                        <button className="bg-red-500 p-3" onClick={() => {
+                             setIsPaying(false)
+                        }}>Annuler</button>
+                        </>}
                                                     </td>
                                                 </tr>
                                             ))

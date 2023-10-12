@@ -24,3 +24,9 @@ export const TransformEtat = (number) =>{
   }
   return ''
 }
+
+export const typeDePaiements = {
+  CHEQUE: 'Chèque',
+  ESPECE: 'Espece',
+  VIREMENT: 'Virement'
+}
