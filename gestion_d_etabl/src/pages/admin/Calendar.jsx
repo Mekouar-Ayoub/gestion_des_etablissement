@@ -45,6 +45,7 @@ const Calendar = ({ type }) => {
                     });
             }
             if (type === 'eleve')
+            //TODO works for family logged ?
                 axios
                     .get(process.env.REACT_APP_API_URL + '/eleves/' + Cookies.get('eleveId') + '/cours').then(
                         (response) => {

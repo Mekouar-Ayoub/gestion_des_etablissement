@@ -31,6 +31,7 @@ class CoureController extends Controller
         $coure->debut_de_coure = $request->input('debut_de_coure');
         $coure->fin_de_coure = $request->input('fin_de_coure');
         $coure->profe_id = $request->input('profe_id');
+        $coure->individuel = $request->input('individuel');
         $coure->save();
         return response()->json(Coure::latest()->first()->id);
     }

@@ -35,6 +35,7 @@ class Elev_coureController extends Controller
      */
     public function store(Request $request, $id)
     {
+        //TODO gerer le fait que quand plusieurs eleves ajoutés mettre en groupee
         $data = $request->validate(
             [
                 "membre_id" => 'required',
