@@ -18,9 +18,9 @@ function Dashoard() {
     axios.get(process.env.REACT_APP_API_URL+'/admin/ecole/solde')
     .then(response => {
                 
-        setHistoryEcole(response.data.data);
+        setHistoryEcole(response.data);
         console.log(response)
-        setSolde(response.data.data[response.data.data.length-1].solde)
+        setSolde(response.data[response.data.length-1].solde)
 
         })
     .catch(error => {
@@ -51,12 +51,12 @@ function Dashoard() {
     return (<>
             <div className="w-full flex-col h-screen">
             
-                <div className="w-full overflow-x-hidden border-t flex flex-col">
+                <div className="w-full  border-t flex flex-col">
                     <main className="w-full flex-grow p-6">
                         <h1 className="text-3xl text-black pb-6">Dashboard</h1>
                         <div className="w-full">
 
-                            <div className="bg-white overflow-auto flex justify-evenly items-center">
+                            <div className="bg-white  flex justify-evenly items-center">
                                 <div className=" border rounded px-[100px] py-[40px]">
                                 <h1>Historique ecole</h1> 
                                 <h2>Solde Actuel :{solde}</h2>
@@ -92,7 +92,7 @@ function Dashoard() {
                                                     <td className="text-left py-3 px-4 flex">
                                                        
                                                         <a className="hover:text-blue-500" href={""} >
-                                                        <img src="/Details.svg" />
+                                                        <img src="/images/Details.svg" />
                                                         </a>
                                                         
                                                     </td>
@@ -137,7 +137,7 @@ function Dashoard() {
                                                     <td className="text-left py-3 px-4 flex">
                                                        
                                                         <a className="hover:text-blue-500" href={""} >
-                                                        <img src="/Details.svg" />
+                                                        <img src="/images/Details.svg" />
                                                         </a>
                                                         
                                                     </td>
@@ -179,7 +179,7 @@ function Dashoard() {
                                                     <td className="text-left py-3 px-4 flex">
                                                        
                                                         <a className="hover:text-blue-500" href={""} >
-                                                        <img src="/Details.svg" />
+                                                        <img src="/images/Details.svg" />
                                                         </a>
                                                         
                                                     </td>

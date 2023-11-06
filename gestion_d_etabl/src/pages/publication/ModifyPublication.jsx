@@ -58,8 +58,9 @@ function ModifyPublication() {
     <div className="bg-gray-100 font-family-karla flex">
       
         <div className="w-full overflow-x-hidden border-t flex flex-col">
+        <Retour to='/publications'></Retour>
           <main className="w-full flex-grow p-6">
-          <Retour to='/publications'></Retour>
+          
             <h1 className="text-3xl text-black pb-6">Dashboard</h1>
             <div className="w-full">
               <div className="bg-white overflow-auto">

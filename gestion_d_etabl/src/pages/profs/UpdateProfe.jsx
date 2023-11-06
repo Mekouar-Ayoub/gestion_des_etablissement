@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import Cookies from 'js-cookie';
 import Retour from "../../components/Retour";
 import { MenuItem, TextField } from "@mui/material";
+import {typesDeCours} from "../../utils/common-objects"
+
 function UpdateMember() {
   const { profId } = useParams()
   const [profeData, setProfeData] = useState({});
@@ -64,11 +66,10 @@ function UpdateMember() {
     console.log(updatedData)
   
     axios
-      .put(`process.env.REACT_APP_API_URL'+'/profs/${profeData.id}`, updatedData, {
-
+      .put(`${process.env.REACT_APP_API_URL}/profs/${profeData.id}`, updatedData, {
       })
       .then(function (response) {
-        window.location.href = '/profs';
+        window.location.href = '/admin/profs';
       })
       .catch(function (error) {
         console.log(error);
@@ -124,7 +125,7 @@ function UpdateMember() {
                   </div>
                   <div className=" my-3" >
                   <label htmlFor="" className="w-[75%] flex ml-auto mr-auto my-2" >tarif</label>
-                    <input className=" w-[75%] flex ml-auto mr-auto" value={tarif} onChange={(e) => setTarif(e.target.value)} type="text" />
+                    <input className=" w-[75%] flex ml-auto mr-auto" value={tarif} onChange={(e) => setTarif(e.target.value.replace(',','.'))} type="text" />
                     <p className="text-red-500 text-center border-2 bg-white">Changer le tarif horaire ne change pas le prix pour les anciens cours</p>
                   </div>
                   <div className=" my-3" >

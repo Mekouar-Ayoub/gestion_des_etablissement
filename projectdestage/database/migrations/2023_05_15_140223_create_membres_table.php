@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('email');
             $table->string('password');
             $table->string('adresse');
+            $table->string('ecole')->default('');
+            $table->string('profession')->default('');
             $table->float('solde');
             $table->unsignedBigInteger('famille_id');
             $table->foreign('famille_id')->references('id')->on('familles')

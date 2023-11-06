@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\CompteEcole;
 use App\Models\CompteEleve;
 
+use App\Models\Famille;
 use App\Models\Membre;
 use App\Http\Requests\MembreRequest;
 
@@ -18,10 +19,13 @@ use Auth;
 class MembreController extends Controller
 {
 
-
     public function GetAllEleves()
     {
-        $eleves = Membre::with('famille')->paginate(15);
+        $eleves = Membre::all();
+        return response()->json($eleves);
+    }
+    public function GetAllElevesWithFamilles(){
+        $eleves = Membre::with('famille')->get();
         return response()->json($eleves);
     }
     public function AddMembre(MembreRequest $request)
@@ -108,10 +112,12 @@ class MembreController extends Controller
 
     public function updateMemberFromMemberProfile(Request $request, $id)
     {
+        //TODO ecole doesn't change
         $validatedData = $request->validate([
             'nom'=>'required',
             'prenom'=>'required',
             'email'=>'required | email',
+            'ecole' => 'required'
         ]);
 
         $membre = Membre::find($id);
@@ -128,6 +134,15 @@ class MembreController extends Controller
     {
         $membre = Membre::find($id);
         return response()->json($membre);
+    }
+
+    public function FindEleveWithFamille($id)
+    {
+        //->where('','',$id)
+        $membre = Membre::all()->find($id)->with('famille')->get();
+        //error_log($membre);
+        $famille = Famille::with('members')->find($membre[0]->famille_id);
+        return response()->json($famille->members);
     }
 
     public function MemberLogin(Request $request)

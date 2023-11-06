@@ -8,17 +8,14 @@ use App\Models\CompteProf;
 class CompteProfController extends Controller
 {
 
-    //TODO working ?
     public function GetHistoryProf(){
-        $data = CompteProf::all()->where('id','>','0');
-        //::with('prof')->with('cour')
-        //->withTrashed()
+        $data = CompteProf::all()->where('id','>','0')->sortBy('created_at');
         return response()->json($data);
     }
 
-    //WORKING
     public function GetHistoryOneProf($id){
-        $data = CompteProf::all()->where('prof_id','=',$id);
+        //TODO order by nor working
+        $data = CompteProf::all()->where('prof_id','=',$id)->sortBy('created_at');
         return response()->json($data);
     }
 }

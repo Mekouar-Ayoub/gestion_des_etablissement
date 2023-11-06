@@ -17,6 +17,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import RoundedButton from '../../components/Rounded-Boutton';
 import Cookies from 'js-cookie';
+import { isPlatform } from '@ionic/react';
 
 const defaultTheme = createTheme();
 
@@ -46,39 +47,39 @@ function LoginProf() {
       Cookies.set('profId', response.data.id);
       window.location.href = '/prof/dashboard';
     } catch (error) {
-      if (error.response) {
-        setErrorMessage(error.response.data.message);
-      } else {
+
         console.log(error)
         setErrorMessage('Email ou Mot de Passe Invalide');
-      }
+      
     }
   };
 
   return (
 
 
-    <div className='flex' style={{ backgroundImage: "url('/bg for blue symphony.jpg')" }}>
-      <div className='w-[60%] mt-[10%] pb-[11%] ml-[10%]'>
+    <div className='flex bg-blue-symphony h-[100vh]'>
+      {isPlatform('desktop') && <div className='w-[60%] mt-[10%] pb-[11%] ml-[10%]'>
         <img src='/images/logo_blue_symphony.svg'></img>
-      </div>
-      <div className='h-[100%] mt-[5%] border-2 mr-[10%] ml-[10%] student-border'
+      </div>}
+      <div className='h-[100hv%] mt-[5%] border-2 mr-[10%] ml-[10%] student-border'
       >
         <div className='flex justify-center mt-[5%]'>
 
           <Link to="">
-            <RoundedButton text={'Enseignant'} type='login' className='prof-background border-2 text-white'>
+          
+            <RoundedButton text={'Enseignant'} type='login' className='prof-background border-2 border-solid text-white'>
 
 
 
             </RoundedButton>
           </Link>
           <Link to="/eleve/login">
-            <RoundedButton text={'Eleve'} type='login' className={'border-2 hover:bg-blue-400 hover:text-white'}>
+            <a href='/eleve/login'>
+            <RoundedButton text={'Eleve'} type='login' className={'border-2 border-solid hover:bg-blue-400 hover:text-white'}>
 
 
 
-            </RoundedButton>
+            </RoundedButton></a>
           </Link>
 
         </div>

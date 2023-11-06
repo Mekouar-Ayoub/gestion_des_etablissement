@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BulkCourRequest;
 use App\Models\CompteEcole;
 use App\Models\Coure;
 use App\Http\Requests\CoureRequest;
@@ -18,10 +19,11 @@ class CoureController extends Controller
     public function FindEleveWithCours($id){
 
         //select * from membres INNER JOIN elev_coures on membres.id= elev_coures.membre_id inner join coures on elev_coures.coure_id = coures.id where membres.id=1;
-        $cours = Membre::with('coure')->paginate(15);
-        //with('coure')
+        $cours = Membre::with('coure')->get()->toArray();
         return response()->json($cours);
     }
+
+
     public function AjouterCoure(CoureRequest $request)
     {
         $request->validated();
@@ -36,17 +38,76 @@ class CoureController extends Controller
         return response()->json(Coure::latest()->first()->id);
     }
 
+    private function intToDate($DayOfWeekNumber) {
+        switch($DayOfWeekNumber)
+        {
+           case 0 : return 1; break;
+           case 1 : return 2; break;
+           case 2 : return 3; break;
+           case 3 : return 4; break;
+           case 4 : return 5; break;
+           case 5 : return 6; break;
+           case 6 : return 0;
+        }
+    }
+
+    private function dateToInt($DayOfWeekNumber) {
+        switch($DayOfWeekNumber)
+        {
+           case 0 : return 1; break;
+           case 1 : return 2; break;
+           case 2 : return 3; break;
+           case 3 : return 4; break;
+           case 4 : return 5; break;
+           case 5 : return 6; break;
+           case 6 : return 0;
+        }
+    }
+
+
+    public function AddMultipleCours(BulkCourRequest $request) {
+        $request->validated();
+        $coursIds = [];
+        //debutperiode + nbr jour
+        for($i = 0; $i<count($request->input('cours_times')); $i++) {
+                $coure = new Coure();
+                $coure->titre = $request->input('titre');
+                $coure->prix_horaire = $request->input('prix_horaire');
+                $coure->debut_de_coure = \Carbon\Carbon::parse($request->input('cours_times')[$i]['debut_de_cour'])->format('Y-m-d H:i:s');
+                $coure->fin_de_coure = \Carbon\Carbon::parse($request->input('cours_times')[$i]['fin_de_cour'])->format('Y-m-d H:i:s');
+                error_log($coure->debut_de_coure);
+                error_log($coure->fin_de_coure);
+                $coure->profe_id = $request->input('profe_id');
+                $coure->save();
+                array_push($coursIds,Coure::latest()->first()->id);
+            }
+        $eleves = $request->input('eleves');
+        for($j=0; $j<count($coursIds);$j++){
+            for($k=0; $k<count($eleves);$k++){
+                $Elev_coure = new Elev_coure();
+                $Elev_coure->membre_id = $eleves[$k]['id'];
+                $Elev_coure->coure_id = $coursIds[$j];
+                $Elev_coure->save();
+            }
+    }
+}
+
+    public function DeleteOneCours($id) {
+        $b=Coure::destroy($id);
+        return response()->json($b);
+    }
+
     public function GetAllCoursWithEleves(){
 
-        $data = Coure::with('membres')->with('profe')->paginate(15);
-        //$data = Elev_coure::with('eleves')->paginate(15);
+        $data = Coure::with('membres')->with('profe')->orderBy('debut_de_coure')->get()->toArray();
+        //$data = Elev_coure::with('eleves')-> ;
         return response()->json($data);
     }
 
     public function GetAllCoursOneEleve($id){
     //TODO NOT WORKING
-        $data = Coure::with('membres');
-        //$data = Elev_coure::with('eleves')->paginate(15);
+        $data = Coure::with('membres')->get()->toArray();
+
         return response()->json($data);
     }
 
@@ -56,8 +117,8 @@ class CoureController extends Controller
     }
 
     public function GetAllCours() {
-        $data = Coure::with('membres')->with('profe')->paginate(15);
-        //$data = Elev_coure::with('eleves')->paginate(15);
+        $data = Coure::with('membres')->with('profe')->orderBy('debut_de_coure')->paginate(15);
+        //$data = Elev_coure::with('eleves')->paginate(1000);
         return response()->json($data);
     }
 

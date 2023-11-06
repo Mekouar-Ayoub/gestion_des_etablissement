@@ -10,9 +10,10 @@ function PublicationsHome() {
 
     useEffect(() => {
         axios
-            .get(process.env.REACT_APP_API_URL+'/getPublication')
+            .get(process.env.REACT_APP_API_URL+'/publications')
             .then(response => {
-                const data = response.data.data;
+                const data = response.data;
+                console.log(data)
                 setData(data);
             })
             .catch(error => {
@@ -20,6 +21,8 @@ function PublicationsHome() {
             });
     }, []);
 
+
+    //TODO get Image inject binary directly not path
     return (
         <>
         
@@ -38,6 +41,7 @@ function PublicationsHome() {
                                     <AiFillHeart style={{fontSize:'30px'}} />
                                     <AiOutlineComment style={{fontSize:'30px'}} />
                                 </div>
+                                <h1>{item.titre}</h1>
                                 <p className="ml-auto mr-auto">{item.description}</p>
                             </div>
                         </div>

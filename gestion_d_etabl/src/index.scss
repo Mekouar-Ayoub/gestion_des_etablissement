@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 $admin-primary: #fff;
 $admin-secondary:#fff;
 $admin-background: #0E4C92;
@@ -14,14 +16,41 @@ $student-background: #47ACD2;
 $student-text:#c0a9a9;
 $student-border:#F1D9FF;
 
-$prof-primary:#fff;
+$prof-primary:#47ACD2;
 $prof-secondary:#fff;
 $prof-background:#550393;
 $prof-text:#fff;
 
 
-body{
+table td {
+    overflow: inherit !important;
+}
+
+body {
     height: 100%;
+    
+}
+
+body * {
+    overflow-y: visible !important;
+    overflow-x: visible !important;
+    overscroll-behavior-y : none !important;
+}
+a {
+    color:inherit !important;
+}
+
+.overflow-disable{
+    overflow-y: visible !important;
+    overflow-x: visible !important;
+}
+.overflow-disable *{
+    overflow-y: visible !important;
+    overflow-x: visible !important;
+}
+
+colgroup * {
+    width: 50px !important;
 }
 
 div {
@@ -72,4 +101,68 @@ div {
     line-height: 54px;
     letter-spacing: 0em;
     text-align: left;
+}
+
+
+.cadran-eleve-solde {
+    padding-top: 57px;
+    padding-bottom: 57px;
+    margin-top: 25px;
+    margin-left: 15%;
+    
+}
+
+.bg-color-cadran-student {
+    background-color: #FF7D65;
+    
+}
+
+.font-solde-title {
+    font-family: Outfit;
+    font-size: 41px;
+    font-weight: 400;
+    line-height: 52px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #565973;
+}
+
+.font-solde-text {
+    font-family: Poppins;
+    font-size: 43px;
+    font-weight: 500;
+    line-height: 65px;
+    letter-spacing: 0em;
+}
+
+.call-div{
+    width: 100%;
+}
+
+.bg-blue-symphony {
+    background-image: url('http://www.blue-symphony.fr/images/bg for blue symphony.jpg');
+}
+
+.overflow {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+@media screen and (max-width:750px) {
+    .student-dashboard-title {
+        font-family: Outfit;
+        font-size: 21px;
+        font-weight: 400;
+        line-height: 27px;
+        letter-spacing: 0em;
+        text-align: left;
+    }
+
+    .cadran-eleve-solde {
+        padding-top: 0px;
+        padding-bottom: 57px;
+        margin-top: 5%;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
 }

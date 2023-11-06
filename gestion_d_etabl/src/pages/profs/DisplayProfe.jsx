@@ -102,15 +102,15 @@ function displayProfe() {
                                                 
                                             {!isPaying && <>
                                                     <a className="hover:text-blue-500" href={"/admin/profs/" + item.id + "/modify"} >
-                                                        <img src="/ModifyIcon.svg" />
+                                                        <img src="/images/ModifyIcon.svg" />
                                                     </a>
                                                     {/* --------------------------- */}
                                                     <a className="hover:text-red-500" >
-                                                        <img src="/Delete.svg" />
+                                                        <img src="/images/Delete.svg" />
 
                                                     </a>
                                                     <a className="hover:text-blue-500" href={"/admin/profs/" + item.id} >
-                                                        <img src="/Details.svg" />
+                                                        <img src="/images/Details.svg" />
                                                     </a>
                                                     <button className="bg-green-400 p-3 text-white" onClick={() => handleOnClickPay(item.id)}>Payer le Prof</button></>}
                                                 {isPaying && <>

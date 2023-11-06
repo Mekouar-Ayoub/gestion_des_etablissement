@@ -11,7 +11,7 @@ class FamilleController extends Controller
     // function to show all famille
     public function index()
     {
-        $familles = Famille::with('members')->paginate(15);
+        $familles = Famille::with('members')->get()->toArray();
         return response()->json($familles);;
     }
 

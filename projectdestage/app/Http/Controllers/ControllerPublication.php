@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Publication;
 use Illuminate\Http\Request;
+use stdClass;
 
 class ControllerPublication extends Controller
 {
@@ -11,6 +12,7 @@ class ControllerPublication extends Controller
     {
         $request->validate([
             'description' => 'required',
+            'titre'=> 'required'
         ]);
 
         $publication = new Publication();
@@ -30,13 +32,14 @@ class ControllerPublication extends Controller
         }
 
         $publication->description = $request->description;
+        $publication->titre = $request->titre;
         $publication->save();
 
         return response()->json('Publication created successfully');
     }
 
     public function getPublication(){
-        $publication = Publication::paginate(15);
+        $publication = Publication::all() ;
         return response($publication);
     }
 
@@ -68,4 +71,6 @@ class ControllerPublication extends Controller
         $publication->description = $request->description;
         $publication->save();
     }
+
+
 }

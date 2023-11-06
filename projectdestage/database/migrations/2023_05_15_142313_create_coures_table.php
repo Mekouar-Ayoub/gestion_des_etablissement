@@ -19,7 +19,6 @@ return new class extends Migration
             $table->dateTime('debut_de_coure');
             $table->dateTime('fin_de_coure');
             $table->unsignedBigInteger('profe_id');
-            $table->unsignedTinyInteger('individuel');
             $table->foreign('profe_id')->references('id')->on('profes')
             ->cascadeOnDelete()
             ->cascadeOnUpdate();

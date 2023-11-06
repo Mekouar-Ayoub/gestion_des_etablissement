@@ -32,30 +32,32 @@ function AjouterCoure() {
     }
     //TODO multiple instruments from select 
     const handleSubmit = () => {
-        const formData = new FormData();
-        formData.append('nom', nom);
-        formData.append('prenom', prenom);
-        formData.append('tel', tel);
-        formData.append('email', email);
-        formData.append('password', ''+ nom+ '.' + prenom+ "485!$");
-        formData.append('adress', adress);
-        formData.append('instrument', instrument);
-        formData.append('tarif', tarif);
-        formData.append('solde', solde);
-        axios
-            .post(process.env.REACT_APP_API_URL+'/profs', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            })
-            .then((response) => {
-                setSuccessMessage('profe added successfully');
-                window.location.href = '/admin/profs';
-            })
-            .catch((error) => {
-                setErrorMessage(error)
-                console.log('Error during submission:', error);
-            });
+        if(errorMessage === '') {
+            const formData = new FormData();
+            formData.append('nom', nom);
+            formData.append('prenom', prenom);
+            formData.append('tel', tel);
+            formData.append('email', email);
+            formData.append('password', ''+ nom+ '.' + prenom+ "485!$");
+            formData.append('adress', adress);
+            formData.append('instrument', instrument);
+            formData.append('tarif', tarif);
+            formData.append('solde', solde);
+            axios
+                .post(process.env.REACT_APP_API_URL+'/profs', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                })
+                .then((response) => {
+                    setSuccessMessage('profe added successfully');
+                    window.location.href = '/admin/profs';
+                })
+                .catch((error) => {
+                    setErrorMessage(error)
+                    console.log('Error during submission:', error);
+                });
+        }  
     }
 
     return (
@@ -110,7 +112,7 @@ function AjouterCoure() {
                                         label="password"
                                         value={password} onChange={(e) => setPassword(e.target.value)}
                                     /></span>
-                                    <p>Le mot de passe de connexion pour le professeur est sous la forme : nom.prenom485!$</p>
+                                    <p>Le mot de passe de connexion pour le professeur est sous la forme : nom.prenom485!</p>
                                 </div>
                             </div>
                             <div className="flex flex-wrap -mx-3 mb-6">
@@ -169,10 +171,17 @@ function AjouterCoure() {
                                         id="tarif"
                                         label="tarif horaire en DHS"
                                         type="number"
-                                        value={tarif} onChange={(e) => setTarif(e.target.value)}
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
+                                        value={tarif} onChange={(e) => 
+                                            {
+                                                try{
+                                                    parseFloat(e.target.value.replace(',','.'))
+                                                    setTarif(e.target.value.replace(',','.'))
+                                                } catch(exc) {
+                                                    setErrorMessage("le champ de prix est incorrect")
+                                                }
+                                                
+                                            }}
+                                        
                                     />
                                 </div>
                                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">

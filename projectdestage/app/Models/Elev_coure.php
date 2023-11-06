@@ -22,7 +22,7 @@ class Elev_coure extends Model
     }
 
     public function membres() {
-        return $this->belongsTo(Member::class, 'membre_id');
+        return $this->belongsTo(Membre::class, 'membre_id');
     }
 
 

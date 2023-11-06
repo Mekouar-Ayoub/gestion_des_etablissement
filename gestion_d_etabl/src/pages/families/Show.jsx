@@ -43,7 +43,8 @@ AllFamilies() {
         axios
             .get(process.env.REACT_APP_API_URL+'/families')
             .then(response => {
-                const data = response.data.data;
+                console.log(response)
+                const data = response.data;
                 setData(data);
             })
             .catch(error => {
@@ -98,15 +99,15 @@ AllFamilies() {
                                                             <div className='flex justify-center'>
                                                                
                                                                 <Link to={"/admin/families/"+ item.id +"/eleve/add"} params={{familyId: item.id}} className='px-2'>
-                                                                <img src='/AddMember.svg'></img>
+                                                                <img src='/images/AddMember.svg'></img>
                                                                 </Link>
                                                                 
                                                                 <Link to={`/admin/families/find/${item.id}/modify`} params={{ familyId: item.id}} className='px-2'>
-                                                                    <img src='/ModifyIcon.svg'></img>
+                                                                    <img src='/images/ModifyIcon.svg'></img>
                                                                 </Link>
                                                                 
                                                                 <Link  to={`/admin/families/find/${item.id}`} params={{familyId: item.id }} className='px-2'>
-                                                                <img src='/Details.svg'></img>
+                                                                <img src='/images/Details.svg'></img>
                                                                 </Link>
                                                             </div>
                                                         </StyledTableCell>

@@ -48,20 +48,21 @@ Route::get('profs/{id}', [ProfeController::class, 'find']);
 Route::get('profs', [ProfeController::class,'ShowProfe']);
 Route::put('profs/{id}', [ProfeController::class, 'UpdateProfe']);
 Route::put('profs/{id}/solde', [ProfeController::class, 'UpdateProfeSolde']);
-Route::get('profs/{id}/cours', [ProfeController::class,'FindProfWithCours']);
 //TODO accept only mp4 video
 
 // membre
 Route::get('eleves', [MembreController::class, 'GetAllEleves']);
+Route::get('familles/eleves', [MembreController::class, 'GetAllElevesWithFamilles']);
 Route::post('eleve/login', [MembreController::class, 'MemberLogin']);
 Route::get('eleves/{id}', [MembreController::class,'Findmember']);
 Route::put('eleves/{id}', [MembreController::class,'updateMember']);
 Route::put('eleves/{id}/self-modify', [MembreController::class,'updateMemberFromMemberProfile']);
 //eleve a payé
 Route::put('eleves/{id}/solde', [MembreController::class,'updateEleveSolde']);
-
+Route::get('famille/eleves/{id}', [MembreController::class,'FindEleveWithFamille']);
 //NOt working
 Route::get('eleves/{id}/cours', [CoureController::class,'FindEleveWithCours']);
+
 
 
 // rouets des membre
@@ -86,9 +87,11 @@ Route::put('publications/{id}', [ControllerPublication::class, 'ModifyOnePublica
 // coure
 Route::get('cours', [CoureController::class, 'GetAllCours']);
 Route::post('cours', [CoureController::class, 'AjouterCoure']);
+Route::post('cours/bulk', [CoureController::class, 'AddMultipleCours']);
 Route::get('cours/eleves', [CoureController::class, 'GetAllCoursWithEleves']);
 Route::get('cours/{id}', [CoureController::class, 'GetOneCours']);
 Route::put('cours/{id}', [CoureController::class, 'ModifyOneCours']);
+Route::delete('cours/{id}', [CoureController::class, 'DeleteOneCours']);
 Route::get('cours/{id}/eleves', [CoureController::class, 'GetCoursByIdWithEleve']);
 Route::get('cours/{id}/prof', [CoureController::class, 'GetCoursByIdWithProf']);
 Route::get('cours/prof/{id}', [CoureController::class, 'GetCoursOneProf']);
@@ -115,5 +118,5 @@ Route::get('profs/{id}/solde', [CompteProfController::class, 'GetHistoryOneProf'
 
 
 Route::get('solde/eleves', [CompteEleveController::class, 'GetCompteEleve']);
-Route::get('eleves/{id}/solde', [CompteEleveController::class, 'GetHistoryOneEleve']);
+Route::get('/soldes/eleves/{id}', [CompteEleveController::class, 'GetHistoryOneEleve']);
 

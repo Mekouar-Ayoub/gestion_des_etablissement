@@ -25,6 +25,8 @@ function AddMemberToFamily() {
   const [email] = useState('');
   const [adresse] = useState('');
   const [solde] = useState('');
+  const [profession, setProfession] = useState('');
+  const [ecole, setEcole] = useState('');
   const { familyId } = useParams();
   const [isEleve,setEleve] = useState(0);
   const [type, setType] = useState();
@@ -100,6 +102,8 @@ function AddMemberToFamily() {
       email,
       adresse,
       solde,
+      ecole,
+      profession,
       familleId: familyId,
       isEleve,
       type,
@@ -107,12 +111,13 @@ function AddMemberToFamily() {
   }
   return (
     <div className="bg-gray-100 font-family-karla flex">
-        <div className="w-full overflow-x-hidden border-t flex flex-col">
+        <div className="w-full  border-t flex flex-col">
+        <Retour to='admin/families'></Retour>
           <main className="w-full flex-grow p-6">
-            <Retour to='admin/families'></Retour>
+            
             <h1 className="text-3xl text-black pb-6">Ajouter des membres à la famille {family.nom} </h1>
             <div className="w-full ">
-              <div className="bg-white overflow-auto">
+              <div className="bg-white">
                 <div>
                   <MdArrowCircleLeft />
                   {errorMessage && <p className="text-red-500">{errorMessage}</p>}
@@ -142,6 +147,14 @@ function AddMemberToFamily() {
                             <div className="mb-6">
                               <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">adresse</label>
                               <input type="text" value={details?.adresse} onChange={(e) => handleCheck(index, e, "adresse")} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                            </div>
+                            <div className="mb-6">
+                              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ecole</label>
+                              <input type="text" value={details?.ecole} onChange={(e) => handleCheck(index, e, "ecole")} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                            </div>
+                            <div className="mb-6">
+                              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">profession</label>
+                              <input type="text" value={details?.profession} onChange={(e) => handleCheck(index, e, "profession")} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                             </div>
                             
                             <div className="mb-6">

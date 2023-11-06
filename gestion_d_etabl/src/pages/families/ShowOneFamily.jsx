@@ -35,8 +35,9 @@ function FamilyDetails({isModify}) {
   const showComp = () => {
     return <div className="bg-gray-100 font-family-karla flex">
     <div className="w-full overflow-x-hidden border-t flex flex-col">
+    <Retour to={'/admin/familles'} />
       <main className="w-full flex-grow p-6">
-        <Retour to={'/admin/familles'} />
+      
         <h1 className="text-3xl text-black pb-6">Vue de la famille : {familleData.nom} </h1>
         <div className="w-full mt-12">
          
@@ -70,12 +71,12 @@ function FamilyDetails({isModify}) {
                       <Link to={"/admin/eleves/"+item.id} state={{isModifying: true}}>
                       <a className="hover:text-blue-500">
                     
-                      <img src='/ModifyIcon.svg'></img></a>
+                      <img src='/images/ModifyIcon.svg'></img></a>
                       </Link>
                       <Link to={"/admin/eleves/"+item.id}>
                   
                       <a className="hover:text-blue-500"> 
-                      <img src='/Details.svg'></img></a>
+                      <img src='/images/Details.svg'></img></a>
                       </Link>
                       </td>
                   </tr>

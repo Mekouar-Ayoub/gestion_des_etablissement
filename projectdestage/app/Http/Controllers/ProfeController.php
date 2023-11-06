@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Hash;
 class ProfeController extends Controller
 {
 
-    public function FindEleveWithCours($id){
-        $prof = Profe::find($id)->with('coure');
+    public function FindProfWithCours($id){
+        $prof = Profe::find($id)->with('cours');
         return response()->json($prof);
     }
 

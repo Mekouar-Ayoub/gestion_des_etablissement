@@ -12,7 +12,7 @@ function Dashoard() {
         axios
             .get(process.env.REACT_APP_API_URL+'/publications')
             .then(response => {
-                const data = response.data.data;
+                const data = response.data;
                 setData(data);
             })
             .catch(error => {
@@ -48,7 +48,7 @@ function Dashoard() {
                                                     <td className="w-1/3 text-left py-3 px-4">{item.vedeo}</td>
                                                     <td className="text-left py-3 px-4"><p className=" h-20" name="" id="" cols="30" rows="10">{item.description}</p></td>
                                                     <td className="w-1/3 text-left py-3 px-4 flex">
-                                                    <a href={'/admin/publications/'+ item.id+'/modify'}><img src="/ModifyIcon.svg"></img></a>    
+                                                    <a href={'/admin/publications/'+ item.id+'/modify'}><img src="/images/ModifyIcon.svg"></img></a>    
                                                     </td>
                                                 </tr>
                                             ))

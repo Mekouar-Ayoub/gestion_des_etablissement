@@ -63,7 +63,7 @@ function ListeCoure() {
                     </a>}
                 </nav>
             </aside>
-            <div className="w-full flex flex-col h-screen overflow-y-hidden">
+            <div className="w-full flex flex-col h-screen">
                 <header className="w-full items-center bg-[#3d68ff] py-2 px-6 hidden sm:flex">
                     <div className="w-1/2"></div>
                     <div className="relative w-1/2 flex justify-end">
