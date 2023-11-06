@@ -32,7 +32,34 @@ function AjouterCoure() {
     }
     //TODO multiple instruments from select 
     const handleSubmit = () => {
-        if(errorMessage === '') {
+        if(!nom) {
+            setErrorMessage("Le champ nom n'est pas remplit")
+        }
+        else if(!prenom) {
+            setErrorMessage("Le champ prenom n'est pas remplit")
+        }
+        else if(!email) {
+            setErrorMessage("Le champ email n'est pas remplit")
+        }
+        else if(!tel) {
+            setErrorMessage("Le champ tel n'est pas remplit")
+        }
+        else if(!solde) {
+            setErrorMessage("Le champ nom n'est pas remplit")
+        }
+        else if(!password) {
+            setErrorMessage("Le champ nom n'est pas remplit")
+        }
+        else if(!adress) {
+            setErrorMessage("Le champ nom n'est pas remplit")
+        }
+        else if(!instrument) {
+            setErrorMessage("Le champ nom n'est pas remplit")
+        }
+        else if(!tarif) {
+            setTarif(0);
+        }
+        else if(errorMessage === '') {
             const formData = new FormData();
             formData.append('nom', nom);
             formData.append('prenom', prenom);
@@ -179,7 +206,6 @@ function AjouterCoure() {
                                                 } catch(exc) {
                                                     setErrorMessage("le champ de prix est incorrect")
                                                 }
-                                                
                                             }}
                                         
                                     />
