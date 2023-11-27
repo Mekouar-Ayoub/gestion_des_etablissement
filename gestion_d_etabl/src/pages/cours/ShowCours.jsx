@@ -334,7 +334,7 @@ function index({ user }) {
                 <thead className="">
                   <tr className="w-full">
                     <th className="text-left py-3 uppercase font-semibold text-sm">
-                      Cours de{" "}
+                      Cours de {" "}
                     </th>
                     <th className="text-left py-3 uppercase font-semibold text-sm">
                       Etat du cours

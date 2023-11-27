@@ -176,6 +176,8 @@ function AddEleveToCours() {
                     })}
                   </select>
                 </div>
+                <div>Prix horaire :</div>
+                {cour.prix_horaire}
                 <div>
                   Statut
                   <select
